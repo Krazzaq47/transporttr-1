@@ -1,0 +1,166 @@
+﻿@page
+@model LoginModel
+@{
+    ViewData["Title"] = "Sign in";
+    Layout = null; /* inline styles below, no external layout needed */
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Sign in · MT</title>
+
+    <style>
+        :root{
+          --white:#fff;
+          --primary:#7C1D3A;      /* maroon */
+          --primary-800:#6D1933;  /* darker hover */
+          --tint:#F9F2F4;         /* very soft maroon */
+          --border:#EED7DE;       /* pale maroon border */
+          --text:#4E0F21;         /* deep maroon text */
+        }
+
+        /* Page background + centering */
+        html,body{height:100%;}
+        body{
+          margin:0;
+          background:
+            radial-gradient(1100px 600px at -20% -10%, #FDF3F6 0%, transparent 60%),
+            radial-gradient(1100px 800px at 110% 120%, #FAEFF3 0%, transparent 60%),
+            #fff;
+          color:var(--text);
+          font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+          display:flex; align-items:center; justify-content:center;
+          padding:24px;
+        }
+
+        /* Card */
+        .card{
+          width:min(440px, 94vw);
+          background:var(--white);
+          border:1px solid var(--border);
+          border-radius:16px;
+          box-shadow: 0 24px 60px rgba(124,29,58,.15);
+          padding:28px 24px;
+        }
+
+        /* Brand */
+        .brand{ display:flex; flex-direction:column; align-items:center; gap:6px; margin-bottom:12px; }
+        .brand img{ height:48px; width:auto; }
+        .brand .title{ color:var(--primary); font-weight:800; letter-spacing:.5px; margin:0; }
+
+        /* Headings */
+        h1{ margin:6px 0 4px; font-size:28px; color:var(--primary); text-align:center; }
+        .sub{ margin:0 0 18px; opacity:.85; text-align:center; }
+
+        /* Form */
+        form{ display:block; }
+        .group{ margin-bottom:14px; }
+        label{ display:block; margin:0 0 6px; font-weight:600; color:var(--primary); }
+        input[type="email"], input[type="password"]{
+          width:100%;
+          border:1px solid var(--border);
+          border-radius:10px;
+          padding:12px 14px;
+          background:#fff; color:var(--text);
+          box-sizing:border-box;
+        }
+        input[type="email"]:focus, input[type="password"]:focus{
+          outline:none; border-color:var(--primary);
+          box-shadow:0 0 0 .15rem rgba(124,29,58,.15);
+        }
+        .error{ display:block; margin-top:6px; color:var(--primary-800); font-size:.9rem; }
+        .summary{ color:var(--primary-800); margin-bottom:10px; }
+
+        /* Row with remember + forgot */
+        .row{
+          display:flex; align-items:center; justify-content:space-between;
+          gap:12px; margin:6px 0 16px;
+        }
+        .remember{ display:flex; align-items:center; gap:8px; }
+        .link{ color:var(--primary); text-decoration:none; }
+        .link:hover{ color:var(--primary-800); text-decoration:underline; }
+
+        /* Buttons */
+        .btn{
+          display:inline-flex; align-items:center; justify-content:center;
+          width:100%; padding:.85rem 1rem; border-radius:999px;
+          border:1px solid transparent; font-weight:700; cursor:pointer;
+          transition:.15s ease-in-out;
+        }
+        .btn-primary{ background:var(--primary); border-color:var(--primary); color:#fff; }
+        .btn-primary:hover{ background:var(--primary-800); border-color:var(--primary-800); }
+
+        /* Divider */
+        .divider{ display:flex; align-items:center; justify-content:center; color:var(--primary); margin:14px 0; }
+        .divider span{ position:relative; padding:0 .6rem; background:#fff; }
+        .divider::before{ content:""; flex:1; height:1px; background:var(--border); margin-right:.6rem; }
+        .divider::after { content:""; flex:1; height:1px; background:var(--border); margin-left:.6rem; }
+
+        /* Provider button */
+        .btn-outline{
+          background:transparent; color:var(--primary); border-color:var(--primary);
+          border:1px solid var(--primary);
+        }
+        .btn-outline:hover{ background:var(--primary); color:#fff; }
+
+        /* Footer text */
+        .small{text-align:center; font-size:.9rem; margin-top:10px;}
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="brand">
+            <img src="~/img/logo.png" alt="MT" />            
+        </div>
+
+        <h1>Sign in</h1>
+        <p class="sub">Use your email and password</p>
+
+        <form id="account" method="post">
+            <div asp-validation-summary="ModelOnly" class="summary" role="alert"></div>
+
+            <div class="group">
+                <label asp-for="Input.Email">Email</label>
+                <input asp-for="Input.Email" type="email" autocomplete="username" />
+                <span asp-validation-for="Input.Email" class="error"></span>
+            </div>
+
+            <div class="group">
+                <label asp-for="Input.Password">Password</label>
+                <input asp-for="Input.Password" type="password" autocomplete="current-password" />
+                <span asp-validation-for="Input.Password" class="error"></span>
+            </div>
+
+            <div class="row">
+                <label asp-for="Input.RememberMe" class="remember">
+                    <input asp-for="Input.RememberMe" type="checkbox" />
+                    <span>@Html.DisplayNameFor(m => m.Input.RememberMe)</span>
+                </label>
+                <a class="link" asp-page="./ForgotPassword">Forgot password?</a>
+            </div>
+
+            <button id="login-submit" type="submit" class="btn btn-primary">Sign in</button>
+
+            @if ((Model.ExternalLogins?.Count ?? 0) > 0)
+            {
+                <div class="divider"><span>or</span></div>
+                @foreach (var provider in Model.ExternalLogins!)
+                {
+                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" style="margin:0 0 8px;">
+                        <button type="submit" class="btn btn-outline" name="provider" value="@provider.Name">
+                            Continue with @provider.DisplayName
+                        </button>
+                    </form>
+                }
+            }
+                       
+        </form>
+    </div>
+
+   
+</body>
+</html>

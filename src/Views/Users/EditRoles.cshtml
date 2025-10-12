@@ -1,0 +1,23 @@
+@model MT.Controllers.EditUserRolesVm
+@{
+    ViewData["Title"] = "Edit Roles";
+}
+<h2>Edit Roles - @Model.Email</h2>
+<form asp-action="EditRoles" method="post">
+    <input type="hidden" asp-for="UserId" />
+    <div class="mb-3">
+        <label class="form-label">Roles</label>
+        <div>
+            @foreach (var role in Model.AllRoles)
+            {
+                var isChecked = Model.SelectedRoles.Contains(role);
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="SelectedRoles" value="@role" @(isChecked ? "checked" : "") id="r_@role">
+                    <label class="form-check-label" for="r_@role">@role</label>
+                </div>
+            }
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a class="btn btn-secondary" href="@Url.Action("Index", "Users")">Cancel</a>
+</form>

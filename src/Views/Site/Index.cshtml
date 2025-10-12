@@ -1,0 +1,344 @@
+﻿@model object
+@{
+    Layout = "_SiteLayout";
+    var lang = (ViewBag.Lang as string) ?? "ar";   // default Arabic to match screenshots
+    var rtl = lang == "ar" ? "rtl" : "ltr";
+    ViewData["Title"] = lang == "ar" ? "مكتب مواطن للنقليات" : "Muwatin Transport";
+}
+<div id="home" dir="@rtl">
+
+    <!-- HERO -->
+    @* <section class="hero pt-3">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-end">
+                <a class="btn btn-mta rounded-pill px-4 my-3" href="/vehicle/register" data-i="cta.register">سجّل الآن</a>
+            </div>
+
+            <div class="section-card p-3 rounded-xxl overflow-hidden" style="background:#fff;height:300px;">
+                <img src="~/img/111.png"
+                     alt="" class="w-100 rounded-3" style="max-height:100%; object-fit:cover;"/>
+                <div class="text-center py-4">
+                    <h2 class="display-6 fw-bold mb-3">
+                        <span data-i="hero.big1">سجل شاحنتك مع</span>
+                        <span class="px-2 py-1" style="background:var(--mta);color:#fff;border-radius:8px" data-i="hero.brand">مكتب مواطن</span>
+                        <span data-i="hero.big2">للنقليات</span>
+                    </h2>
+                    <p class="lead mx-auto" style="max-width:900px" data-i="hero.lead">
+                        يمكنك تسجيل شاحنتك أو صهريجك، من خلال منصتنا الإلكترونية التي تُرشدك خطوة بخطوة،
+                        وتُسهل عليك رفع المستندات والتقديم بسهولة تامة وأنت في مكانك.
+                    </p>
+                    <a class="btn btn-mta rounded-pill px-4" href="/vehicle/register" data-i="cta.register">سجّل الآن</a>
+                </div>
+            </div>
+        </div>
+    </section>
+ *@
+
+ <section class="hero pt-3">
+    <div class="container-fluid">
+        <div class="d-flex justify-content-end">
+            <a class="btn btn-mta rounded-pill px-4 my-3" href="/vehicle/register" data-i="cta.register">سجّل الآن</a>
+        </div>
+
+        <div class="section-card rounded-xxl overflow-hidden" style="background:#fff;">
+            <div class="row g-0 align-items-center" style="min-height:300px;">
+                <!-- Left Image -->
+                <div class="col-lg-6">
+                    <div class="h-100 w-100 overflow-hidden">
+                        <img src="~/img/111.png"
+                             alt=""
+                             class="w-100 h-100 object-fit-cover" />
+                    </div>
+                </div>
+
+                <!-- Right Text -->
+                <div class="col-lg-6 text-center p-4">
+                    <h2 class="display-6 fw-bold mb-3">
+                        <span data-i="hero.big1">سجل شاحنتك مع</span>
+                        <span class="px-2 py-1" style="background:var(--mta);color:#fff;border-radius:8px" data-i="hero.brand">مكتب مواطن</span>
+                        <span data-i="hero.big2">للنقليات</span>
+                    </h2>
+                    <p class="lead mx-auto" style="max-width:600px" data-i="hero.lead">
+                        يمكنك تسجيل شاحنتك أو صهريجك، من خلال منصتنا الإلكترونية التي تُرشدك خطوة بخطوة،
+                        وتُسهل عليك رفع المستندات والتقديم بسهولة تامة وأنت في مكانك.
+                    </p>
+                    <a class="btn btn-mta rounded-pill px-4 mt-2" href="/vehicle/register" data-i="cta.register">سجّل الآن</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <!-- TANKERS -->
+    <section id="tankers" class="container my-5">
+        <div class="d-flex align-items-center mb-3">
+            <span class="badge-pill me-2" data-i="tag.tankers">الصهاريج</span>
+            <h3 class="h4 fw-bold m-0" data-i="tank.title">المستندات المطلوبة لتسجيل الصهاريج</h3>
+        </div>
+        <div class="row g-4 align-items-stretch">
+            <div class="col-lg-6">
+                <div class="section-card p-3 rounded-xxl h-100 d-flex align-items-center justify-content-center">
+                    <img src="~/img/Construction-truck-pana-2.png"
+                         class="img-fluid rounded-3" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="section-card p-4 rounded-xxl h-100">
+                    <div class="check-item"><i class="fa-solid fa-check"></i><span data-i="tank.li1">البطاقة الشخصية (صورة واضحة للوجهين)</span></div>
+                    <div class="check-item"><i class="fa-solid fa-check"></i><span data-i="tank.li2">استمارة الصهريج (سارية)</span></div>
+                    <div class="check-item"><i class="fa-solid fa-check"></i><span data-i="tank.li3">تصريح التفريغ ساري المفعول</span></div>
+                    <div class="check-item"><i class="fa-solid fa-check"></i><span data-i="tank.li4">تصريح التشغيل (شهادة التفريغ) ساري المفعول</span></div>
+                    <div class="check-item"><i class="fa-solid fa-check"></i><span data-i="tank.li5">رقم جوال مالك المركبة والسائق</span></div>
+                    <div class="check-item"><i class="fa-solid fa-check"></i><span data-i="tank.li6">شهادة IBAN من البنك</span></div>
+                    <div class="check-item"><i class="fa-solid fa-check"></i><span data-i="tank.li7">نموذج إخلاء طرف لمقدّم طلب التسجيل</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRUCKS -->
+    <section id="trucks" class="container my-5">
+        <div class="d-flex align-items-center mb-3">
+            <span class="badge-pill me-2" data-i="tag.trucks">الشاحنات</span>
+            <h3 class="h4 fw-bold m-0" data-i="truck.title">مستندات تسجيل شاحنات نقل عام</h3>
+        </div>
+        <div class="row g-4 align-items-stretch">
+            <div class="col-lg-6 order-lg-2">
+                <div class="section-card p-3 rounded-xxl h-100 d-flex align-items-center justify-content-center">
+                    <img src="~/img/Construction-truck-pana-1.png"
+                         class="img-fluid rounded-3" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="section-card p-4 rounded-xxl h-100">
+                    <div class="check-item"><i class="fa-solid fa-check"></i><span data-i="truck.li1">البطاقة الشخصية (صورة واضحة للوجهين)</span></div>
+                    <div class="check-item"><i class="fa-solid fa-check"></i><span data-i="truck.li2">استمارة الشاحنة سارية المفعول</span></div>
+                    <div class="check-item"><i class="fa-solid fa-check"></i><span data-i="truck.li3">نموذج إخلاء طرف لمقدّم طلب التسجيل</span></div>
+
+                    <!-- 4 -->
+                    <div class="check-item">
+                        <i class="fa-solid fa-check"></i>
+                        <span data-i="truck.li4">رقم جوال مالك المركبة والسائق</span>
+                    </div>
+
+                    <!-- 5 -->
+                    <div class="check-item">
+                        <i class="fa-solid fa-check"></i>
+                        <span data-i="truck.li5">توقيع استمارة طلب تسجيل المركبة</span>
+                    </div>
+
+                    <!-- 6 -->
+                    <div class="check-item">
+                        <i class="fa-solid fa-check"></i>
+                        <span data-i="truck.li6">نموذج إخلاء طرف لمقدّم طلب التسجيل</span>
+                    </div>
+
+                    <div class="mt-3">
+                        <a class="btn btn-mta rounded-pill px-4" href="/vehicle/register" data-i="cta.register">سجّل الآن</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STEPS -->
+    <section id="steps" class="container my-5">
+        <div class="text-center mb-3">
+            <h3 class="h3 fw-bold" data-i="steps.title">كيف تسجّل مركبتك؟ 4 خطوات بسيطة</h3>
+            <p class="text-muted" data-i="steps.lead">نرشدك خطوة بخطوة لإتمام التسجيل، رفع المستندات، ومتابعة حالة طلبك، بكل سهولة حتى الانتهاء من كافة الإجراءات بنجاح.</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- 01 -->
+            <div class="col-lg-6">
+                <div class="section-card p-4 rounded-xxl h-100">
+                    <div class="row g-3 align-items-center">
+                        <div class="col-md-8">
+                            <span class="badge-pill mb-2">01</span>
+                            <h4 class="fw-bold mb-2" data-i="steps.s1.title">تحميل استمارة الطلب وختمها</h4>
+                            <p class="mb-0" data-i="steps.s1.body">
+                                حمّل الاستمارة من موقعنا واحصل على الأختام المطلوبة من: مكتب مواطن للنقليات، مكتب الوطني للنقليات، المكتب المشترك.
+                            </p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <i class="fa-regular fa-file-lines fa-3x" style="color:var(--mta)"></i>
+                        </div>
+                    </div>
+                    <a class="btn btn-outline-secondary rounded-pill mt-3" href="#" data-i="steps.s1.btn">حمل النموذج</a>
+                </div>
+            </div>
+
+            <!-- 02 -->
+            <div class="col-lg-6">
+                <div class="section-card p-4 rounded-xxl h-100">
+                    <span class="badge-pill mb-2">02</span>
+                    <h4 class="fw-bold mb-2" data-i="steps.s2.title">تجهيز المستندات إلكترونيًا</h4>
+                    <p class="mb-0" data-i="steps.s2.body">
+                        جهّز جميع الأوراق المطلوبة كما هي موضحة على الموقع (للشاحنات أو الصهاريج).
+                    </p>
+                </div>
+            </div>
+
+            <!-- 03 -->
+            <div class="col-lg-6">
+                <div class="section-card p-4 rounded-xxl h-100">
+                    <span class="badge-pill mb-2">03</span>
+                    <h4 class="fw-bold mb-2" data-i="steps.s3.title">تقديم الطلب إلكترونيًا</h4>
+                    <p class="mb-3" data-i="steps.s3.body">
+                        ارفع المستندات مباشرةً عبر موقعنا، أو قدّمها في مكتبنا إن أحببت.
+                    </p>
+                    <a class="btn btn-mta rounded-pill px-4" href="#apply" data-i="steps.s3.btn">سجّل هنا</a>
+                </div>
+            </div>
+
+            <!-- 04 -->
+            <div class="col-lg-6">
+                <div class="section-card p-4 rounded-xxl h-100">
+                    <span class="badge-pill mb-2">04</span>
+                    <h4 class="fw-bold mb-2" data-i="steps.s4.title">قم بمراجعة الطلب والتأكيد</h4>
+                    <p class="mb-0" data-i="steps.s4.body">
+                        يُرجى مراجعة المكتب خلال ثلاثة أيام عمل من تاريخ إرسال الطلب، وذلك لتقديم المستندات الأصلية. وفي حال عدم الالتزام بالمدة المحددة، فسيُعتبر الطلب ملغى تلقائيًا.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="container my-5">
+        <h3 class="h3 fw-bold mb-3" data-i="faq.title">الأسئلة المتكررة</h3>
+        <div class="section-card p-4 rounded-xxl">
+            <div class="d-flex align-items-center justify-content-between">
+                <span class="badge-pill" data-i="faq.tag">الأسئلة</span>
+            </div>
+            <hr />
+            <p class="h5" data-i="faq.q1">ما هو الحد الأقصى لعمر الصهريج المسموح به للتسجيل؟</p>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="container my-5">
+        <div class="row g-4">
+            <div class="col-lg-5">
+                <div class="section-card p-4 rounded-xxl">
+                    <h4 class="fw-bold mb-3" data-i="contact.title">اتصل بنا</h4>
+
+                    <div class="mb-3">
+                        <div class="fw-bold mb-1" data-i="contact.phone.label">رقم الهاتف</div>
+                        <div>44935775</div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="fw-bold mb-1" data-i="contact.email.label">الايميل</div>
+                        <div><a href="mailto:mwatransport@gmail.com">mwatransport@gmail.com</a></div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="fw-bold mb-1" data-i="contact.addr.label">العنوان</div>
+                        <div>P.O.BOX:200505<br />C.R:15117<br />Doha, Qatar</div>
+                        <div class="mt-2">
+                            <iframe src="https://www.google.com/maps?q=25.3423,51.4636&z=15&output=embed"
+                                    style="width:100%;height:240px;border:0;border-radius:12px"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-7">
+                <div class="section-card p-4 rounded-xxl">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="fw-bold m-0" data-i="contact.form.title">اتصل بنا</h4>
+                        <span class="badge-pill" data-i="contact.tag">اتصل بنا</span>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <input class="form-control form-control-lg" placeholder="اكتب اسمك" />
+                        </div>
+                        <div class="col-12">
+                            <input class="form-control form-control-lg" placeholder="example@email.com" />
+                        </div>
+                        <div class="col-12">
+                            <input class="form-control form-control-lg" placeholder="رقم الهاتف" />
+                        </div>
+                        <div class="col-12">
+                            <textarea class="form-control" rows="7" placeholder="الرجاء كتابة رسالتك هنا..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <a class="btn btn-mta w-100 rounded-pill py-3" data-i="contact.send">إرسال رسالة</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+@section Scripts {
+    <script>
+        const t = {
+            ar: {
+                "nav.home": "الصفحة الرئيسية", "nav.tankers": "الصهاريج", "nav.trucks": "الشاحنات", "nav.steps": "خطوات التقديم", "nav.faq": "الأسئلة", "nav.contact": "الاتصال",
+                "cta.register": "سجل الآن",
+                "hero.big1": "سجل شاحنتك مع", "hero.brand": "مكتب مواطن", "hero.big2": "للنقليات",
+                "hero.lead": "يمكنك تسجيل شاحنتك أو صهريجك، من خلال منصتنا الإلكترونية التي تُرشدك خطوة بخطوة، وتُسهل عليك رفع المستندات والتقديم بسهولة تامة وأنت في مكانك.",
+                "tag.tankers": "الصهاريج", "tank.title": "المستندات المطلوبة لتسجيل الصهاريج",
+                "tank.li1": "البطاقة الشخصية (صورة واضحة للوجهين)", "tank.li2": "استمارة الصهريج (سارية)", "tank.li3": "تصريح التفريغ ساري المفعول",
+                "tank.li4": "تصريح التشغيل (شهادة التفريغ) ساري المفعول", "tank.li5": "رقم جوال مالك المركبة والسائق", "tank.li6": "شهادة IBAN من البنك", "tank.li7": "نموذج إخلاء طرف لمقدّم طلب التسجيل",
+                "tag.trucks": "الشاحنات", "truck.title": "مستندات تسجيل شاحنات نقل عام",
+                "truck.li1": "البطاقة الشخصية (صورة واضحة للوجهين)", "truck.li2": "استمارة الشاحنة سارية المفعول", "truck.li3": "نموذج إخلاء طرف لمقدّم طلب التسجيل", "truck.li4": "رقم جوال مالك المركبة والسائق",
+        "truck.li5": "توقيع استمارة طلب تسجيل المركبة",
+        "truck.li6": "نموذج إخلاء طرف لمقدّم طلب التسجيل",
+                "steps.title": "كيف تسجّل مركبتك؟ 4 خطوات بسيطة",
+                "steps.lead": "نرشدك خطوة بخطوة لإتمام التسجيل، رفع المستندات، ومتابعة حالة طلبك، بكل سهولة حتى الانتهاء من كافة الإجراءات بنجاح.",
+                "steps.s1.title": "تحميل استمارة الطلب وختمها",
+                "steps.s1.body": "حمّل الاستمارة من موقعنا واحصل على الأختام المطلوبة من: مكتب مواطن للنقليات، مكتب الوطني للنقليات، المكتب المشترك.",
+                "steps.s1.btn": "حمل النموذج",
+                "steps.s2.title": "تجهيز المستندات إلكترونيًا",
+                "steps.s2.body": "جهّز جميع الأوراق المطلوبة كما هي موضحة على الموقع (للشاحنات أو الصهاريج).",
+                "steps.s3.title": "تقديم الطلب إلكترونيًا", "steps.s3.body": "ارفع المستندات مباشرةً عبر موقعنا، أو قدّمها في مكتبنا إن أحببت.", "steps.s3.btn": "سجّل هنا",
+                "steps.s4.title": "قم بمراجعة الطلب والتأكيد", "steps.s4.body": "يُرجى مراجعة المكتب خلال ثلاثة أيام عمل من تاريخ إرسال الطلب، وذلك لتقديم المستندات الأصلية. وفي حال عدم الالتزام بالمدة المحددة، فسيُعتبر الطلب ملغى تلقائيًا.",
+                "faq.title": "الأسئلة المتكررة", "faq.tag": "الأسئلة", "faq.q1": "ما هو الحد الأقصى لعمر الصهريج المسموح به للتسجيل؟",
+                "contact.title": "اتصل بنا", "contact.form.title": "اتصل بنا", "contact.tag": "اتصل بنا", "contact.send": "إرسال رسالة",
+                "contact.phone.label": "رقم الهاتف", "contact.email.label": "الايميل", "contact.addr.label": "العنوان",
+                "footer.disclaimer": "مكتب مواطن للنقليات غير مسؤولة عن أي اقتباس من الموقع - جميع الحقوق محفوظة © 2025"
+            },
+            en: {
+                "nav.home": "Home", "nav.tankers": "Tankers", "nav.trucks": "Trucks", "nav.steps": "Steps", "nav.faq": "FAQ", "nav.contact": "Contact",
+                "cta.register": "Register now",
+                "hero.big1": "Register your truck with", "hero.brand": "Muwatin Office", "hero.big2": "Transport",
+                "hero.lead": "Register your truck or tanker through our online platform, guided step by step. Upload documents and apply easily from anywhere.",
+                "tag.tankers": "Tankers", "tank.title": "Required documents for registering tankers",
+                "tank.li1": "Personal ID (both sides)", "tank.li2": "Valid tanker registration", "tank.li3": "Valid discharge permit","truck.li4": "Owner & driver mobile numbers",
+        "truck.li5": "Signed vehicle registration form",
+        "truck.li6": "Release form for the applicant",
+                "tank.li4": "Valid operating/emptying certificate", "tank.li5": "Owner & driver mobile numbers", "tank.li6": "IBAN certificate from the bank","tank.li7": "Release form for the applicant",
+                "tag.trucks": "Trucks", "truck.title": "Documents to register public transport trucks",
+                "truck.li1": "Personal ID (both sides)", "truck.li2": "Valid truck registration", "truck.li3": "Release form for the applicant",
+                "steps.title": "How to register your vehicle? 4 simple steps",
+                "steps.lead": "We guide you step by step to complete registration, upload documents and track your request easily until completion.",
+                "steps.s1.title": "Download the application form and stamp it",
+                "steps.s1.body": "Download from our website and get stamps from: Muwatin Transport Office, National Transport Office, Joint Office.",
+                "steps.s1.btn": "Download form",
+                "steps.s2.title": "Prepare documents electronically", "steps.s2.body": "Prepare all required papers as shown on the website (trucks or tankers).",
+                "steps.s3.title": "Submit the request online", "steps.s3.body": "Upload documents on our site or submit them at our office.", "steps.s3.btn": "Register here",
+                "steps.s4.title": "Review and confirm", "steps.s4.body": "Please visit the office within three working days from submission to provide originals. Otherwise, the request will be cancelled automatically.",
+                "faq.title": "Frequently Asked Questions", "faq.tag": "FAQ", "faq.q1": "What is the maximum allowed tanker age for registration?",
+                "contact.title": "Contact us", "contact.form.title": "Contact us", "contact.tag": "Contact", "contact.send": "Send Message",
+                "contact.phone.label": "Phone", "contact.email.label": "Email", "contact.addr.label": "Address",
+                "footer.disclaimer": "Muwatin Transport is not responsible for any quotes from the site – All rights reserved © 2025"
+            }
+        };
+
+        (function () {
+            const lang = "@lang";
+            const dict = t[lang] || t.ar;
+            document.documentElement.lang = lang;
+            document.documentElement.dir = (lang === "ar" ? "rtl" : "ltr");
+            document.querySelectorAll("[data-i]").forEach(el => {
+                const k = el.getAttribute("data-i");
+                if (dict[k]) el.textContent = dict[k];
+            });
+        })();
+    </script>
+}

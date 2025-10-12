@@ -1,0 +1,461 @@
+@using MT.Data
+@model IEnumerable<VehicleRegistration>
+
+@{
+    ViewData["Title"] = "Vehicle Registrations";
+    Layout = "_Layout";
+
+    var list = Model ?? Enumerable.Empty<VehicleRegistration>();
+    var trucks = list.Where(v => string.Equals(v.VehicleType, "truck", StringComparison.OrdinalIgnoreCase)).ToList();
+    var tanks = list.Where(v => string.Equals(v.VehicleType, "tank", StringComparison.OrdinalIgnoreCase)).ToList();
+    
+    var currentType = ViewBag.CurrentType ?? "all";
+    var truckCount = ViewBag.TruckCount ?? 0;
+    var tankCount = ViewBag.TankCount ?? 0;
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">All Vehicle Registrations</h6>
+            <a href="@Url.Action("Index", "Home")" class="btn btn-sm btn-primary">
+                <i class="fa fa-arrow-left"></i> Back
+            </a>
+        </div>
+<!-- View Reason Modal -->
+<div class="modal fade" id="viewReasonModal" tabindex="-1" aria-labelledby="viewReasonLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="viewReasonLabel">Rejection details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-2"><strong>Rejected By:</strong> <span id="vrBy"></span> (<span id="vrRole"></span>)</div>
+        <div class="mb-2"><strong>When:</strong> <span id="vrWhen"></span></div>
+        <div class="mb-2"><strong>Reason:</strong></div>
+        <div class="border rounded p-2 bg-light" id="vrReason" style="white-space:pre-wrap"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+  </div>
+
+        <!-- Tab Navigation -->
+        <ul class="nav nav-tabs" id="vehicleTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link @(currentType == "truck" || currentType == "all" ? "active" : "")" 
+                   id="truck-tab" 
+                   href="@Url.Action("List", "Vehicle", new { type = "truck" })"
+                   role="tab">
+                    <i class="fa fa-truck"></i> Truck Registrations (@truckCount)
+                </a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link @(currentType == "tank" ? "active" : "")" 
+                   id="tank-tab" 
+                   href="@Url.Action("List", "Vehicle", new { type = "tank" })"
+                   role="tab">
+                    <i class="fa fa-oil-can"></i> Tank Registrations (@tankCount)
+                </a>
+            </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content mt-3" id="vehicleTabContent">
+            @if (currentType == "truck" || currentType == "all")
+            {
+                @if (trucks.Any())
+            {
+                <div class="table-responsive mb-5">
+                    <table class="table text-start align-middle table-bordered table-hover mb-0">
+                        <thead class="table-light">
+                            <tr class="text-dark">
+                                <th>#</th>
+                                <th>Date</th>
+                                <th>Owner</th>
+                                <th>Driver</th>
+                                <th>Phone</th>
+                                <th>Status</th>
+                                <th>ID Card</th>
+                                <th>Trailer Reg</th>
+                                <th>Traffic Cert</th>
+                                <th>IBAN Cert</th>
+                                <th>Vehicle Registration</th>
+                                <th>Release Form</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (var i = 0; i < trucks.Count; i++)
+                            {
+                                var v = trucks[i];
+                                var badge = v.Status == "Approved" ? "success"
+                                : v.Status == "Rejected" ? "danger"
+                                : "warning text-dark";
+                                <tr>
+                                    <td>@(i + 1)</td>
+                                    <td>@v.SubmittedDate.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
+                                    <td>@v.VehicleOwnerName</td>
+                                    <td>@v.DriverName</td>
+                                    <td>@v.OwnerPhone</td>
+                                    <td><span class="badge bg-@badge">@v.Status</span></td>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(v.Truck_IdCardPath))
+                                        {
+                                            <a href="@v.Truck_IdCardPath" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fa fa-id-card"></i></a>
+                                        }
+                                        else if (v.Status == "Rejected" && !string.IsNullOrWhiteSpace(v.RejectReason))
+                                        {
+                                            <button type="button" class="btn btn-sm btn-outline-danger view-reason-btn"
+                                                    data-reason="@v.RejectReason"
+                                                    data-byname="@v.RejectedByName"
+                                                    data-byrole="@v.RejectedByRole"
+                                                    data-when="@(v.RejectedAt?.ToLocalTime().ToString("yyyy-MM-dd HH:mm"))">
+                                                <i class="fa fa-info-circle"></i> Reason
+                                            </button>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(v.Truck_TrailerRegistrationPath))
+                                        {
+                                            <a href="@v.Truck_TrailerRegistrationPath" target="_blank" class="btn btn-sm btn-outline-info"><i class="fa fa-file-alt"></i></a>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(v.Truck_TrafficCertificatePath))
+                                        {
+                                            <a href="@v.Truck_TrafficCertificatePath" target="_blank" class="btn btn-sm btn-outline-warning"><i class="fa fa-file"></i></a>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(v.Truck_IbanCertificatePath))
+                                        {
+                                            <a href="@v.Truck_IbanCertificatePath" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fa fa-file"></i></a>
+                                        }
+                                    </td>
+
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(v.Truck_VehicleRegFormPath))
+                                        {
+                                            <a href="@v.Truck_VehicleRegFormPath" target="_blank" class="btn btn-sm btn-outline-success"><i class="fa fa-file"></i></a>
+                                        }
+                                    </td>
+
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(v.Truck_ReleaseFormPath))
+                                        {
+                                            <a href="@v.Truck_ReleaseFormPath" target="_blank" class="btn btn-sm btn-outline-secondary"><i class="fa fa-file-signature"></i></a>
+                                        }
+                                    </td>
+                                    <td class="text-nowrap">
+                                        <a class="btn btn-sm btn-primary" href="@Url.Action("Details", "Vehicle", new { id = v.Id })">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+
+                                        @if (v.Status == "Pending" && !(User?.IsInRole("Owner") ?? false) && !(User?.IsInRole("MinistryOfficer") ?? false))
+                                        {
+                                            <form asp-action="Approve" asp-controller="Vehicle" method="post"
+                                                  class="d-inline confirm-form" data-confirm="Approve this registration?">
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" name="id" value="@v.Id" />
+                                                <button type="submit" class="btn btn-sm btn-success" title="Approve">
+                                                    <i class="fa fa-check"></i>
+                                                </button>
+                                            </form>
+
+                                            <form asp-action="Reject" asp-controller="Vehicle" method="post"
+                                                  class="d-inline confirm-form" data-require-reason="true">
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" name="id" value="@v.Id" />
+                                                <input type="hidden" name="reason" value="" />
+                                                <button type="submit" class="btn btn-sm btn-danger" title="Reject">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
+                                            </form>
+                                        }
+                                        else if (v.Status == "Under Review" && (User?.IsInRole("Admin") == true || User?.IsInRole("SuperAdmin") == true || User?.IsInRole("FinalApprover") == true))
+                                        {
+                                            <form asp-action="Approve" asp-controller="Vehicle" method="post"
+                                                  class="d-inline confirm-form" data-confirm="Approve this registration?">
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" name="id" value="@v.Id" />
+                                                <button type="submit" class="btn btn-sm btn-success" title="Approve permanently">
+                                                    <i class="fa fa-check"></i>
+                                                </button>
+                                            </form>
+
+                                            <form asp-action="Reject" asp-controller="Vehicle" method="post"
+                                                  class="d-inline confirm-form" data-require-reason="true">
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" name="id" value="@v.Id" />
+                                                <input type="hidden" name="reason" value="" />
+                                                <button type="submit" class="btn btn-sm btn-danger" title="Reject">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
+                                            </form>
+                                        }
+                                        else if (v.Status == "Approved")
+                                        {
+                                            <span class="badge bg-success"><i class="fa fa-check"></i> Approved</span>
+                                            @if (!string.IsNullOrEmpty(v.UniqueToken))
+                                            {
+                                                <small class="d-block text-muted">Token: @v.UniqueToken</small>
+                                            }
+                                        }
+                                        else if (v.Status == "Rejected")
+                                        {
+                                            <span class="badge bg-danger"><i class="fa fa-times"></i> Rejected</span>
+                                        }
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                }
+                else
+                {
+                    <p class="text-muted">No truck registrations found.</p>
+                }
+            }
+            
+            @if (currentType == "tank")
+            {
+                @if (tanks.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table text-start align-middle table-bordered table-hover mb-0">
+                        <thead class="table-light">
+                            <tr class="text-dark">
+                                <th>#</th>
+                                <th>Date</th>
+                                <th>Owner</th>
+                                <th>Driver</th>
+                                <th>Phone</th>
+                                <th>Status</th>
+                                <th>ID Card</th>
+                                <th>Tank Form</th>
+                                <th>IBAN Cert</th>
+                                <th>Capacity Cert</th>
+                                <th>Dumping landfill</th>
+                                <th>Vehicle Registration</th>
+                                <th>Release Form</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (var j = 0; j < tanks.Count; j++)
+                            {
+                                var v = tanks[j];
+                                var badge2 = v.Status == "Approved" ? "success"
+                                : v.Status == "Rejected" ? "danger"
+                                : "warning text-dark";
+                                <tr>
+                                    <td>@(j + 1)</td>
+                                    <td>@v.SubmittedDate.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
+                                    <td>@v.VehicleOwnerName</td>
+                                    <td>@v.DriverName</td>
+                                    <td>@v.OwnerPhone</td>
+                                    <td><span class="badge bg-@badge2">@v.Status</span></td>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(v.IdCardBothSidesPath))
+                                        {
+                                            <a href="@v.IdCardBothSidesPath" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fa fa-id-card"></i></a>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(v.TankerFormBothSidesPath))
+                                        {
+                                            <a href="@v.TankerFormBothSidesPath" target="_blank" class="btn btn-sm btn-outline-info"><i class="fa fa-file-alt"></i></a>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(v.IbanCertificatePath))
+                                        {
+                                            <a href="@v.IbanCertificatePath" target="_blank" class="btn btn-sm btn-outline-success"><i class="fa fa-file"></i></a>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(v.TankCapacityCertPath))
+                                        {
+                                            <a href="@v.TankCapacityCertPath" target="_blank" class="btn btn-sm btn-outline-warning"><i class="fa fa-tachometer-alt"></i></a>
+                                        }
+                                    </td>
+
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(v.LandfillWorksPath))
+                                        {
+                                            <a href="@v.LandfillWorksPath" target="_blank" class="btn btn-sm btn-outline-warning"><i class="fa fa-file"></i></a>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(v.SignedRegistrationFormPath))
+                                        {
+                                            <a href="@v.SignedRegistrationFormPath" target="_blank" class="btn btn-sm btn-outline-secondary"><i class="fa fa-file"></i></a>
+                                        }
+                                    </td>
+
+
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(v.ReleaseFormPath))
+                                        {
+                                            <a href="@v.ReleaseFormPath" target="_blank" class="btn btn-sm btn-outline-secondary"><i class="fa fa-file-signature"></i></a>
+                                        }
+                                    </td>
+                                    <td class="text-nowrap">
+                                        <a class="btn btn-sm btn-primary" href="@Url.Action("Details", "Vehicle", new { id = v.Id })">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+
+                                        @if (v.Status == "Pending" && !(User?.IsInRole("Owner") ?? false))
+                                        {
+                                            <form asp-action="Approve" asp-controller="Vehicle" method="post"
+                                                  class="d-inline confirm-form" data-confirm="Approve this registration?">
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" name="id" value="@v.Id" />
+                                                <button type="submit" class="btn btn-sm btn-success" title="Approve">
+                                                    <i class="fa fa-check"></i>
+                                                </button>
+                                            </form>
+
+                                            <form asp-action="Reject" asp-controller="Vehicle" method="post"
+                                                  class="d-inline confirm-form" data-require-reason="true">
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" name="id" value="@v.Id" />
+                                                <input type="hidden" name="reason" value="" />
+                                                <button type="submit" class="btn btn-sm btn-danger" title="Reject" data-bs-toggle="modal" data-bs-target="#rejectReasonModal">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
+                                            </form>
+                                        }
+                                        else if (v.Status == "Under Review" && (User?.IsInRole("Admin") == true || User?.IsInRole("SuperAdmin") == true || User?.IsInRole("FinalApprover") == true))
+                                        {
+                                            <form asp-action="Approve" asp-controller="Vehicle" method="post"
+                                                  class="d-inline confirm-form" data-confirm="Approve this registration?">
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" name="id" value="@v.Id" />
+                                                <button type="submit" class="btn btn-sm btn-success" title="Approve permanently">
+                                                    <i class="fa fa-check"></i>
+                                                </button>
+                                            </form>
+
+                                            <form asp-action="Reject" asp-controller="Vehicle" method="post"
+                                                  class="d-inline confirm-form" data-require-reason="true">
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" name="id" value="@v.Id" />
+                                                <input type="hidden" name="reason" value="" />
+                                                <button type="submit" class="btn btn-sm btn-danger" title="Reject" data-bs-toggle="modal" data-bs-target="#rejectReasonModal">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
+                                            </form>
+                                        }
+                                        else if (v.Status == "Approved")
+                                        {
+                                            <span class="badge bg-success"><i class="fa fa-check"></i> Approved</span>
+                                            @if (!string.IsNullOrEmpty(v.UniqueToken))
+                                            {
+                                                <small class="d-block text-muted">Token: @v.UniqueToken</small>
+                                            }
+                                        }
+                                        else if (v.Status == "Rejected")
+                                        {
+                                            <span class="badge bg-danger"><i class="fa fa-times"></i> Rejected</span>
+                                        }
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                }
+                else
+                {
+                    <p class="text-muted">No tank registrations found.</p>
+                }
+            }
+        </div>
+    </div>
+</div>
+<!-- Reject Reason Modal -->
+<div class="modal fade" id="rejectReasonModal" tabindex="-1" aria-labelledby="rejectReasonLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="rejectReasonLabel">Add rejection reason</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="rejectReasonInput" class="form-label">Reason</label>
+          <textarea id="rejectReasonInput" class="form-control" rows="4" placeholder="Type the rejection reason..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirmRejectBtn">Reject</button>
+      </div>
+    </div>
+  </div>
+  </div>
+
+@section Scripts {
+    <script>
+        (function(){
+          let pendingRejectForm = null;
+          const modalEl = document.getElementById('rejectReasonModal');
+          let modalInstance = null;
+          if (modalEl) modalInstance = new bootstrap.Modal(modalEl);
+
+          // Intercept submits of reject forms that require reason
+          document.addEventListener('submit', function(e){
+            const form = e.target.closest('form.confirm-form');
+            if (!form) return;
+
+            // Only intercept if this is a Reject form marked to require reason
+            if (form.dataset.requireReason === 'true'){
+              e.preventDefault();
+              pendingRejectForm = form;
+              // pre-fill with any existing value
+              const hidden = form.querySelector('input[name="reason"]');
+              document.getElementById('rejectReasonInput').value = hidden?.value || '';
+              modalInstance?.show();
+            }
+          }, true);
+
+          // Confirm button in modal
+          document.getElementById('confirmRejectBtn')?.addEventListener('click', function(){
+            const text = document.getElementById('rejectReasonInput')?.value?.trim();
+            if (!text){
+              alert('Rejection reason is required.');
+              return;
+            }
+            if (pendingRejectForm){
+              const hidden = pendingRejectForm.querySelector('input[name="reason"]');
+              if (hidden) hidden.value = text;
+              modalInstance?.hide();
+              pendingRejectForm.submit();
+              pendingRejectForm = null;
+            }
+          });
+
+          // View reason modal wiring
+          const viewModalEl = document.getElementById('viewReasonModal');
+          let viewModal = null;
+          if (viewModalEl) viewModal = new bootstrap.Modal(viewModalEl);
+          document.addEventListener('click', function(e){
+            const btn = e.target.closest('.view-reason-btn');
+            if (!btn) return;
+            document.getElementById('vrBy').textContent = btn.dataset.byname || '—';
+            document.getElementById('vrRole').textContent = btn.dataset.byrole || '—';
+            document.getElementById('vrWhen').textContent = btn.dataset.when || '—';
+            document.getElementById('vrReason').textContent = btn.dataset.reason || '';
+            viewModal?.show();
+          });
+        })();
+    </script>
+}

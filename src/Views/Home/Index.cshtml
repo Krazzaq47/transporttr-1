@@ -1,0 +1,227 @@
+﻿@model DashboardVm
+@{
+    ViewData["Title"] = "Home";
+}
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                <i class="fa fa-calendar-check fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Today Booking</p>
+                    <h6 class="mb-0">@Model.TodayBooking</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                <i class="fa fa-thumbs-up fa-3x text-success"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Total Approval</p>
+                    <h6 class="mb-0">@Model.TotalApproval</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                <i class="fa fa-times-circle fa-3x text-danger"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Today Rejected</p>
+                    <h6 class="mb-0">@Model.TodayRejected</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                <i class="fa fa-book-open fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Total Booking</p>
+                    <h6 class="mb-0">@Model.TotalBooking</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Sale & Revenue End -->
+
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Recent Registration</h6>
+            <a href="@Url.Action("List","Vehicle")">Show All</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead>
+                    <tr class="text-dark">
+                        <th scope="col"><input class="form-check-input" type="checkbox" disabled></th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Owner</th>
+                        <th scope="col">Driver</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Files</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Recent?.Any() == true)
+                    {
+                        foreach (var r in Model.Recent)
+                        {
+                            <tr>
+                                <td><input class="form-check-input" type="checkbox" /></td>
+                                <td>@r.SubmittedDate.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
+                                <td>@r.VehicleType</td>
+                                <td>@r.VehicleOwnerName</td>
+                                <td>@r.DriverName</td>
+                                <td>@r.OwnerPhone</td>
+                                <td>
+                                    @{
+                                        var badge = r.Status == "Approved" ? "success"
+                                        : r.Status == "Rejected" ? "danger"
+                                        : "warning text-dark";
+                                    }
+                                    <span class="badge bg-@badge">@r.Status</span>
+                                </td>
+                                <td>
+                                    @* Show at least one file link if exists *@
+                                    @if (!string.IsNullOrEmpty(r.IdCardBothSidesPath))
+                                    {
+                                        <a class="btn btn-sm btn-outline-primary" href="@r.IdCardBothSidesPath" target="_blank">
+                                            <i class="fa fa-download"></i> ID
+                                        </a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr><td colspan="8" class="text-center text-muted">No registrations yet.</td></tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Widgets Start -->
+<d@* iv class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-md-6 col-xl-4">
+            <div class="h-100 bg-light rounded p-4">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <h6 class="mb-0">Messages</h6>
+                    <a href="">Show All</a>
+                </div>
+                <div class="d-flex align-items-center border-bottom py-3">
+                    <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                    <div class="w-100 ms-3">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-0">Jhon Doe</h6>
+                            <small>15 minutes ago</small>
+                        </div>
+                        <span>Short message goes here...</span>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center border-bottom py-3">
+                    <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                    <div class="w-100 ms-3">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-0">Jhon Doe</h6>
+                            <small>15 minutes ago</small>
+                        </div>
+                        <span>Short message goes here...</span>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center border-bottom py-3">
+                    <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                    <div class="w-100 ms-3">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-0">Jhon Doe</h6>
+                            <small>15 minutes ago</small>
+                        </div>
+                        <span>Short message goes here...</span>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center pt-3">
+                    <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                    <div class="w-100 ms-3">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-0">Jhon Doe</h6>
+                            <small>15 minutes ago</small>
+                        </div>
+                        <span>Short message goes here...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-xl-4">
+            <div class="h-100 bg-light rounded p-4">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h6 class="mb-0">Calender</h6>
+                    <a href="">Show All</a>
+                </div>
+                <div id="calender"></div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-xl-4">
+            <div class="h-100 bg-light rounded p-4">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h6 class="mb-0">To Do List</h6>
+                    <a href="">Show All</a>
+                </div>
+                <div class="d-flex mb-2">
+                    <input class="form-control bg-transparent" type="text" placeholder="Enter task">
+                    <button type="button" class="btn btn-primary ms-2">Add</button>
+                </div>
+                <div class="d-flex align-items-center border-bottom py-2">
+                    <input class="form-check-input m-0" type="checkbox">
+                    <div class="w-100 ms-3">
+                        <div class="d-flex w-100 align-items-center justify-content-between">
+                            <span>Short task goes here...</span>
+                            <button class="btn btn-sm"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center border-bottom py-2">
+                    <input class="form-check-input m-0" type="checkbox">
+                    <div class="w-100 ms-3">
+                        <div class="d-flex w-100 align-items-center justify-content-between">
+                            <span>Short task goes here...</span>
+                            <button class="btn btn-sm"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center border-bottom py-2">
+                    <input class="form-check-input m-0" type="checkbox" checked>
+                    <div class="w-100 ms-3">
+                        <div class="d-flex w-100 align-items-center justify-content-between">
+                            <span><del>Short task goes here...</del></span>
+                            <button class="btn btn-sm text-primary"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center border-bottom py-2">
+                    <input class="form-check-input m-0" type="checkbox">
+                    <div class="w-100 ms-3">
+                        <div class="d-flex w-100 align-items-center justify-content-between">
+                            <span>Short task goes here...</span>
+                            <button class="btn btn-sm"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center pt-2">
+                    <input class="form-check-input m-0" type="checkbox">
+                    <div class="w-100 ms-3">
+                        <div class="d-flex w-100 align-items-center justify-content-between">
+                            <span>Short task goes here...</span>
+                            <button class="btn btn-sm"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> *@

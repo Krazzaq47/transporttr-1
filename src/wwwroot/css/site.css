@@ -1,0 +1,29 @@
+/* Custom theme */
+:root{
+  --mta:#7b0d26;
+  --mta-ink:#5a0a1d;
+}
+body{font-family:'Tajawal',system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.text-mta{color:var(--mta)!important}
+.bg-mta{background:var(--mta)!important}
+.btn-mta{background:var(--mta); color:#fff; border-color:var(--mta)}
+.btn-mta:hover{background:var(--mta-ink); border-color:var(--mta-ink); color:#fff}
+.btn-outline-mta{color:var(--mta); border-color:var(--mta)}
+.btn-outline-mta:hover{background:var(--mta); color:#fff}
+.text-primary-mta{color:var(--mta)}
+.hero{min-height: 72vh; display:flex; align-items:center; position:relative;}
+.hero .hero-bg{
+  position:absolute; inset:0;
+  background: radial-gradient(1200px 480px at 15% 10%, rgba(123,13,38,.08), transparent),
+              linear-gradient(180deg, rgba(123,13,38,.05), transparent 40%);
+  pointer-events:none;
+}
+.section-divider{border-top:1px dashed #eee; border-bottom:1px dashed #eee;}
+.step-card{background:#fff;border:1px solid #eee;border-radius:1rem;box-shadow:0 4px 12px rgba(0,0,0,.04)}
+.accordion-button:not(.collapsed){background:rgba(123,13,38,.05); color:var(--mta)}
+.bi-check-circle-fill{color:var(--mta)}
+footer .nav-link{color:#666}
+footer .nav-link:hover{color:var(--mta)}
+
+/* Make badges a bit thicker for headline */
+.fw-extrabold{font-weight:800}

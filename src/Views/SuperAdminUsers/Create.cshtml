@@ -1,0 +1,57 @@
+@model MT.Controllers.SuperUserCreateVm
+@{
+    ViewData["Title"] = "Create User";
+}
+<div class="container mt-4">
+    <h2>Create User</h2>
+    <form asp-action="Create" method="post" class="mt-3">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control" type="email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Phone" class="form-label"></label>
+                <input asp-for="Phone" class="form-control" type="tel" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="QID" class="form-label"></label>
+                <input asp-for="QID" class="form-control" />
+                <span asp-validation-for="QID" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Username" class="form-label"></label>
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Password" class="form-label"></label>
+                <input asp-for="Password" class="form-control" type="password" autocomplete="new-password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Role</label>
+                <select asp-for="Role" class="form-select" asp-items="ViewBag.Roles"></select>
+                <span asp-validation-for="Role" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 form-check mt-4">
+                <input asp-for="IsActive" class="form-check-input" />
+                <label asp-for="IsActive" class="form-check-label">Active</label>
+            </div>
+        </div>
+        <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn btn-primary">Create</button>
+            <a class="btn btn-secondary" href="/SuperAdminUsers">Cancel</a>
+        </div>
+    </form>
+</div>
+@section Scripts{ @await Html.PartialAsync("_ValidationScriptsPartial") }

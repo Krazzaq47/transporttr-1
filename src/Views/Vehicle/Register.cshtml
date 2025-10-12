@@ -1,0 +1,388 @@
+﻿@model VehicleRegisterVm
+@{
+    Layout = "_PublicLayout";                // public page, no sidebar
+    var lang = (ViewBag.Lang as string) ?? "en";
+    var rtl  = lang == "ar" ? "rtl" : "ltr"; // rtl for Arabic
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+<style>
+    :root{
+        --primary:#7C1D3A; --primary-800:#6D1933; --border:#EED7DE; --tint:#F9F2F4; --text:#4E0F21;
+    }
+    .page-wrap{ padding:24px 16px; }
+    .h-title{ font-weight:800; color:#222; margin-bottom:12px; }
+    .lead-text{ color:#333; opacity:.9; }
+
+    .btn-primary{ background:var(--primary); border-color:var(--primary); }
+    .btn-primary:hover{ background:var(--primary-800); border-color:var(--primary-800); }
+
+    .choice-pill{
+        border:1px solid var(--border); border-radius:28px; padding:10px 22px; cursor:pointer;
+        background:#fff; color:#4E0F21; font-weight:600; margin-inline-end:10px;
+    }
+    .choice-pill.active{ background:var(--primary); color:#fff; border-color:var(--primary); }
+
+    .section-title{ font-weight:800; color:#111; margin:28px 0 16px; text-align:center; }
+    .card-light{ background:#fff; border:1px solid var(--border); border-radius:16px; padding:18px; box-shadow:0 8px 30px rgba(124,29,58,.08); }
+
+    .dash-box{
+        border:2px dashed var(--primary); border-radius:14px; padding:22px; text-align:center; height:100%;
+    }
+    .dash-box .ico{ font-size:32px; color:var(--primary); margin-bottom:8px; }
+    .dash-box small{ display:block; color:#333; opacity:.8; }
+
+    .label{ font-weight:700; color:#111; margin-bottom:8px; }
+    .form-control{ border-color:var(--border); }
+    .form-control:focus{ border-color:var(--primary); box-shadow:0 0 0 .12rem rgba(124,29,58,.18); }
+
+    .lang-toggle .btn{ border-radius:999px; }
+    .submit-row{ margin-top:24px; display:flex; gap:12px; justify-content:center; }
+</style>
+
+<div class="page-wrap" dir="@rtl">
+    <div class="container-fluid">
+        <!-- Header & language -->
+        <div class="d-flex align-items-start justify-content-between flex-wrap mb-3">
+            <div>
+                <h1 class="h-title" data-i="title">Register your vehicle</h1>
+                <p class="lead-text" data-i="lead">
+                    Use the registration form below to upload all required documents and submit your application electronically.
+                </p>
+            </div>
+
+            <div class="lang-toggle">
+                <a class="btn btn-outline-secondary me-2 @(lang=="en"?"active":"")"
+                   href="@Url.Action("Register","Vehicle", new { lang="en" })">English</a>
+                <a class="btn btn-outline-secondary @(lang=="ar"?"active":"")"
+                   href="@Url.Action("Register","Vehicle", new { lang="ar" })">العربية</a>
+            </div>
+        </div>
+
+        <form asp-action="Register" asp-controller="Vehicle" method="post" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="lang" value="@lang" />
+
+            <!-- Vehicle type switch -->
+            <div class="card-light mb-4">
+                <div class="mb-3">
+                    <span class="label d-block" data-i="vehType">Vehicle type</span>
+                    <input type="hidden" name="VehicleType" id="VehicleType" value="tank" />
+                    <button type="button" class="choice-pill"        data-val="truck" id="btn-truck" data-i="truck">a truck</button>
+                    <button type="button" class="choice-pill active" data-val="tank"  id="btn-tank"  data-i="tank">tank</button>
+                </div>
+            </div>
+
+            <!-- Owner/Driver -->
+            <h3 class="section-title" data-i="ownerDriver">Owner and Driver Information</h3>
+            <div class="card-light mb-4">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="label" data-i="ownerPhone">Owner's phone number*</label>
+                        <input class="form-control" name="OwnerPhone" required placeholder="...phone number" />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="label" data-i="ownerName">Vehicle owner name*</label>
+                        <input class="form-control" name="VehicleOwnerName" required placeholder="...Type the name" />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="label" data-i="driverPhone">Driver's phone number*</label>
+                        <input class="form-control" name="DriverPhone" required placeholder="...phone number" />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="label" data-i="driverName">Driver's Name*</label>
+                        <input class="form-control" name="DriverName" required placeholder="...Type the name" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section title (changes) -->
+            <h3 class="section-title" id="docsTitle" data-i="docsTitle">Documents required for tanks</h3>
+
+            <!-- ===== TANK DOCS ===== -->
+            <div id="docs-tank">
+                <!-- row 1 -->
+                <div class="row g-3 mb-3">
+                    <div class="col-lg-4">
+                        <div class="dash-box h-100">
+                            <div class="label" data-i="doc1">1. Double-sided ID card*</div>
+                            <i class="fa-solid fa-file-arrow-up ico"></i>
+                            <small data-i="max5">Maximum: 5 MB. PNG, JPG</small>
+                            <div class="mt-2">
+                                <input type="file" class="form-control" name="IdCardBothSides" accept=".png,.jpg,.jpeg" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="dash-box h-100">
+                            <div class="label" data-i="doc2">2. Both sides of the tanker application form are valid*</div>
+                            <i class="fa-solid fa-file-arrow-up ico"></i>
+                            <small data-i="max5">Maximum: 5 MB. PNG, JPG</small>
+                            <div class="mt-2">
+                                <input type="file" class="form-control" name="TankerFormBothSides" accept=".png,.jpg,.jpeg" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="dash-box h-100">
+                            <div class="label" data-i="doc3">3. IBAN certificate from the bank*</div>
+                            <i class="fa-solid fa-file-arrow-up ico"></i>
+                            <small data-i="max5">Maximum: 5 MB. PNG, JPG</small>
+                            <div class="mt-2">
+                                <input type="file" class="form-control" name="IbanCertificate" accept=".png,.jpg,.jpeg" required />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- row 2 -->
+                <div class="row g-3 mb-3">
+                    <div class="col-lg-4">
+                        <div class="dash-box h-100">
+                            <div class="label" data-i="doc4">4. Valid tank capacity certificate*</div>
+                            <i class="fa-solid fa-file-arrow-up ico"></i>
+                            <small data-i="max5">Maximum: 5 MB. PNG, JPG</small>
+                            <div class="mt-2">
+                                <input type="file" class="form-control" name="TankCapacityCert" accept=".png,.jpg,.jpeg" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="dash-box h-100">
+                            <div class="label" data-i="doc5">5. Dumping landfill (works)*</div>
+                            <i class="fa-solid fa-file-arrow-up ico"></i>
+                            <small data-i="max5">Maximum: 5 MB. PNG, JPG</small>
+                            <div class="mt-2">
+                                <input type="file" class="form-control" name="LandfillWorks" accept=".png,.jpg,.jpeg" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="dash-box h-100">
+                            <div class="label" data-i="doc6">6. Sign the vehicle registration application form*</div>
+                            <i class="fa-solid fa-file-arrow-up ico"></i>
+                            <small data-i="max5">Maximum: 5 MB. PNG, JPG</small>
+                            <div class="mt-2">
+                                <input type="file" class="form-control" name="SignedRegistrationForm" accept=".png,.jpg,.jpeg" required />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- row 3 -->
+                <div class="row g-3 mb-2">
+                    <div class="col-12">
+                        <div class="dash-box">
+                            <div class="label" data-i="doc7">7. Release form for the applicant for registration*</div>
+                            <i class="fa-solid fa-file-arrow-up ico"></i>
+                            <small data-i="max5">Maximum: 5 MB. PNG, JPG</small>
+                            <div class="mt-2" style="max-width:520px;margin-inline:auto;">
+                                <input type="file" class="form-control" name="ReleaseForm" accept=".png,.jpg,.jpeg" required />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== TRUCK DOCS ===== (hidden initially) -->
+            <div id="docs-truck" style="display:none">
+                <!-- row 1 -->
+                <div class="row g-3 mb-3">
+                    <div class="col-lg-4">
+                        <div class="dash-box h-100">
+                            <div class="label" data-i="t_doc1">1. Double-sided ID card*</div>
+                            <i class="fa-solid fa-file-arrow-up ico"></i>
+                            <small data-i="max5">Maximum: 5 MB. PNG, JPG</small>
+                            <div class="mt-2">
+                                <input type="file" class="form-control" name="Truck_IdCard" accept=".png,.jpg,.jpeg" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="dash-box h-100">
+                            <div class="label" data-i="t_doc2">2. Valid locomotive and trailer registration form*</div>
+                            <i class="fa-solid fa-file-arrow-up ico"></i>
+                            <small data-i="max5">Maximum: 5 MB. PNG, JPG</small>
+                            <div class="mt-2">
+                                <input type="file" class="form-control" name="Truck_TrailerRegistration" accept=".png,.jpg,.jpeg" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="dash-box h-100">
+                            <div class="label" data-i="t_doc3">3. Traffic department certificate (inventory of owned vehicles)*</div>
+                            <i class="fa-solid fa-file-arrow-up ico"></i>
+                            <small data-i="max5">Maximum: 5 MB. PNG, JPG</small>
+                            <div class="mt-2">
+                                <input type="file" class="form-control" name="Truck_TrafficCertificate" accept=".png,.jpg,.jpeg" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- row 2 -->
+                <div class="row g-3 mb-3">
+                    <div class="col-lg-4">
+                        <div class="dash-box h-100">
+                            <div class="label" data-i="t_doc4">4. IBAN certificate from the bank*</div>
+                            <i class="fa-solid fa-file-arrow-up ico"></i>
+                            <small data-i="max5">Maximum: 5 MB. PNG, JPG</small>
+                            <div class="mt-2">
+                                <input type="file" class="form-control" name="Truck_IbanCertificate" accept=".png,.jpg,.jpeg" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="dash-box h-100">
+                            <div class="label" data-i="t_doc5">5. Signed vehicle registration application form*</div>
+                            <i class="fa-solid fa-file-arrow-up ico"></i>
+                            <small data-i="max5">Maximum: 5 MB. PNG, JPG</small>
+                            <div class="mt-2">
+                                <input type="file" class="form-control" name="Truck_VehicleRegForm" accept=".png,.jpg,.jpeg" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="dash-box h-100">
+                            <div class="label" data-i="t_doc6">6. Release form for the applicant for registration*</div>
+                            <i class="fa-solid fa-file-arrow-up ico"></i>
+                            <small data-i="max5">Maximum: 5 MB. PNG, JPG</small>
+                            <div class="mt-2">
+                                <input type="file" class="form-control" name="Truck_ReleaseForm" accept=".png,.jpg,.jpeg" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- submit -->
+            <div class="submit-row">
+                <button type="submit" class="btn btn-primary px-4" data-i="submit">Submit</button>
+                <a class="btn btn-outline-secondary px-4"
+                   href="@Url.Action("Register","Vehicle", new { lang = lang == "ar" ? "en" : "ar" })" data-i="switch">
+                    العربية / English
+                </a>
+            </div>
+
+            @if (TempData["ok"] != null)
+            {
+                <div class="alert alert-success mt-3" role="alert" data-i="okToast">Your application has been submitted.</div>
+            }
+        </form>
+    </div>
+</div>
+
+<script>
+  // Minimal i18n dictionary
+  const i18n = {
+    en: {
+      title:"Register your vehicle",
+      lead:"Use the registration form below to upload all required documents and submit your application electronically.",
+      vehType:"Vehicle type",
+      truck:"a truck", tank:"tank",
+      ownerDriver:"Owner and Driver Information",
+      ownerPhone:"Owner's phone number*", ownerName:"Vehicle owner name*",
+      driverPhone:"Driver's phone number*", driverName:"Driver's Name*",
+      docsTitle:"Documents required for tanks",
+      docsTitleTruck:"Documents required for trucks (public transport)",
+      doc1:"1. Double-sided ID card*",
+      doc2:"2. Both sides of the tanker application form are valid*",
+      doc3:"3. IBAN certificate from the bank*",
+      doc4:"4. Valid tank capacity certificate*",
+      doc5:"5. Dumping landfill (works)*",
+      doc6:"6. Sign the vehicle registration application form*",
+      doc7:"7. Release form for the applicant for registration*",
+      t_doc1:"1. Double-sided ID card*",
+      t_doc2:"2. Valid locomotive and trailer registration form*",
+      t_doc3:"3. Traffic department certificate (inventory of owned vehicles)*",
+      t_doc4:"4. IBAN certificate from the bank*",
+      t_doc5:"5. Signed vehicle registration application form*",
+      t_doc6:"6. Release form for the applicant for registration*",
+      max5:"Maximum: 5 MB. PNG, JPG",
+      submit:"Submit",
+      switch:"العربية / English",
+      okToast:"Your application has been submitted."
+    },
+    ar: {
+      title:"سجّل مركبتك",
+      lead:"استخدم النموذج أدناه لرفع جميع المستندات المطلوبة وتقديم الطلب إلكترونيًا.",
+      vehType:"نوع المركبة",
+      truck:"شاحنة", tank:"صهريج",
+      ownerDriver:"بيانات المالك والسائق",
+      ownerPhone:"رقم هاتف المالك*", ownerName:"اسم مالك المركبة*",
+      driverPhone:"رقم هاتف السائق*", driverName:"اسم السائق*",
+      docsTitle:"المستندات المطلوبة للصهاريج",
+      docsTitleTruck:"المستندات المطلوبة للشاحنات (نقل عام)",
+      doc1:"1. بطاقة هوية مزدوجة الوجهين*",
+      doc2:"2. وجها استمارة طلب الصهريج صالحان*",
+      doc3:"3. شهادة الآيبان من البنك*",
+      doc4:"4. شهادة سعة الصهريج السارية*",
+      doc5:"5. مكب النفايات (الأعمال)*",
+      doc6:"6. توقيع نموذج طلب تسجيل المركبة*",
+      doc7:"7. نموذج إقرار لطالب التسجيل*",
+      t_doc1:"1. بطاقة هوية مزدوجة الوجهين*",
+      t_doc2:"2. استمارة تسجيل القاطرة والمقطورة سارية*",
+      t_doc3:"3. شهادة من المرور (حصر المركبات المملوكة)*",
+      t_doc4:"4. شهادة الآيبان من البنك*",
+      t_doc5:"5. نموذج طلب تسجيل المركبة (موقّع)*",
+      t_doc6:"6. نموذج إقرار لطالب التسجيل*",
+      max5:"الحد الأقصى: 5 ميجابايت. PNG, JPG",
+      submit:"إرسال",
+      switch:"العربية / English",
+      okToast:"تم إرسال طلبك بنجاح."
+    }
+  };
+
+  (function(){
+    const lang = "@lang";
+    const dict = i18n[lang];
+    document.documentElement.setAttribute("lang", lang);
+    // Apply texts
+    document.querySelectorAll("[data-i]").forEach(el=>{
+      const key = el.getAttribute("data-i");
+      if (dict[key]) el.innerText = dict[key];
+    });
+
+    const hiddenType = document.getElementById("VehicleType");
+    const docsTitle  = document.getElementById("docsTitle");
+    const tankWrap   = document.getElementById("docs-tank");
+    const truckWrap  = document.getElementById("docs-truck");
+
+    // Toggle 'required' only on visible section
+    function setRequired(container, enable){
+      container.querySelectorAll('input[type="file"]').forEach(i=>{
+        if(enable) i.setAttribute('required','required');
+        else i.removeAttribute('required');
+      });
+    }
+
+    function setMode(mode){
+      hiddenType.value = mode;
+      document.querySelectorAll(".choice-pill").forEach(b=>b.classList.remove("active"));
+      document.querySelector(`.choice-pill[data-val="${mode}"]`).classList.add("active");
+
+      if(mode === "truck"){
+        tankWrap.style.display = "none";
+        truckWrap.style.display = "";
+        docsTitle.innerText = dict.docsTitleTruck;
+        setRequired(tankWrap,false);
+        setRequired(truckWrap,true);
+      }else{
+        truckWrap.style.display = "none";
+        tankWrap.style.display = "";
+        docsTitle.innerText = dict.docsTitle;
+        setRequired(truckWrap,false);
+        setRequired(tankWrap,true);
+      }
+    }
+
+    // Hook up the pills
+    document.querySelectorAll(".choice-pill").forEach(btn=>{
+      btn.addEventListener("click", ()=> setMode(btn.getAttribute("data-val")));
+    });
+
+    // Initial
+    setMode(hiddenType.value || "tank");
+  })();
+</script>

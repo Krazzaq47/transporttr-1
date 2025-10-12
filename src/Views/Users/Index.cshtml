@@ -1,0 +1,30 @@
+@model List<MT.Controllers.UserWithRolesVm>
+@{
+    ViewData["Title"] = "Users";
+}
+<h2>Users</h2>
+@if (TempData["ok"] != null)
+{
+    <div class="alert alert-success">@TempData["ok"]</div>
+}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Roles</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var u in Model)
+    {
+        <tr>
+            <td>@u.Email</td>
+            <td>@string.Join(", ", u.Roles)</td>
+            <td>
+                <a class="btn btn-sm btn-primary" href="@Url.Action("EditRoles", "Users", new { id = u.Id })">Edit Roles</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
