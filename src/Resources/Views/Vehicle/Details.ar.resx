@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Vehicle Registration Details" xml:space="preserve">
+    <value>تفاصيل تسجيل المركبة</value>
+  </data>
+  <data name="Below are all details and uploaded documents for this vehicle registration." xml:space="preserve">
+    <value>فيما يلي جميع التفاصيل والوثائق المرفوعة لهذا التسجيل.</value>
+  </data>
+  <data name="Owner and Driver Information" xml:space="preserve">
+    <value>معلومات المالك والسائق</value>
+  </data>
+  <data name="Owner's Phone" xml:space="preserve">
+    <value>رقم هاتف المالك</value>
+  </data>
+  <data name="Owner Name" xml:space="preserve">
+    <value>اسم المالك</value>
+  </data>
+  <data name="Driver's Phone" xml:space="preserve">
+    <value>رقم هاتف السائق</value>
+  </data>
+  <data name="Driver Name" xml:space="preserve">
+    <value>اسم السائق</value>
+  </data>
+  <data name="Vehicle Type" xml:space="preserve">
+    <value>نوع المركبة</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>الحالة</value>
+  </data>
+  <data name="Rejected By:" xml:space="preserve">
+    <value>تم الرفض بواسطة:</value>
+  </data>
+  <data name="When:" xml:space="preserve">
+    <value>التاريخ:</value>
+  </data>
+  <data name="Reason:" xml:space="preserve">
+    <value>السبب:</value>
+  </data>
+  <data name="Documents required for tanks" xml:space="preserve">
+    <value>المستندات المطلوبة للصهاريج</value>
+  </data>
+  <data name="Documents required for trucks" xml:space="preserve">
+    <value>المستندات المطلوبة للشاحنات</value>
+  </data>
+  <data name="Download All" xml:space="preserve">
+    <value>تنزيل الكل</value>
+  </data>
+  <data name="Export as PDF" xml:space="preserve">
+    <value>تصدير كملف PDF</value>
+  </data>
+  <data name="Document Name" xml:space="preserve">
+    <value>اسم المستند</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>إجراء</value>
+  </data>
+  <data name="Uploaded" xml:space="preserve">
+    <value>تم الرفع</value>
+  </data>
+  <data name="Not uploaded" xml:space="preserve">
+    <value>غير مرفوع</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>تنزيل</value>
+  </data>
+  <data name="Double-sided ID card" xml:space="preserve">
+    <value>بطاقة الهوية (وجهان)</value>
+  </data>
+  <data name="Both sides of the tanker application form" xml:space="preserve">
+    <value>استمارة طلب الصهريج (الجانبان)</value>
+  </data>
+  <data name="IBAN certificate from bank" xml:space="preserve">
+    <value>شهادة رقم الآيبان من البنك</value>
+  </data>
+  <data name="Tank capacity certificate" xml:space="preserve">
+    <value>شهادة سعة الصهريج</value>
+  </data>
+  <data name="Dumping landfill (works)" xml:space="preserve">
+    <value>مكب التفريغ (الأعمال)</value>
+  </data>
+  <data name="Signed registration form" xml:space="preserve">
+    <value>استمارة التسجيل الموقعة</value>
+  </data>
+  <data name="Release form" xml:space="preserve">
+    <value>نموذج الإفراج</value>
+  </data>
+  <data name="Trailer registration form" xml:space="preserve">
+    <value>استمارة تسجيل المقطورة</value>
+  </data>
+  <data name="Traffic department certificate" xml:space="preserve">
+    <value>شهادة المرور</value>
+  </data>
+  <data name="IBAN certificate" xml:space="preserve">
+    <value>شهادة رقم الآيبان</value>
+  </data>
+</root>
