@@ -1,0 +1,805 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\obj\\Release\\net8.0\\scopedcss\\projectbundle\\MT.bundle.scp.css",
+      "PackagePath": "staticwebassets\\MT.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\css\\login.css",
+      "PackagePath": "staticwebassets\\css\\login.css"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\css\\style.css",
+      "PackagePath": "staticwebassets\\css\\style.css"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\css\\theme.css",
+      "PackagePath": "staticwebassets\\css\\theme.css"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\doc\\mto-file.pdf",
+      "PackagePath": "staticwebassets\\doc\\mto-file.pdf"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\img\\111.png",
+      "PackagePath": "staticwebassets\\img\\111.png"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\img\\Construction-truck-pana-1.png",
+      "PackagePath": "staticwebassets\\img\\Construction-truck-pana-1.png"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\img\\Construction-truck-pana-2.png",
+      "PackagePath": "staticwebassets\\img\\Construction-truck-pana-2.png"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\img\\desktop.ini",
+      "PackagePath": "staticwebassets\\img\\desktop.ini"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\img\\logo.png",
+      "PackagePath": "staticwebassets\\img\\logo.png"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\img\\tank_s1.png",
+      "PackagePath": "staticwebassets\\img\\tank_s1.png"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\img\\testimonial-1.jpg",
+      "PackagePath": "staticwebassets\\img\\testimonial-1.jpg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\img\\testimonial-2.jpg",
+      "PackagePath": "staticwebassets\\img\\testimonial-2.jpg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\img\\truck_1.png",
+      "PackagePath": "staticwebassets\\img\\truck_1.png"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\img\\truck_s2.png",
+      "PackagePath": "staticwebassets\\img\\truck_s2.png"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\img\\user-new.jpg",
+      "PackagePath": "staticwebassets\\img\\user-new.jpg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\js\\main.js",
+      "PackagePath": "staticwebassets\\js\\main.js"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\lib\\chart\\chart.min.js",
+      "PackagePath": "staticwebassets\\lib\\chart\\chart.min.js"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\lib\\easing\\easing.js",
+      "PackagePath": "staticwebassets\\lib\\easing\\easing.js"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\lib\\easing\\easing.min.js",
+      "PackagePath": "staticwebassets\\lib\\easing\\easing.min.js"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\lib\\owlcarousel\\LICENSE",
+      "PackagePath": "staticwebassets\\lib\\owlcarousel"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\lib\\owlcarousel\\assets\\ajax-loader.gif",
+      "PackagePath": "staticwebassets\\lib\\owlcarousel\\assets\\ajax-loader.gif"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\lib\\owlcarousel\\assets\\owl.carousel.css",
+      "PackagePath": "staticwebassets\\lib\\owlcarousel\\assets\\owl.carousel.css"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\lib\\owlcarousel\\assets\\owl.carousel.min.css",
+      "PackagePath": "staticwebassets\\lib\\owlcarousel\\assets\\owl.carousel.min.css"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\lib\\owlcarousel\\assets\\owl.theme.default.css",
+      "PackagePath": "staticwebassets\\lib\\owlcarousel\\assets\\owl.theme.default.css"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\lib\\owlcarousel\\assets\\owl.theme.default.min.css",
+      "PackagePath": "staticwebassets\\lib\\owlcarousel\\assets\\owl.theme.default.min.css"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\lib\\owlcarousel\\assets\\owl.theme.green.css",
+      "PackagePath": "staticwebassets\\lib\\owlcarousel\\assets\\owl.theme.green.css"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\lib\\owlcarousel\\assets\\owl.theme.green.min.css",
+      "PackagePath": "staticwebassets\\lib\\owlcarousel\\assets\\owl.theme.green.min.css"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\lib\\owlcarousel\\assets\\owl.video.play.png",
+      "PackagePath": "staticwebassets\\lib\\owlcarousel\\assets\\owl.video.play.png"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\lib\\owlcarousel\\owl.carousel.js",
+      "PackagePath": "staticwebassets\\lib\\owlcarousel\\owl.carousel.js"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\lib\\owlcarousel\\owl.carousel.min.js",
+      "PackagePath": "staticwebassets\\lib\\owlcarousel\\owl.carousel.min.js"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\lib\\tempusdominus\\css\\tempusdominus-bootstrap-4.css",
+      "PackagePath": "staticwebassets\\lib\\tempusdominus\\css\\tempusdominus-bootstrap-4.css"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\lib\\tempusdominus\\css\\tempusdominus-bootstrap-4.min.css",
+      "PackagePath": "staticwebassets\\lib\\tempusdominus\\css\\tempusdominus-bootstrap-4.min.css"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\lib\\tempusdominus\\js\\moment-timezone.min.js",
+      "PackagePath": "staticwebassets\\lib\\tempusdominus\\js\\moment-timezone.min.js"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\lib\\tempusdominus\\js\\moment.min.js",
+      "PackagePath": "staticwebassets\\lib\\tempusdominus\\js\\moment.min.js"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\lib\\tempusdominus\\js\\tempusdominus-bootstrap-4.js",
+      "PackagePath": "staticwebassets\\lib\\tempusdominus\\js\\tempusdominus-bootstrap-4.js"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\lib\\tempusdominus\\js\\tempusdominus-bootstrap-4.min.js",
+      "PackagePath": "staticwebassets\\lib\\tempusdominus\\js\\tempusdominus-bootstrap-4.min.js"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\lib\\waypoints\\links.php",
+      "PackagePath": "staticwebassets\\lib\\waypoints\\links.php"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\lib\\waypoints\\waypoints.min.js",
+      "PackagePath": "staticwebassets\\lib\\waypoints\\waypoints.min.js"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\_accordion.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\_accordion.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\_alert.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\_alert.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\_badge.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\_badge.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\_breadcrumb.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\_breadcrumb.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\_button-group.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\_button-group.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\_buttons.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\_buttons.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\_card.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\_card.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\_carousel.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\_carousel.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\_close.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\_close.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\_containers.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\_containers.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\_dropdown.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\_dropdown.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\_forms.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\_forms.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\_functions.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\_functions.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\_grid.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\_grid.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\_helpers.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\_helpers.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\_images.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\_images.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\_list-group.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\_list-group.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\_mixins.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\_mixins.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\_modal.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\_modal.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\_nav.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\_nav.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\_navbar.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\_navbar.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\_offcanvas.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\_offcanvas.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\_pagination.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\_pagination.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\_popover.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\_popover.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\_progress.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\_progress.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\_reboot.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\_reboot.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\_root.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\_root.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\_spinners.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\_spinners.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\_tables.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\_tables.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\_toasts.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\_toasts.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\_tooltip.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\_tooltip.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\_transitions.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\_transitions.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\_type.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\_type.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\_utilities.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\_utilities.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\_variables.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\_variables.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\bootstrap-grid.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\bootstrap-grid.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\bootstrap-reboot.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\bootstrap-reboot.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\bootstrap-utilities.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\bootstrap-utilities.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\bootstrap.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\bootstrap.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\forms\\_floating-labels.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\forms\\_floating-labels.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\forms\\_form-check.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\forms\\_form-check.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\forms\\_form-control.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\forms\\_form-control.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\forms\\_form-range.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\forms\\_form-range.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\forms\\_form-select.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\forms\\_form-select.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\forms\\_form-text.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\forms\\_form-text.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\forms\\_input-group.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\forms\\_input-group.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\forms\\_labels.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\forms\\_labels.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\forms\\_validation.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\forms\\_validation.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\helpers\\_clearfix.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\helpers\\_clearfix.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\helpers\\_colored-links.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\helpers\\_colored-links.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\helpers\\_position.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\helpers\\_position.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\helpers\\_ratio.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\helpers\\_ratio.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\helpers\\_stretched-link.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\helpers\\_stretched-link.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\helpers\\_text-truncation.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\helpers\\_text-truncation.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\helpers\\_visually-hidden.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\helpers\\_visually-hidden.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\mixins\\_alert.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\mixins\\_alert.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\mixins\\_border-radius.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\mixins\\_border-radius.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\mixins\\_box-shadow.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\mixins\\_box-shadow.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\mixins\\_breakpoints.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\mixins\\_breakpoints.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\mixins\\_buttons.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\mixins\\_buttons.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\mixins\\_caret.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\mixins\\_caret.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\mixins\\_clearfix.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\mixins\\_clearfix.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\mixins\\_color-scheme.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\mixins\\_color-scheme.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\mixins\\_container.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\mixins\\_container.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\mixins\\_deprecate.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\mixins\\_deprecate.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\mixins\\_forms.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\mixins\\_forms.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\mixins\\_gradients.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\mixins\\_gradients.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\mixins\\_grid.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\mixins\\_grid.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\mixins\\_image.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\mixins\\_image.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\mixins\\_list-group.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\mixins\\_list-group.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\mixins\\_lists.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\mixins\\_lists.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\mixins\\_pagination.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\mixins\\_pagination.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\mixins\\_reset-text.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\mixins\\_reset-text.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\mixins\\_resize.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\mixins\\_resize.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\mixins\\_table-variants.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\mixins\\_table-variants.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\mixins\\_text-truncate.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\mixins\\_text-truncate.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\mixins\\_transition.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\mixins\\_transition.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\mixins\\_utilities.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\mixins\\_utilities.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\mixins\\_visually-hidden.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\mixins\\_visually-hidden.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\utilities\\_api.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\utilities\\_api.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\scss\\bootstrap\\scss\\vendor\\_rfs.scss",
+      "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\vendor\\_rfs.scss"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\05f6d7953ee0457a91532e5f2c0be9e4.pdf",
+      "PackagePath": "staticwebassets\\uploads\\05f6d7953ee0457a91532e5f2c0be9e4.pdf"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\17a25379df48412b9b9c53aaf0cf549e.docx",
+      "PackagePath": "staticwebassets\\uploads\\17a25379df48412b9b9c53aaf0cf549e.docx"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\19c699ad34294feb9274637d33e38b19.pdf",
+      "PackagePath": "staticwebassets\\uploads\\19c699ad34294feb9274637d33e38b19.pdf"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\1df50d0dcd6440508261d8ce14818c19.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\1df50d0dcd6440508261d8ce14818c19.jpeg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\1e03047f8e24433b877d3e8867e78f9e.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\1e03047f8e24433b877d3e8867e78f9e.jpeg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\254ad8b003cf4dd6ac3a96a086b08f1d.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\254ad8b003cf4dd6ac3a96a086b08f1d.jpeg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\32b8963b5abe4c8a9a7542e9e0b4dda2.jpg",
+      "PackagePath": "staticwebassets\\uploads\\32b8963b5abe4c8a9a7542e9e0b4dda2.jpg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\40923770f2d94d469c9403aec8c001a0.docx",
+      "PackagePath": "staticwebassets\\uploads\\40923770f2d94d469c9403aec8c001a0.docx"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\5764858898824330ab527abfe951e012.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\5764858898824330ab527abfe951e012.jpeg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\577fadc0245b413a963b6ed6b068408c.jpg",
+      "PackagePath": "staticwebassets\\uploads\\577fadc0245b413a963b6ed6b068408c.jpg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\8184476d58624e4c923f834fc0be2d10.pdf",
+      "PackagePath": "staticwebassets\\uploads\\8184476d58624e4c923f834fc0be2d10.pdf"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\9bbeb765bd3a41c18fd902698d70d9e0.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\9bbeb765bd3a41c18fd902698d70d9e0.jpeg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\9fcba8a5c81f448ca02b5f045e251224.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\9fcba8a5c81f448ca02b5f045e251224.jpeg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\a8987c2183a343bb97741aa1e5cba9e3.pdf",
+      "PackagePath": "staticwebassets\\uploads\\a8987c2183a343bb97741aa1e5cba9e3.pdf"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\afc3091edcfd43d3ae909614510eb733.pdf",
+      "PackagePath": "staticwebassets\\uploads\\afc3091edcfd43d3ae909614510eb733.pdf"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\ba6afba004284dc5860cead4e39d8f9b.pdf",
+      "PackagePath": "staticwebassets\\uploads\\ba6afba004284dc5860cead4e39d8f9b.pdf"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\becc3f899bce463d9e963f2dbe120d40.pdf",
+      "PackagePath": "staticwebassets\\uploads\\becc3f899bce463d9e963f2dbe120d40.pdf"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\d1fbb82bdaca414095b978ee75634888.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\d1fbb82bdaca414095b978ee75634888.jpeg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\e20a56b10358409b8411bc77205c22a6.jpg",
+      "PackagePath": "staticwebassets\\uploads\\e20a56b10358409b8411bc77205c22a6.jpg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\ee4c606790aa4236bbf2e60b3abb78df.pdf",
+      "PackagePath": "staticwebassets\\uploads\\ee4c606790aa4236bbf2e60b3abb78df.pdf"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\f0d719b714c2478b841b1689fd42e574.png",
+      "PackagePath": "staticwebassets\\uploads\\f0d719b714c2478b841b1689fd42e574.png"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\tank\\20251008060502218_ca27a3bb1abe4766a6f34fc0e3bb7702.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\tank\\20251008060502218_ca27a3bb1abe4766a6f34fc0e3bb7702.jpeg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\tank\\20251008060502483_c898313936834e6faf0985c863eb1d44.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\tank\\20251008060502483_c898313936834e6faf0985c863eb1d44.jpeg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\tank\\20251008060503234_f79a5c5a829b4ec7bd0222acfac21822.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\tank\\20251008060503234_f79a5c5a829b4ec7bd0222acfac21822.jpeg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\tank\\20251008060503919_d82c4cc9f724498cb09c092fa2df8fb3.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\tank\\20251008060503919_d82c4cc9f724498cb09c092fa2df8fb3.jpeg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\tank\\20251008060504517_7733f396a5ce4be0af85cb62e6cf338d.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\tank\\20251008060504517_7733f396a5ce4be0af85cb62e6cf338d.jpeg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\tank\\20251008060505020_926b2440ff0e430e89c4792c4d88e032.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\tank\\20251008060505020_926b2440ff0e430e89c4792c4d88e032.jpeg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\tank\\20251008060505464_814215d01e74494bbc67e2931882a2ea.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\tank\\20251008060505464_814215d01e74494bbc67e2931882a2ea.jpeg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\tank\\20251008081043381_9246da63c19443a384df83605ced3871.jpg",
+      "PackagePath": "staticwebassets\\uploads\\tank\\20251008081043381_9246da63c19443a384df83605ced3871.jpg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\tank\\20251008081043395_fef35da473b4443f91333a5361649034.jpg",
+      "PackagePath": "staticwebassets\\uploads\\tank\\20251008081043395_fef35da473b4443f91333a5361649034.jpg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\tank\\20251008081043401_7585c472cc9a45748991ef11735dac78.jpg",
+      "PackagePath": "staticwebassets\\uploads\\tank\\20251008081043401_7585c472cc9a45748991ef11735dac78.jpg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\tank\\20251008081043413_159ccc50d9bf4e43afd3295a1e2135ac.jpg",
+      "PackagePath": "staticwebassets\\uploads\\tank\\20251008081043413_159ccc50d9bf4e43afd3295a1e2135ac.jpg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\tank\\20251008081043422_9fd6eb2a7f1c4f29b6e74993ca206db6.jpg",
+      "PackagePath": "staticwebassets\\uploads\\tank\\20251008081043422_9fd6eb2a7f1c4f29b6e74993ca206db6.jpg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\tank\\20251008081043438_9f0db59391e548268aab5e3975deb18b.jpg",
+      "PackagePath": "staticwebassets\\uploads\\tank\\20251008081043438_9f0db59391e548268aab5e3975deb18b.jpg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\tank\\20251008081043452_b3a3eb939b1d46d3badcb9e264058da6.jpg",
+      "PackagePath": "staticwebassets\\uploads\\tank\\20251008081043452_b3a3eb939b1d46d3badcb9e264058da6.jpg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\tank\\20251017082920025_7ec55c6236ec43008a49318cf8675c80.png",
+      "PackagePath": "staticwebassets\\uploads\\tank\\20251017082920025_7ec55c6236ec43008a49318cf8675c80.png"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\tank\\20251017082920314_3459355a3b0541ddad57b1ca95e8e013.png",
+      "PackagePath": "staticwebassets\\uploads\\tank\\20251017082920314_3459355a3b0541ddad57b1ca95e8e013.png"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\tank\\20251017082920799_4173ce5869a740909eb80f8007554d96.png",
+      "PackagePath": "staticwebassets\\uploads\\tank\\20251017082920799_4173ce5869a740909eb80f8007554d96.png"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\tank\\20251017082921374_7e07080205854800b16b089b5dad7c77.png",
+      "PackagePath": "staticwebassets\\uploads\\tank\\20251017082921374_7e07080205854800b16b089b5dad7c77.png"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\tank\\20251017082921768_415d8c3901a1424d95673f3b09ed567d.png",
+      "PackagePath": "staticwebassets\\uploads\\tank\\20251017082921768_415d8c3901a1424d95673f3b09ed567d.png"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\tank\\20251017082922330_dcc55c5526e54642bf3d9add5d3d9964.png",
+      "PackagePath": "staticwebassets\\uploads\\tank\\20251017082922330_dcc55c5526e54642bf3d9add5d3d9964.png"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\tank\\20251017082922996_d8d860f3f3c347628cd776e851f914aa.png",
+      "PackagePath": "staticwebassets\\uploads\\tank\\20251017082922996_d8d860f3f3c347628cd776e851f914aa.png"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\truck\\20251008094906668_3b86ea268f0543d98c38b22707d0421e.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\truck\\20251008094906668_3b86ea268f0543d98c38b22707d0421e.jpeg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\truck\\20251008094907058_91013871012f4a10b4232975c368d1b9.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\truck\\20251008094907058_91013871012f4a10b4232975c368d1b9.jpeg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\truck\\20251008094907354_35cd339ddb1e48dbaefefee468a5a6c3.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\truck\\20251008094907354_35cd339ddb1e48dbaefefee468a5a6c3.jpeg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\truck\\20251008094907930_a892dab5a56c4ba880696f49105cc950.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\truck\\20251008094907930_a892dab5a56c4ba880696f49105cc950.jpeg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\truck\\20251008094908528_51bb4907bf354a77a05ab930c9c33313.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\truck\\20251008094908528_51bb4907bf354a77a05ab930c9c33313.jpeg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\truck\\20251008094909937_e44e2a9763204fd98952b8ef592aa892.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\truck\\20251008094909937_e44e2a9763204fd98952b8ef592aa892.jpeg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\truck\\20251008100615467_013fdcf1d83a447493c53819b358af40.jpg",
+      "PackagePath": "staticwebassets\\uploads\\truck\\20251008100615467_013fdcf1d83a447493c53819b358af40.jpg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\truck\\20251008100615478_fa4698477d4d44b79dedb4fb1c7d6d7e.jpg",
+      "PackagePath": "staticwebassets\\uploads\\truck\\20251008100615478_fa4698477d4d44b79dedb4fb1c7d6d7e.jpg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\truck\\20251008100615486_d2087ec2d59a4627a34665af4dff4c7c.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\truck\\20251008100615486_d2087ec2d59a4627a34665af4dff4c7c.jpeg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\truck\\20251008100615500_ef327547fe654232baea06f8d08cdaad.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\truck\\20251008100615500_ef327547fe654232baea06f8d08cdaad.jpeg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\truck\\20251008100615517_2c1bf082240d46669c61bcfab2296902.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\truck\\20251008100615517_2c1bf082240d46669c61bcfab2296902.jpeg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\truck\\20251008100615533_c0933590a19445aa8247ce6c09e91f76.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\truck\\20251008100615533_c0933590a19445aa8247ce6c09e91f76.jpeg"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\truck\\20251017082415028_7084a20b28604025879b7b7a0c3755d3.png",
+      "PackagePath": "staticwebassets\\uploads\\truck\\20251017082415028_7084a20b28604025879b7b7a0c3755d3.png"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\truck\\20251017082415076_0de8c72dc7064272a56ec31faf891bdf.png",
+      "PackagePath": "staticwebassets\\uploads\\truck\\20251017082415076_0de8c72dc7064272a56ec31faf891bdf.png"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\truck\\20251017082415094_5124b26c9dd748738d1f73ea3f7e5d9b.png",
+      "PackagePath": "staticwebassets\\uploads\\truck\\20251017082415094_5124b26c9dd748738d1f73ea3f7e5d9b.png"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\truck\\20251017082415137_5a6203f5d0f94a04a9cf9e80a88ccd2f.png",
+      "PackagePath": "staticwebassets\\uploads\\truck\\20251017082415137_5a6203f5d0f94a04a9cf9e80a88ccd2f.png"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\truck\\20251017082415150_30f0929dbf7943469b1fb55e941c8300.png",
+      "PackagePath": "staticwebassets\\uploads\\truck\\20251017082415150_30f0929dbf7943469b1fb55e941c8300.png"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\truck\\20251017082415165_1a9be9a0dc0a45a6a597192f17eae3e0.png",
+      "PackagePath": "staticwebassets\\uploads\\truck\\20251017082415165_1a9be9a0dc0a45a6a597192f17eae3e0.png"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\truck\\20251017084509281_1e2ca5ae5d8c45e5ab20904c75dcd8c2.png",
+      "PackagePath": "staticwebassets\\uploads\\truck\\20251017084509281_1e2ca5ae5d8c45e5ab20904c75dcd8c2.png"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\truck\\20251017084509821_f68ebfff0adb46968b800680ed4dca5f.png",
+      "PackagePath": "staticwebassets\\uploads\\truck\\20251017084509821_f68ebfff0adb46968b800680ed4dca5f.png"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\truck\\20251017084510281_9d60916f422742a8ad15c5621bd1271b.png",
+      "PackagePath": "staticwebassets\\uploads\\truck\\20251017084510281_9d60916f422742a8ad15c5621bd1271b.png"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\truck\\20251017084510858_c292d811a6fa4dd7b11385fe7ffa0f98.png",
+      "PackagePath": "staticwebassets\\uploads\\truck\\20251017084510858_c292d811a6fa4dd7b11385fe7ffa0f98.png"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\truck\\20251017084511532_47b0a5d5f6434e3ba950d515bf967288.png",
+      "PackagePath": "staticwebassets\\uploads\\truck\\20251017084511532_47b0a5d5f6434e3ba950d515bf967288.png"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\truck\\20251017084511995_71ce5a1c0d524e35bcf39913787dd6bb.png",
+      "PackagePath": "staticwebassets\\uploads\\truck\\20251017084511995_71ce5a1c0d524e35bcf39913787dd6bb.png"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\truck\\20251017092132583_9550b13d779f4019ac42bb2a2db94047.png",
+      "PackagePath": "staticwebassets\\uploads\\truck\\20251017092132583_9550b13d779f4019ac42bb2a2db94047.png"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\truck\\20251017092132591_e6f12a5a9a45406bb3a49403759a0e80.png",
+      "PackagePath": "staticwebassets\\uploads\\truck\\20251017092132591_e6f12a5a9a45406bb3a49403759a0e80.png"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\truck\\20251017092132601_7f12bc1562c1453b82f8af29ea7dd100.png",
+      "PackagePath": "staticwebassets\\uploads\\truck\\20251017092132601_7f12bc1562c1453b82f8af29ea7dd100.png"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\truck\\20251017092132610_27fcb680094b467dbfbf914b290f7062.png",
+      "PackagePath": "staticwebassets\\uploads\\truck\\20251017092132610_27fcb680094b467dbfbf914b290f7062.png"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\truck\\20251017092132619_8d835e09dd0b4af98e9969ccc623b48c.png",
+      "PackagePath": "staticwebassets\\uploads\\truck\\20251017092132619_8d835e09dd0b4af98e9969ccc623b48c.png"
+    },
+    {
+      "Id": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\uploads\\truck\\20251017092132628_b78c152d29254eb8933cb7d0d0ed77f7.png",
+      "PackagePath": "staticwebassets\\uploads\\truck\\20251017092132628_b78c152d29254eb8933cb7d0d0ed77f7.png"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.MT.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.build.MT.props",
+      "PackagePath": "build\\MT.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.MT.props",
+      "PackagePath": "buildMultiTargeting\\MT.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.buildTransitive.MT.props",
+      "PackagePath": "buildTransitive\\MT.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

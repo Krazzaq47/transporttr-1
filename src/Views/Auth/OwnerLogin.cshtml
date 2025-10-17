@@ -1,0 +1,209 @@
+﻿@{
+    Layout = null;
+    var lang = (Context.Request?.Query["lang"].ToString() == "ar") ? "ar" : "en";
+    string T(string en, string ar) => lang == "ar" ? ar : en;
+
+    ViewData["Title"] = T("Owner Login (OTP)", "تسجيل دخول المالك");
+    var toggleTo = lang == "ar" ? "en" : "ar";
+    var toggleLbl = lang == "ar" ? "English" : "العربية";
+    var toggleUrl = (Context.Request?.Path ?? "/") + "?lang=" + toggleTo;
+    var isRTL = lang == "ar";
+}
+
+<!doctype html>
+<html lang="@lang" dir="@(isRTL ? "rtl" : "ltr")">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>@ViewData["Title"]</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <style>
+        :root {
+            --maroon: #7C1D3A;
+            --maroon-dark: #5f142b;
+            --border: #eed7de;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+            background-color: var(--white);
+            color: #222;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 420px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,.08);
+            position: relative;
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        h3 {
+            color: var(--maroon);
+            font-weight: 700;
+        }
+
+        label {
+            color: var(--maroon);
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background: var(--maroon);
+            border-color: var(--maroon);
+            font-weight: 600;
+        }
+
+            .btn-primary:hover {
+                background: var(--maroon-dark);
+                border-color: var(--maroon-dark);
+            }
+
+        .form-control {
+            text-align: @(isRTL ? "right" : "left");
+            direction: @(isRTL ? "rtl" : "ltr");
+        }
+
+            .form-control:focus {
+                border-color: var(--maroon);
+                box-shadow: 0 0 0 .2rem rgba(124,29,58,.25);
+            }
+
+        .lang-switch {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        [dir="rtl"] .lang-switch {
+            right: auto;
+            left: 10px;
+        }
+
+        .lang-switch .btn {
+            font-size: .8rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            color: var(--maroon);
+            border-color: var(--maroon);
+        }
+
+            .lang-switch .btn:hover {
+                background: var(--maroon);
+                color: #fff;
+            }
+
+        .footer-text {
+            color: #777;
+            text-align: center;
+            font-size: .9rem;
+            position: absolute;
+            bottom: 15px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <!-- Language Toggle -->
+        <div class="lang-switch">
+            <a href="@toggleUrl" class="btn btn-outline-primary btn-sm">@toggleLbl</a>
+        </div>
+
+        <div class="card-body">
+            <h3 class="mb-3 text-center">@T("Owner Login", "تسجيل دخول المالك")</h3>
+            <p class="text-muted text-center">
+                @T("Login with your phone number. We will send you a one-time code.",
+                         "سجّل الدخول برقم هاتفك. سنرسل إليك رمز تحقق لمرة واحدة.")
+            </p>
+
+            @if (TempData["err"] != null)
+            {
+                <div class="alert alert-danger">@TempData["err"]</div>
+            }
+            @if (TempData["ok"] != null)
+            {
+                <div class="alert alert-success">@TempData["ok"]</div>
+            }
+
+            <form id="ownerLoginForm" method="post" action="@Url.Action("OwnerLoginPost","Auth")">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="lang" value="@lang" />
+
+                <div class="mb-3">
+                    <label for="ownerPhone" class="form-label">@T("Phone number", "رقم الهاتف")</label>
+                    <input type="text" class="form-control" id="ownerPhone" name="phone"
+                           placeholder="(974)-5517-0700" inputmode="numeric"
+                           style="text-align:@(isRTL ? "right" : "left"); direction:@(isRTL ? "rtl" : "ltr");"
+                           required />
+                    <div class="form-text">
+                        @T("Format: (974)-####-####. Will be submitted as 974########.",
+                                 "الصيغة: ‎(974)-####-####‎. سيتم الإرسال كـ ‎974########‎.")
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">@T("Send OTP", "إرسال رمز التحقق")</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="footer-text">
+        © @DateTime.Now.Year Transport Office
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        (function () {
+            function digitsOnly(s) { return (s || '').replace(/\D/g, ''); }
+
+            // For display: (974)-####-####
+            function formatQatar(d) {
+                d = digitsOnly(d);
+                if (d.startsWith('974')) d = d.substring(3);
+                d = d.substring(0, 8);
+                var p1 = d.substring(0, 4), p2 = d.substring(4, 8);
+                var out = '(974)';
+                if (p1) out += '-' + p1;
+                if (p2) out += '-' + p2;
+                return out;
+            }
+
+            // For submission: 974########
+            function normalizeQatar(d) {
+                d = digitsOnly(d);
+                if (d.startsWith('974')) d = d.substring(0, 11);
+                else d = ('974' + d).substring(0, 11);
+                return d;
+            }
+
+            var el = document.getElementById('ownerPhone');
+            if (el) {
+                el.addEventListener('input', function () { el.value = formatQatar(el.value); });
+                el.value = formatQatar(el.value);
+            }
+
+            var form = document.getElementById('ownerLoginForm');
+            if (form) {
+                form.addEventListener('submit', function () {
+                    if (el) el.value = normalizeQatar(el.value);
+                });
+            }
+        })();
+    </script>
+</body>
+</html>

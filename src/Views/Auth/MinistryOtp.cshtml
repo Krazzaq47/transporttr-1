@@ -1,0 +1,190 @@
+﻿@{
+    Layout = null;
+    var lang = (Context.Request?.Query["lang"].ToString() == "ar") ? "ar" : "en";
+    string T(string en, string ar) => lang == "ar" ? ar : en;
+
+    ViewData["Title"] = T("Ministry OTP", "رمز التحقق للوزارة");
+
+    var toggleTo = lang == "ar" ? "en" : "ar";
+    var toggleLabel = lang == "ar" ? "English" : "العربية";
+    var toggleUrl = (Context.Request?.Path ?? "/") + "?lang=" + toggleTo;
+    var isRTL = lang == "ar";
+}
+
+<!doctype html>
+<html lang="@lang" dir="@(isRTL ? "rtl" : "ltr")">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>@ViewData["Title"]</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <style>
+        :root {
+            --maroon: #7C1D3A;
+            --maroon-dark: #5f142b;
+            --border: #eed7de;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+            background-color: var(--white);
+            color: #222;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 420px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,.08);
+            position: relative;
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        h3 {
+            color: var(--maroon);
+            font-weight: 700;
+        }
+
+        label {
+            color: var(--maroon);
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background: var(--maroon);
+            border-color: var(--maroon);
+            font-weight: 600;
+        }
+
+            .btn-primary:hover {
+                background: var(--maroon-dark);
+                border-color: var(--maroon-dark);
+            }
+
+        .form-control {
+            text-align: @(isRTL ? "right" : "left");
+            direction: @(isRTL ? "rtl" : "ltr");
+        }
+
+            .form-control:focus {
+                border-color: var(--maroon);
+                box-shadow: 0 0 0 .2rem rgba(124,29,58,.25);
+            }
+
+        .lang-switch {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        [dir="rtl"] .lang-switch {
+            right: auto;
+            left: 10px;
+        }
+
+        .lang-switch .btn {
+            font-size: .8rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            color: var(--maroon);
+            border-color: var(--maroon);
+        }
+
+            .lang-switch .btn:hover {
+                background: var(--maroon);
+                color: #fff;
+            }
+
+        .footer-text {
+            color: #777;
+            text-align: center;
+            font-size: .9rem;
+            position: absolute;
+            bottom: 15px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <!-- Language Toggle -->
+        <div class="lang-switch">
+            <a href="@toggleUrl" class="btn btn-outline-primary btn-sm">@toggleLabel</a>
+        </div>
+
+        <div class="card-body">
+            <h3 class="mb-3 text-center">@T("Enter OTP", "أدخل رمز التحقق")</h3>
+            <p class="text-muted text-center">
+                @T("Enter the 6-digit code sent to your phone. In development, use ", "أدخل الرمز المكوّن من 6 أرقام المُرسل إلى هاتفك. لأغراض التطوير استخدم ")
+                <strong>123456</strong>.
+            </p>
+
+            @if (TempData["err"] != null)
+            {
+                <div class="alert alert-danger">@TempData["err"]</div>
+            }
+            @if (TempData["ok"] != null)
+            {
+                <div class="alert alert-success">@TempData["ok"]</div>
+            }
+
+            <form method="post" action="@Url.Action("MinistryOtpPost","Auth")" class="mb-3">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="lang" value="@lang" />
+
+                <div class="mb-3">
+                    <label for="code" class="form-label">@T("OTP Code", "رمز التحقق")</label>
+                    <input type="text" class="form-control" id="code" name="code"
+                           placeholder="123456" maxlength="6" inputmode="numeric" pattern="^\d{6}$" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">
+                    @T("Login", "تسجيل الدخول")
+                </button>
+            </form>
+
+            <form method="post" action="@Url.Action("MinistryResend","Auth")" class="text-center">
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-link" style="color:#7C1D3A; text-decoration:none; font-weight:500;">
+                    @T("Resend OTP", "إعادة إرسال الرمز")
+                </button>
+            </form>
+
+            <small class="text-muted d-block text-center">
+                @T("OTP expires in 5 minutes.", "ينتهي الرمز خلال 5 دقائق.")
+            </small>
+        </div>
+    </div>
+
+    <div class="footer-text">
+        © @DateTime.Now.Year Transport Office
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        (function () {
+            function digitsOnly(s) { return (s || '').replace(/\D/g, ''); }
+            function normalizeCode(v) { return digitsOnly(v).substring(0, 6); }
+
+            var code = document.getElementById('code');
+            code.addEventListener('input', function () {
+                code.value = normalizeCode(code.value);
+            });
+        })();
+    </script>
+</body>
+</html>

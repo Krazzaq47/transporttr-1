@@ -10,32 +10,35 @@
         <div class="row g-3">
             <div class="col-md-6">
                 <label asp-for="Name" class="form-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <input asp-for="Name" class="form-control" required />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="col-md-6">
                 <label asp-for="Email" class="form-label"></label>
-                <input asp-for="Email" class="form-control" type="email" />
+                <input asp-for="Email" class="form-control" type="email" id="emailInput" />
+                <div class="form-text" id="emailHelp"></div>
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="col-md-6">
                 <label asp-for="Phone" class="form-label"></label>
-                <input asp-for="Phone" class="form-control" type="tel" />
+                <input asp-for="Phone" class="form-control" type="tel" id="phoneInput" placeholder="974########" />
+                <div class="form-text" id="phoneHelp"></div>
                 <span asp-validation-for="Phone" class="text-danger"></span>
             </div>
             <div class="col-md-6">
                 <label asp-for="QID" class="form-label"></label>
-                <input asp-for="QID" class="form-control" />
+                <input asp-for="QID" class="form-control" id="qidInput" maxlength="11" pattern="^\d{11}$" inputmode="numeric" />
+                <div class="form-text" id="qidHelp"></div>
                 <span asp-validation-for="QID" class="text-danger"></span>
             </div>
             <div class="col-md-6">
                 <label asp-for="Username" class="form-label"></label>
-                <input asp-for="Username" class="form-control" />
+                <input asp-for="Username" class="form-control" required minlength="3" />
                 <span asp-validation-for="Username" class="text-danger"></span>
             </div>
             <div class="col-md-6">
                 <label asp-for="Password" class="form-label"></label>
-                <input asp-for="Password" class="form-control" type="password" autocomplete="new-password" />
+                <input asp-for="Password" class="form-control" type="password" autocomplete="new-password" required minlength="6" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="col-md-6">
@@ -53,5 +56,125 @@
             <a class="btn btn-secondary" href="/SuperAdminUsers">Cancel</a>
         </div>
     </form>
-</div>
-@section Scripts{ @await Html.PartialAsync("_ValidationScriptsPartial") }
+ </div>
+@section Scripts{
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script>
+      (function(){
+        function digitsOnly(s){ return (s||'').replace(/\D/g,''); }
+        function normalizePhone(v){
+          let d = digitsOnly(v);
+          if (d.startsWith('974')){
+            d = d.substring(0, 11); // 974 + 8 digits = 11 total
+          } else {
+            d = '974' + d; // ensure prefix
+            d = d.substring(0, 11);
+          }
+          return d;
+        }
+        var el = document.getElementById('phoneInput');
+        var phoneHelp = document.getElementById('phoneHelp');
+        var phoneTimer;
+        function checkPhone(){
+          var v = normalizePhone(el.value);
+          el.value = v;
+          if (v.length !== 11){
+            phoneHelp.textContent = 'Phone must be 11 digits (974########).';
+            phoneHelp.className = 'form-text text-muted';
+            return;
+          }
+          fetch('/SuperAdminUsers/CheckPhone?phone=' + encodeURIComponent(v))
+            .then(r=>r.json())
+            .then(data=>{
+              if (data.ok){
+                phoneHelp.textContent = 'Phone is available';
+                phoneHelp.className = 'form-text text-success';
+              } else {
+                phoneHelp.textContent = 'Phone already exists';
+                phoneHelp.className = 'form-text text-danger';
+              }
+            }).catch(()=>{ phoneHelp.textContent=''; });
+        }
+        if (el){
+          el.addEventListener('input', function(){
+            clearTimeout(phoneTimer);
+            phoneTimer = setTimeout(checkPhone, 250);
+          });
+          // initialize
+          el.value = normalizePhone(el.value);
+          checkPhone();
+        }
+
+        // Email uniqueness check
+        var email = document.getElementById('emailInput');
+        var emailHelp = document.getElementById('emailHelp');
+        var debounceEmail;
+        function isValidEmail(v){
+          // basic email regex
+          return /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/.test(v);
+        }
+        function checkEmail(){
+          var v = (email.value||'').trim();
+          if (!v){ emailHelp.textContent = ''; return; }
+          if (!isValidEmail(v)){
+            emailHelp.textContent = 'Invalid email format';
+            emailHelp.className = 'form-text text-danger';
+            return;
+          }
+          fetch('/SuperAdminUsers/CheckEmail?email=' + encodeURIComponent(v))
+            .then(r=>r.json())
+            .then(data=>{
+              if (data.ok){
+                emailHelp.textContent = 'Email is available';
+                emailHelp.className = 'form-text text-success';
+              } else {
+                emailHelp.textContent = 'Email already exists';
+                emailHelp.className = 'form-text text-danger';
+              }
+            }).catch(()=>{ emailHelp.textContent='';});
+        }
+        if (email){
+          email.addEventListener('input', function(){
+            clearTimeout(debounceEmail);
+            debounceEmail = setTimeout(checkEmail, 300);
+          });
+          checkEmail();
+        }
+
+        // QID uniqueness check
+        var qid = document.getElementById('qidInput');
+        var qidHelp = document.getElementById('qidHelp');
+        var debounceTimer;
+        function normalizeQid(v){ return digitsOnly(v).substring(0,11); }
+        function checkQid(){
+          var n = normalizeQid(qid.value);
+          if (!n){ qidHelp.textContent = ''; return; }
+          if (n.length !== 11){
+            qidHelp.textContent = 'QID must be exactly 11 digits';
+            qidHelp.className = 'form-text text-muted';
+            return;
+          }
+          fetch('/SuperAdminUsers/CheckQid?qid=' + encodeURIComponent(n))
+            .then(r=>r.json())
+            .then(data=>{
+              if (data.ok){
+                qidHelp.textContent = 'QID is available';
+                qidHelp.className = 'form-text text-success';
+              } else {
+                qidHelp.textContent = 'QID already exists';
+                qidHelp.className = 'form-text text-danger';
+              }
+            }).catch(()=>{
+              qidHelp.textContent = '';
+            });
+        }
+        if (qid){
+          qid.addEventListener('input', function(){
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(checkQid, 300);
+          });
+          checkQid();
+        }
+      })();
+    </script>
+}

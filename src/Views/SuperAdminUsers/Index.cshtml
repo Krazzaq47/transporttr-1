@@ -52,13 +52,15 @@
                         <td>@u.CreatedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
                         <td>@(u.UpdatedAt?.ToLocalTime().ToString("yyyy-MM-dd HH:mm") ?? "-")</td>
                         <td class="d-flex gap-2">
-                            <a class="btn btn-sm btn-outline-primary" href="/SuperAdminUsers/Edit/@u.Id">Edit</a>
+                            <a class="btn btn-sm btn-outline-primary" href="/SuperAdminUsers/Edit/@u.Id"><i class="fa fa-edit"></i></a>
                             <form method="post" asp-action="Toggle" asp-route-id="@u.Id">
                                 @Html.AntiForgeryToken()
-                                <button type="submit" class="btn btn-sm @(u.IsActive ? "btn-outline-warning" : "btn-outline-success")">
-                                    @(u.IsActive ? "Deactivate" : "Activate")
+                                <button type="submit" class="btn btn-sm @(u.IsActive ? "btn-outline-danger" : "btn-outline-success")">
+                                    <i class="fa @(u.IsActive ? "fa-ban" : "fa-check")"></i>
+                                    @* @(u.IsActive ? "Deactivate" : "Activate") *@
                                 </button>
                             </form>
+                            @* Reset Password temporarily hidden *@
                         </td>
                     </tr>
                 }

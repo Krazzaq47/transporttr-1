@@ -1,3 +1,75 @@
+@using System.Linq
+@inject MT.Data.ApplicationDbContext Db
+@{
+    var nameRaw = (User?.Identity?.IsAuthenticated == true && !string.IsNullOrEmpty(User.Identity?.Name)) ? User.Identity!.Name! : "";
+    var userNamePart = string.IsNullOrEmpty(nameRaw) ? "" : nameRaw.Split('@')[0];
+    // Prefer profile Name for VehicleOwner
+    string displayName = userNamePart;
+    try
+    {
+        if (User?.Identity?.IsAuthenticated == true && (User.IsInRole("VehicleOwner") || User.IsInRole("Owner")))
+        {
+            var uid = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            if (!string.IsNullOrEmpty(uid))
+            {
+                var profName = Db.UserProfiles.Where(p => p.UserId == uid).Select(p => p.Name).FirstOrDefault();
+                if (!string.IsNullOrWhiteSpace(profName)) displayName = profName!;
+            }
+        }
+    }
+    catch { }
+    var emailClaim = User?.Claims?.FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Email)?.Value ?? string.Empty;
+    var emailLower = (emailClaim ?? string.Empty).Trim().ToLowerInvariant();
+    string avatarUrl = Url.Content("~/img/user.jpg");
+    // Primary: user-uploaded avatar by username under wwwroot/avatars/{username}.png
+    var uploadedAvatarUrl = Url.Content($"~/avatars/{userNamePart}.png");
+    // Fallback: gravatar by email
+    if (!string.IsNullOrEmpty(emailLower))
+    {
+        using (var md5 = System.Security.Cryptography.MD5.Create())
+        {
+            var bytes = System.Text.Encoding.UTF8.GetBytes(emailLower);
+            var hashBytes = md5.ComputeHash(bytes);
+            var hash = string.Concat(hashBytes.Select(b => b.ToString("x2")));
+            avatarUrl = $"https://www.gravatar.com/avatar/{hash}?s=80&d=identicon";
+        }
+    }
+    avatarUrl = Url.Content("~/img/user-new.jpg");
+
+    
+    var role = "";
+
+    if (User?.Identity?.IsAuthenticated == true)
+    {
+        if (User.IsInRole("SuperAdmin")) role = "SuperAdmin";
+        else if (User.IsInRole("Admin")) role = "Admin";
+        else if (User.IsInRole("FinalApprover")) role = "FinalApprover";
+        else if (User.IsInRole("DocumentVerifier")) role = "DocumentVerifier";
+        else if (User.IsInRole("MinistryOfficer")) role = "MinistryOfficer";
+        else if (User.IsInRole("Owner")) role = "Owner";
+        else if (User.IsInRole("VehicleOwner")) role = "VehicleOwner";
+        //else role = "User";
+    }
+
+
+
+    // ... your existing role logic above ...
+
+    // Decide where to go AFTER logout
+    var logoutReturnUrl = role switch
+    {
+        "SuperAdmin"      => Url.Content("~/identity/account/login"),
+        "Admin"           => Url.Content("~/identity/account/login"),
+        "FinalApprover"   => Url.Content("~/identity/account/login"),
+        "DocumentVerifier"=> Url.Content("~/identity/account/login"),
+        "MinistryOfficer" => Url.Content("~/mto/login"),
+        "Owner"           => Url.Content("~/owner/login"),
+        "VehicleOwner"    => Url.Content("~/user/login"),
+        _                 => Url.Content("~/manage") // default landing page
+    };
+}
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,7 +101,6 @@
 
     <!-- Template Stylesheet -->
     <link href="~/css/style.css" rel="stylesheet">
-
 </head>
 <body>
     
@@ -50,12 +121,24 @@
                     
                     <div class="d-flex align-items-center ms-4 mb-4">
                         <div class="position-relative">
-                            <img class="rounded-circle" src="~/img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                            <img class="rounded-circle" src="@uploadedAvatarUrl" onerror="this.onerror=null;this.src='@avatarUrl';" alt="avatar" style="width: 40px; height: 40px;">
                             <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                         </div>
                         <div class="ms-3">
-                        <h6 class="mb-0">@((User?.Identity?.IsAuthenticated == true && !string.IsNullOrEmpty(User.Identity?.Name)) ? User.Identity!.Name!.Split('@')[0] : "Guest")</h6>
-                            <span>Admin</span>
+                        <h6 class="mb-0">@((User?.Identity?.IsAuthenticated == true) ? (string.IsNullOrWhiteSpace(displayName) ? (string.IsNullOrEmpty(User.Identity?.Name) ? "Guest" : User.Identity!.Name!.Split('@')[0]) : displayName) : "Guest")</h6>
+                            <span>
+                                @(
+                                    User?.Identity?.IsAuthenticated == true ?
+                                        (User.IsInRole("SuperAdmin") ? "SuperAdmin" :
+                                         User.IsInRole("Admin") ? "Admin" :
+                                         User.IsInRole("FinalApprover") ? "FinalApprover" :
+                                         User.IsInRole("DocumentVerifier") ? "DocumentVerifier" :
+                                         User.IsInRole("MinistryOfficer") ? "MinistryOfficer" :
+                                         User.IsInRole("Owner") ? "Owner" :
+                                         User.IsInRole("VehicleOwner") ? "VehicleOwner" :
+                                         "User")
+                                    : "Guest")
+                            </span>
                         </div>
                     </div>
                     <div class="navbar-nav w-100">
@@ -68,9 +151,32 @@
                                 <a href="#" class="dropdown-item">Other Elements</a>
                             </div>
                         </div> *@
-                        <a href="/vehicle/list" class="nav-item nav-link"><i class="fa fa-th me-2"></i>List</a>
-                        <a href="/vehicle/register" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Registration</a>
-                    <a href="#" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Settings</a>
+                        <a href="/vehicle/list?type=truck" class="nav-item nav-link"><i class="fa fa-th me-2"></i>List</a>
+
+
+
+                    <!-- Registration: visible to VehicleOwner (and optionally others) -->
+                    @if (role == "VehicleOwner")
+                    {
+                        <a href="/vehicle/register" class="nav-item nav-link">
+                            <i class="fa fa-keyboard me-2"></i>Registration
+                        </a>
+                    }
+
+                    <!-- Settings: only visible to SuperAdmin -->
+                    @if (role == "SuperAdmin")
+                    {
+                        <a href="/SuperAdminUsers" class="nav-item nav-link">
+                            <i class="fa fa-user me-2"></i>Manage Users
+                        </a>
+
+                        <a href="/settings" class="nav-item nav-link">
+                            <i class="fa fa-table me-2"></i>Settings
+                        </a>
+
+                    }
+
+
                        @*  <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
                         <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
                         <div class="nav-item dropdown">
@@ -96,7 +202,8 @@
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                <form class="d-none d-md-flex ms-4">
+                <!-- Header search temporarily hidden (kept for future use) -->
+                <form class="d-none ms-4">
                     <input class="form-control border-0" type="search" placeholder="Search">
                 </form>
                 <div class="navbar-nav align-items-center ms-auto">
@@ -165,24 +272,27 @@
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="~/img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">@((User?.Identity?.IsAuthenticated == true && !string.IsNullOrEmpty(User.Identity?.Name)) ? User.Identity!.Name!.Split('@')[0] : "Guest")</span>
+                            <img class="rounded-circle me-lg-2" src="@uploadedAvatarUrl" onerror="this.onerror=null;this.src='@avatarUrl';" alt="avatar" style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex">@((User?.Identity?.IsAuthenticated == true) ? (string.IsNullOrWhiteSpace(displayName) ? (string.IsNullOrEmpty(User.Identity?.Name) ? "Guest" : User.Identity!.Name!.Split('@')[0]) : displayName) : "Guest")</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">My Profile</a>
                             <a href="#" class="dropdown-item">Settings</a>
-                            @if (User?.Identity?.IsAuthenticated == true && (User.IsInRole("Admin") || User.IsInRole("SuperAdmin")))
+                            @if (User?.Identity?.IsAuthenticated == true && User.IsInRole("SuperAdmin"))
                             {
                                 <hr class="dropdown-divider" />
-                                <a href="/Users" class="dropdown-item">Users</a>
-                                @if (User.IsInRole("SuperAdmin"))
-                                {
-                                    <a href="/SuperAdminUsers" class="dropdown-item">Super Admin - Manage Users</a>
-                                }
+                                <a href="/SuperAdminUsers" class="dropdown-item">Manage Users</a>
                             }
-                            <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="~/" method="post" class="p-0 m-0">
+                           
+                            @*<form asp-area="Identity" asp-page="/Accounts/Logout" asp-route-returnUrl="~/" method="post" class="p-0 m-0">
+                                <button type="submit" class="dropdown-item w-100 text-start">Log Out</button>
+                            </form>*@
+
+                            <form action="/accounts/logout" method="post" class="p-0 m-0">
+                                @Html.AntiForgeryToken()
                                 <button type="submit" class="dropdown-item w-100 text-start">Log Out</button>
                             </form>
+
                         </div>
                     </div>
                 </div>

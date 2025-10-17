@@ -13,7 +13,8 @@ namespace MT.Data
         [Required, MaxLength(256)]
         public string Email { get; set; } = string.Empty;
 
-        [MaxLength(50)]
+        [MaxLength(11)]
+        [RegularExpression(@"^974\d{8}$", ErrorMessage = "Phone must be exactly '974' followed by 8 digits.")]
         public string? Phone { get; set; }
 
         [MaxLength(50)]

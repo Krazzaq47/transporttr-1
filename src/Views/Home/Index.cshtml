@@ -1,4 +1,4 @@
-﻿@model DashboardVm
+@model DashboardVm
 @{
     ViewData["Title"] = "Home";
 }
@@ -48,7 +48,7 @@
     <div class="bg-light text-center rounded p-4">
         <div class="d-flex align-items-center justify-content-between mb-4">
             <h6 class="mb-0">Recent Registration</h6>
-            <a href="@Url.Action("List","Vehicle")">Show All</a>
+            <a href="/vehicle/list?type=truck">Show All</a>
         </div>
         <div class="table-responsive">
             <table class="table text-start align-middle table-bordered table-hover mb-0">
@@ -61,7 +61,7 @@
                         <th scope="col">Driver</th>
                         <th scope="col">Phone</th>
                         <th scope="col">Status</th>
-                        <th scope="col">Files</th>
+                        <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -84,14 +84,19 @@
                                     }
                                     <span class="badge bg-@badge">@r.Status</span>
                                 </td>
-                                <td>
-                                    @* Show at least one file link if exists *@
+                                <td class="text-nowrap">
+                                    @* View details (use token if available) *@
+                                    <a class="btn btn-sm btn-primary me-1" href="@(string.IsNullOrWhiteSpace(r.UniqueToken) ? Url.Action("Details","Vehicle", new { id = r.Id }) : Url.Action("DetailsByToken","Vehicle", new { token = r.UniqueToken }))" title="View">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+
+                                    @* Optional: at least one file link if exists 
                                     @if (!string.IsNullOrEmpty(r.IdCardBothSidesPath))
                                     {
                                         <a class="btn btn-sm btn-outline-primary" href="@r.IdCardBothSidesPath" target="_blank">
                                             <i class="fa fa-download"></i> ID
                                         </a>
-                                    }
+                                    }*@
                                 </td>
                             </tr>
                         }

@@ -1,6 +1,6 @@
-﻿@model VehicleRegisterVm
+@model VehicleRegisterVm
 @{
-    Layout = "_PublicLayout";                // public page, no sidebar
+    Layout = "_Layout";                // public page, no sidebar
     var lang = (ViewBag.Lang as string) ?? "en";
     var rtl  = lang == "ar" ? "rtl" : "ltr"; // rtl for Arabic
 }
@@ -69,8 +69,8 @@
                 <div class="mb-3">
                     <span class="label d-block" data-i="vehType">Vehicle type</span>
                     <input type="hidden" name="VehicleType" id="VehicleType" value="tank" />
-                    <button type="button" class="choice-pill"        data-val="truck" id="btn-truck" data-i="truck">a truck</button>
-                    <button type="button" class="choice-pill active" data-val="tank"  id="btn-tank"  data-i="tank">tank</button>
+                    <button type="button" class="choice-pill" data-val="truck" id="btn-truck" data-i="truck">Truck</button>
+                    <button type="button" class="choice-pill active" data-val="tank"  id="btn-tank"  data-i="tank">Tanker</button>
                 </div>
             </div>
 
@@ -78,14 +78,20 @@
             <h3 class="section-title" data-i="ownerDriver">Owner and Driver Information</h3>
             <div class="card-light mb-4">
                 <div class="row g-3">
-                    <div class="col-md-6">
+                   @*  <div class="col-md-6">
                         <label class="label" data-i="ownerPhone">Owner's phone number*</label>
                         <input class="form-control" name="OwnerPhone" required placeholder="...phone number" />
                     </div>
                     <div class="col-md-6">
                         <label class="label" data-i="ownerName">Vehicle owner name*</label>
                         <input class="form-control" name="VehicleOwnerName" required placeholder="...Type the name" />
-                    </div>
+                    </div> *@
+
+                     <div class="col-md-6">
+    <label class="label" id="vehicleNumberLabel" data-i="vehicleNumber">Truck/Tanker number*</label>
+    <input class="form-control" name="VehicleNumber" required placeholder="...Enter truck/tanker number" />
+</div>
+
                     <div class="col-md-6">
                         <label class="label" data-i="driverPhone">Driver's phone number*</label>
                         <input class="form-control" name="DriverPhone" required placeholder="...phone number" />
@@ -94,6 +100,9 @@
                         <label class="label" data-i="driverName">Driver's Name*</label>
                         <input class="form-control" name="DriverName" required placeholder="...Type the name" />
                     </div>
+
+                   
+
                 </div>
             </div>
 
@@ -265,9 +274,34 @@
                 </a>
             </div>
 
-            @if (TempData["ok"] != null)
+            @{
+                bool submitted = (ViewBag.Submitted as bool?) == true;
+                string? appNumFromBag = ViewBag.AppNum as string;
+                bool hasTemp = TempData["ok"] != null;
+            }
+            @if (hasTemp || submitted)
             {
-                <div class="alert alert-success mt-3" role="alert" data-i="okToast">Your application has been submitted.</div>
+                var appNum = (TempData["appNum"] as string) ?? appNumFromBag;
+                <div class="modal fade" id="submitSuccessModal" tabindex="-1" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="ssTitle">Success</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <p id="ssMsg">Your application has been submitted!</p>
+                        @if (!string.IsNullOrEmpty(appNum))
+                        {
+                          <p class="mt-2"><strong id="ssRefSentenceLabel">Your reference number is:</strong> <span id="ssRefValueText">@appNum</span></p>
+                        }
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
             }
         </form>
     </div>
@@ -280,9 +314,9 @@
       title:"Register your vehicle",
       lead:"Use the registration form below to upload all required documents and submit your application electronically.",
       vehType:"Vehicle type",
-      truck:"a truck", tank:"tank",
+      truck:"Truck", tank:"Tanker",
       ownerDriver:"Owner and Driver Information",
-      ownerPhone:"Owner's phone number*", ownerName:"Vehicle owner name*",
+     
       driverPhone:"Driver's phone number*", driverName:"Driver's Name*",
       docsTitle:"Documents required for tanks",
       docsTitleTruck:"Documents required for trucks (public transport)",
@@ -302,7 +336,17 @@
       max5:"Maximum: 5 MB. PNG, JPG",
       submit:"Submit",
       switch:"العربية / English",
-      okToast:"Your application has been submitted."
+      okToast:"Your application has been submitted.",
+      ssTitle:"Success",
+      ssMsg:"Your application has been submitted!",
+      ssRefSentence:"Your reference number is:",
+      ok:"OK",
+      // EN
+vehicleNumberTruck: "Truck number*",
+vehicleNumberTank: "Tanker number*"
+
+
+
     },
     ar: {
       title:"سجّل مركبتك",
@@ -310,7 +354,7 @@
       vehType:"نوع المركبة",
       truck:"شاحنة", tank:"صهريج",
       ownerDriver:"بيانات المالك والسائق",
-      ownerPhone:"رقم هاتف المالك*", ownerName:"اسم مالك المركبة*",
+      
       driverPhone:"رقم هاتف السائق*", driverName:"اسم السائق*",
       docsTitle:"المستندات المطلوبة للصهاريج",
       docsTitleTruck:"المستندات المطلوبة للشاحنات (نقل عام)",
@@ -330,7 +374,14 @@
       max5:"الحد الأقصى: 5 ميجابايت. PNG, JPG",
       submit:"إرسال",
       switch:"العربية / English",
-      okToast:"تم إرسال طلبك بنجاح."
+      okToast:"تم إرسال طلبك بنجاح.",
+      ssTitle:"نجاح",
+      ssMsg:"تم إرسال طلبك!",
+      ssRefSentence:"رقم المرجع:",
+      ok:"حسناً",
+      // AR
+vehicleNumberTruck: "رقم الشاحنة*",
+vehicleNumberTank: "رقم الصهريج*"
     }
   };
 
@@ -361,6 +412,7 @@
       hiddenType.value = mode;
       document.querySelectorAll(".choice-pill").forEach(b=>b.classList.remove("active"));
       document.querySelector(`.choice-pill[data-val="${mode}"]`).classList.add("active");
+      const label = document.getElementById("vehicleNumberLabel");
 
       if(mode === "truck"){
         tankWrap.style.display = "none";
@@ -368,12 +420,14 @@
         docsTitle.innerText = dict.docsTitleTruck;
         setRequired(tankWrap,false);
         setRequired(truckWrap,true);
+        if (label) label.innerText = dict.vehicleNumberTruck;
       }else{
         truckWrap.style.display = "none";
         tankWrap.style.display = "";
         docsTitle.innerText = dict.docsTitle;
         setRequired(truckWrap,false);
         setRequired(tankWrap,true);
+        if (label) label.innerText = dict.vehicleNumberTank;
       }
     }
 
@@ -384,5 +438,38 @@
 
     // Initial
     setMode(hiddenType.value || "tank");
+    // Modal handling moved to Scripts section to ensure Bootstrap is loaded first
   })();
 </script>
+
+@section Scripts {
+  <script>
+    (function(){
+      const lang = "@lang";
+      const dict = i18n[lang];
+      const m = document.getElementById('submitSuccessModal');
+      if (!m) return;
+      const t = document.getElementById('ssTitle');
+      const msg = document.getElementById('ssMsg');
+      const refSentence = document.getElementById('ssRefSentenceLabel');
+      const okBtns = m.querySelectorAll('.modal-footer .btn');
+      if (t) t.textContent = dict.ssTitle;
+      if (msg) msg.textContent = dict.ssMsg;
+      if (refSentence) refSentence.textContent = dict.ssRefSentence;
+      okBtns.forEach(b=> b.textContent = dict.ok);
+
+      // Now bootstrap is expected to be loaded (this section renders after bundle)
+      try {
+        const bsModal = new bootstrap.Modal(m);
+        // no-op
+        bsModal.show();
+      } catch(e) {
+        // Fallback: show simple alert so users still see the Application number
+        const refVal = (document.getElementById('ssRefValueText'))?.textContent || '';
+        const title = dict.ssTitle + '\n';
+        const body = dict.ssMsg + (refVal ? `\n${dict.ssRefLabel} ${refVal}` : '');
+        alert(title + body);
+      }
+    })();
+  </script>
+}

@@ -1,0 +1,99 @@
+﻿@model MT.Data.Settings
+@{
+    ViewData["Title"] = "Settings";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-3">
+        <i class="fa fa-gear me-2"></i> Settings
+    </h2>
+
+    <form asp-action="Save" method="post" class="mt-3">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="row g-3">
+            <!-- Allowed Truck Number -->
+            <div class="col-md-4">
+                <label asp-for="AllowedTruckNumber" class="form-label">
+                    <i class="fa fa-truck me-1"></i> @Html.DisplayNameFor(m => m.AllowedTruckNumber)
+                </label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fa fa-truck"></i></span>
+                    <input asp-for="AllowedTruckNumber" class="form-control"
+                           type="number" inputmode="numeric" min="0" max="10000" step="1" required />
+                </div>
+                <div class="form-text">Total trucks your account can register.</div>
+                <span asp-validation-for="AllowedTruckNumber" class="text-danger"></span>
+            </div>
+
+            <!-- Allowed Tanker Number -->
+            <div class="col-md-4">
+                <label asp-for="AllowedTankerNumber" class="form-label">
+                    <i class="fa fa-oil-can me-1"></i> @Html.DisplayNameFor(m => m.AllowedTankerNumber)
+                </label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fa fa-oil-can"></i></span>
+                    <input asp-for="AllowedTankerNumber" class="form-control"
+                           type="number" inputmode="numeric" min="0" max="10000" step="1" required />
+                </div>
+                <div class="form-text">Total tankers your account can register.</div>
+                <span asp-validation-for="AllowedTankerNumber" class="text-danger"></span>
+            </div>
+
+            <!-- Auto-Cancellation Period (days) -->
+            <div class="col-md-4">
+                <label asp-for="AutoCancellationDays" class="form-label">
+                    <i class="fa fa-clock me-1"></i> @Html.DisplayNameFor(m => m.AutoCancellationDays)
+                </label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fa fa-clock"></i></span>
+                    <input asp-for="AutoCancellationDays" class="form-control"
+                           type="number" inputmode="numeric" min="0" max="365" step="1" required />
+                    <span class="input-group-text">days</span>
+                </div>
+                <div class="form-text">0 disables auto-cancellation.</div>
+                <span asp-validation-for="AutoCancellationDays" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-save me-1"></i> Save
+            </button>
+            <a class="btn btn-secondary" href="/Settings">
+                <i class="fa fa-rotate-left me-1"></i> Cancel
+            </a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script>
+        (function () {
+            // Clamp all number inputs to their min/max on input & blur
+            function clamp(el) {
+                var min = el.min !== "" ? parseInt(el.min, 10) : null;
+                var max = el.max !== "" ? parseInt(el.max, 10) : null;
+                var val = el.value === "" ? "" : parseInt(el.value, 10);
+                if (val === "") return;
+                if (Number.isInteger(val)) {
+                    if (min !== null && val < min) val = min;
+                    if (max !== null && val > max) val = max;
+                    el.value = val;
+                } else {
+                    el.value = min ?? 0;
+                }
+            }
+
+            document.querySelectorAll('input[type="number"]').forEach(function (el) {
+                el.addEventListener('input', function () {
+                    // Prevent non-numeric characters
+                    this.value = this.value.replace(/[^\d-]/g, '');
+                });
+                el.addEventListener('blur', function () { clamp(this); });
+            });
+        })();
+    </script>
+}

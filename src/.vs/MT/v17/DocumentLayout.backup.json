@@ -1,41 +1,30 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\CHITRA\\MT\\MT\\",
+  "WorkspaceRootPath": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DC86C17B-C8E9-423A-92A1-85885C6DC7C0}|MT.csproj|c:\\chitra\\mt\\mt\\views\\vehicle\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{DC86C17B-C8E9-423A-92A1-85885C6DC7C0}|MT.csproj|solutionrelative:views\\vehicle\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DC86C17B-C8E9-423A-92A1-85885C6DC7C0}|MT.csproj|c:\\chitra\\mt\\mt\\controllers\\vehiclecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DC86C17B-C8E9-423A-92A1-85885C6DC7C0}|MT.csproj|solutionrelative:controllers\\vehiclecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DC86C17B-C8E9-423A-92A1-85885C6DC7C0}|MT.csproj|c:\\chitra\\mt\\mt\\views\\vehicle\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{DC86C17B-C8E9-423A-92A1-85885C6DC7C0}|MT.csproj|solutionrelative:views\\vehicle\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DC86C17B-C8E9-423A-92A1-85885C6DC7C0}|MT.csproj|c:\\chitra\\mt\\mt\\models\\vehicleregistration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DC86C17B-C8E9-423A-92A1-85885C6DC7C0}|MT.csproj|solutionrelative:models\\vehicleregistration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DC86C17B-C8E9-423A-92A1-85885C6DC7C0}|MT.csproj|c:\\chitra\\mt\\mt\\views\\vehicle\\list.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{DC86C17B-C8E9-423A-92A1-85885C6DC7C0}|MT.csproj|solutionrelative:views\\vehicle\\list.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Hp\\AppData\\Local\\Temp\\.vsdbgsrc\\dd5d40fe187b715c64e703711fcc92a464a0d08f9fd5d91c58f877eb2794e170\\Task.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DC86C17B-C8E9-423A-92A1-85885C6DC7C0}|MT.csproj|c:\\chitra\\mt\\mt\\views\\shared\\_publiclayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{DC86C17B-C8E9-423A-92A1-85885C6DC7C0}|MT.csproj|solutionrelative:views\\shared\\_publiclayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DC86C17B-C8E9-423A-92A1-85885C6DC7C0}|MT.csproj|c:\\chitra\\mt\\mt\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{DC86C17B-C8E9-423A-92A1-85885C6DC7C0}|MT.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DC86C17B-C8E9-423A-92A1-85885C6DC7C0}|MT.csproj|c:\\chitra\\mt\\mt\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{DC86C17B-C8E9-423A-92A1-85885C6DC7C0}|MT.csproj|c:\\chitra\\mt\\mt_14102025\\mt_transport\\src\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DC86C17B-C8E9-423A-92A1-85885C6DC7C0}|MT.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DC86C17B-C8E9-423A-92A1-85885C6DC7C0}|MT.csproj|c:\\chitra\\mt\\mt_14102025\\mt_transport\\src\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DC86C17B-C8E9-423A-92A1-85885C6DC7C0}|MT.csproj|solutionrelative:controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DC86C17B-C8E9-423A-92A1-85885C6DC7C0}|MT.csproj|c:\\chitra\\mt\\mt_14102025\\mt_transport\\src\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{DC86C17B-C8E9-423A-92A1-85885C6DC7C0}|MT.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DC86C17B-C8E9-423A-92A1-85885C6DC7C0}|MT.csproj|c:\\chitra\\mt\\mt_14102025\\mt_transport\\src\\wwwroot\\js\\firebase-service-account.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{DC86C17B-C8E9-423A-92A1-85885C6DC7C0}|MT.csproj|solutionrelative:wwwroot\\js\\firebase-service-account.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DC86C17B-C8E9-423A-92A1-85885C6DC7C0}|MT.csproj|c:\\chitra\\mt\\mt_14102025\\mt_transport\\src\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DC86C17B-C8E9-423A-92A1-85885C6DC7C0}|MT.csproj|solutionrelative:controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DC86C17B-C8E9-423A-92A1-85885C6DC7C0}|MT.csproj|c:\\chitra\\mt\\mt_14102025\\mt_transport\\src\\controllers\\sitecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DC86C17B-C8E9-423A-92A1-85885C6DC7C0}|MT.csproj|solutionrelative:controllers\\sitecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -45,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -61,119 +50,80 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Details.cshtml",
-              "DocumentMoniker": "C:\\CHITRA\\MT\\MT\\Views\\Vehicle\\Details.cshtml",
-              "RelativeDocumentMoniker": "Views\\Vehicle\\Details.cshtml",
-              "ToolTip": "C:\\CHITRA\\MT\\MT\\Views\\Vehicle\\Details.cshtml",
-              "RelativeToolTip": "Views\\Vehicle\\Details.cshtml",
-              "ViewState": "AgIAAHQAAAAAAAAAAAAowIQAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-08T10:25:19.832Z",
+              "DocumentIndex": 2,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-10-17T17:05:00.15Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Task.cs",
-              "DocumentMoniker": "C:\\Users\\Hp\\AppData\\Local\\Temp\\.vsdbgsrc\\dd5d40fe187b715c64e703711fcc92a464a0d08f9fd5d91c58f877eb2794e170\\Task.cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\Users\\Hp\\AppData\\Local\\Temp\\.vsdbgsrc\\dd5d40fe187b715c64e703711fcc92a464a0d08f9fd5d91c58f877eb2794e170\\Task.cs",
-              "ToolTip": "C:\\Users\\Hp\\AppData\\Local\\Temp\\.vsdbgsrc\\dd5d40fe187b715c64e703711fcc92a464a0d08f9fd5d91c58f877eb2794e170\\Task.cs [Read Only]",
-              "RelativeToolTip": "..\\..\\..\\Users\\Hp\\AppData\\Local\\Temp\\.vsdbgsrc\\dd5d40fe187b715c64e703711fcc92a464a0d08f9fd5d91c58f877eb2794e170\\Task.cs [Read Only]",
-              "ViewState": "AgIAAAMGAAAAAAAAAAArwBcGAAADAAAAAQAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-08T09:42:27.957Z",
-              "EditorCaption": " [Read Only]"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "VehicleRegistration.cs",
-              "DocumentMoniker": "C:\\CHITRA\\MT\\MT\\Models\\VehicleRegistration.cs",
-              "RelativeDocumentMoniker": "Models\\VehicleRegistration.cs",
-              "ToolTip": "C:\\CHITRA\\MT\\MT\\Models\\VehicleRegistration.cs",
-              "RelativeToolTip": "Models\\VehicleRegistration.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACoAAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-08T09:31:20.141Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "List.cshtml",
-              "DocumentMoniker": "C:\\CHITRA\\MT\\MT\\Views\\Vehicle\\List.cshtml",
-              "RelativeDocumentMoniker": "Views\\Vehicle\\List.cshtml",
-              "ToolTip": "C:\\CHITRA\\MT\\MT\\Views\\Vehicle\\List.cshtml",
-              "RelativeToolTip": "Views\\Vehicle\\List.cshtml",
-              "ViewState": "AgIAAHEAAAAAAAAAAAAkwK8AAAA4AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-08T09:29:22.753Z",
+              "Title": "firebase-service-account.json",
+              "DocumentMoniker": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\js\\firebase-service-account.json",
+              "RelativeDocumentMoniker": "wwwroot\\js\\firebase-service-account.json",
+              "ToolTip": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\wwwroot\\js\\firebase-service-account.json",
+              "RelativeToolTip": "wwwroot\\js\\firebase-service-account.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-10-17T15:32:52.8Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "VehicleController.cs",
-              "DocumentMoniker": "C:\\CHITRA\\MT\\MT\\Controllers\\VehicleController.cs",
-              "RelativeDocumentMoniker": "Controllers\\VehicleController.cs",
-              "ToolTip": "C:\\CHITRA\\MT\\MT\\Controllers\\VehicleController.cs",
-              "RelativeToolTip": "Controllers\\VehicleController.cs",
-              "ViewState": "AgIAAHcAAAAAAAAAAAAewIUAAAA4AAAAAAAAAA==",
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AuthController.cs",
+              "ToolTip": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "Controllers\\AuthController.cs",
+              "ViewState": "AgIAAEkBAAAAAAAAAAAwwFIBAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-08T06:02:40.286Z",
+              "WhenOpened": "2025-10-17T15:03:48.86Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "_PublicLayout.cshtml",
-              "DocumentMoniker": "C:\\CHITRA\\MT\\MT\\Views\\Shared\\_PublicLayout.cshtml",
-              "RelativeDocumentMoniker": "Views\\Shared\\_PublicLayout.cshtml",
-              "ToolTip": "C:\\CHITRA\\MT\\MT\\Views\\Shared\\_PublicLayout.cshtml",
-              "RelativeToolTip": "Views\\Shared\\_PublicLayout.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFgAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-08T05:54:59.489Z",
+              "DocumentIndex": 4,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UsersController.cs",
+              "ToolTip": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "Controllers\\UsersController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-17T15:03:30.933Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "C:\\CHITRA\\MT\\MT\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "C:\\CHITRA\\MT\\MT\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAAEMAAAAAAAAAAAAAAEcAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-08T05:54:43.881Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Register.cshtml",
-              "DocumentMoniker": "C:\\CHITRA\\MT\\MT\\Views\\Vehicle\\Register.cshtml",
-              "RelativeDocumentMoniker": "Views\\Vehicle\\Register.cshtml",
-              "ToolTip": "C:\\CHITRA\\MT\\MT\\Views\\Vehicle\\Register.cshtml",
-              "RelativeToolTip": "Views\\Vehicle\\Register.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-08T05:54:32.58Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 0,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\CHITRA\\MT\\MT\\Program.cs",
+              "DocumentMoniker": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\CHITRA\\MT\\MT\\Program.cs",
+              "ToolTip": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAAcwDMAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAEIAAAAAAAAAAADwv1gAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-08T05:39:14.841Z",
+              "WhenOpened": "2025-10-17T14:46:48.573Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "SiteController.cs",
+              "DocumentMoniker": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\Controllers\\SiteController.cs",
+              "RelativeDocumentMoniker": "Controllers\\SiteController.cs",
+              "ToolTip": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\Controllers\\SiteController.cs",
+              "RelativeToolTip": "Controllers\\SiteController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-17T14:44:52.602Z",
               "EditorCaption": ""
             }
           ]

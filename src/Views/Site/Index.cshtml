@@ -1,4 +1,4 @@
-﻿@model object
+@model object
 @{
     Layout = "_SiteLayout";
     var lang = (ViewBag.Lang as string) ?? "ar";   // default Arabic to match screenshots
@@ -37,7 +37,7 @@
  <section class="hero pt-3">
     <div class="container-fluid">
         <div class="d-flex justify-content-end">
-            <a class="btn btn-mta rounded-pill px-4 my-3" href="/vehicle/register" data-i="cta.register">سجّل الآن</a>
+            <a class="btn btn-mta rounded-pill px-4 my-3" href="/main/register" data-i="cta.register">سجّل الآن</a>
         </div>
 
         <div class="section-card rounded-xxl overflow-hidden" style="background:#fff;">
@@ -62,7 +62,7 @@
                         يمكنك تسجيل شاحنتك أو صهريجك، من خلال منصتنا الإلكترونية التي تُرشدك خطوة بخطوة،
                         وتُسهل عليك رفع المستندات والتقديم بسهولة تامة وأنت في مكانك.
                     </p>
-                    <a class="btn btn-mta rounded-pill px-4 mt-2" href="/vehicle/register" data-i="cta.register">سجّل الآن</a>
+                    <a class="btn btn-mta rounded-pill px-4 mt-2" href="/main/register" data-i="cta.register">سجّل الآن</a>
                 </div>
             </div>
         </div>
@@ -129,13 +129,13 @@
                     </div>
 
                     <!-- 6 -->
-                    <div class="check-item">
+                   @*  <div class="check-item">
                         <i class="fa-solid fa-check"></i>
                         <span data-i="truck.li6">نموذج إخلاء طرف لمقدّم طلب التسجيل</span>
                     </div>
-
+ *@
                     <div class="mt-3">
-                        <a class="btn btn-mta rounded-pill px-4" href="/vehicle/register" data-i="cta.register">سجّل الآن</a>
+                        <a class="btn btn-mta rounded-pill px-4" href="/main/register" data-i="cta.register">سجّل الآن</a>
                     </div>
                 </div>
             </div>
@@ -165,7 +165,10 @@
                             <i class="fa-regular fa-file-lines fa-3x" style="color:var(--mta)"></i>
                         </div>
                     </div>
-                    <a class="btn btn-outline-secondary rounded-pill mt-3" href="#" data-i="steps.s1.btn">حمل النموذج</a>
+                    <a class="btn btn-outline-secondary rounded-pill mt-3"
+                       href="@Url.Content("~/doc/mto-file.pdf")"
+                       target="_blank" rel="noopener" download
+                       data-i="steps.s1.btn">حمل النموذج</a>
                 </div>
             </div>
 

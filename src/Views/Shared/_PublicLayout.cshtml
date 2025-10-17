@@ -1,8 +1,12 @@
-﻿@{
+@{
     var title = ViewData["Title"] as string ?? "MT";
 }
 <!doctype html>
-<html lang="en">
+@{
+    var __lang = (Context.Request?.Query["lang"].ToString() == "ar") ? "ar" : "en";
+    var __dir = __lang == "ar" ? "rtl" : "ltr";
+}
+<html lang="@__lang" dir="@__dir">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -61,9 +65,20 @@
             <a class="navbar-brand" href="/">MTO</a>
 
             <div class="ms-auto d-flex align-items-center gap-2">
-                <!-- Language switch (example routes) -->
-                <a class="btn btn-outline-secondary btn-sm" href="@Url.Action("Register","Vehicle", new { lang="en" })">English</a>
-                <a class="btn btn-outline-secondary btn-sm" href="@Url.Action("Register","Vehicle", new { lang="ar" })">العربية</a>
+                @{
+                    // determine current lang from query
+                    var currLang = (Context.Request?.Query["lang"].ToString() == "ar") ? "ar" : "en";
+                    var path = Context.Request?.Path.Value ?? "/";
+                    var q = System.Web.HttpUtility.ParseQueryString(Context.Request?.QueryString.Value ?? "");
+                    // Build EN link
+                    q.Set("lang", "en");
+                    var enHref = path + (q.Count > 0 ? ("?" + q.ToString()) : "");
+                    // Build AR link
+                    q.Set("lang", "ar");
+                    var arHref = path + (q.Count > 0 ? ("?" + q.ToString()) : "");
+                }
+                <a class="btn btn-outline-secondary btn-sm @(currLang=="en"?"active":"")" href="@enHref">English</a>
+                <a class="btn btn-outline-secondary btn-sm @(currLang=="ar"?"active":"")" href="@arHref">العربية</a>
             </div>
         </div>
     </nav>
@@ -72,10 +87,13 @@
         <!-- Sidebar -->
         <aside class="sidebar" id="sideNav">
             <div class="menu">
-                <a href="@Url.Action("Register","Vehicle")" class="active"><i class="fa-solid fa-truck"></i><span>Vehicle Registration</span></a>
-                <a href="#"><i class="fa-solid fa-file-lines"></i><span>Guidelines</span></a>
-                <a href="#"><i class="fa-solid fa-circle-question"></i><span>FAQ</span></a>
-                <a href="#"><i class="fa-solid fa-envelope"></i><span>Contact</span></a>
+                @{
+                    var currLang2 = (Context.Request?.Query["lang"].ToString() == "ar") ? "ar" : "en";
+                }
+                <a href="@Url.Action("Register","Main", new { lang = currLang2 })" class="active"><i class="fa-solid fa-truck"></i><span>@(currLang2=="ar"?"تسجيل المركبة":"Vehicle Registration")</span></a>
+                <a href="#"><i class="fa-solid fa-file-lines"></i><span>@(currLang2=="ar"?"الإرشادات":"Guidelines")</span></a>
+                <a href="#"><i class="fa-solid fa-circle-question"></i><span>@(currLang2=="ar"?"الأسئلة الشائعة":"FAQ")</span></a>
+                <a href="#"><i class="fa-solid fa-envelope"></i><span>@(currLang2=="ar"?"اتصل بنا":"Contact")</span></a>
             </div>
         </aside>
 

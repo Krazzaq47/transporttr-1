@@ -12,53 +12,148 @@
     var currentType = ViewBag.CurrentType ?? "all";
     var truckCount = ViewBag.TruckCount ?? 0;
     var tankCount = ViewBag.TankCount ?? 0;
+    int page = ViewBag.Page ?? 1;
+    int pageSize = ViewBag.PageSize ?? 50;
+    int totalPages = ViewBag.TotalPages ?? 1;
+    string q = ViewBag.Query as string ?? string.Empty;
+    string sort = ViewBag.Sort as string ?? "date";
+    string dir = ViewBag.Dir as string ?? "desc";
+    int startIndex = ViewBag.StartIndex ?? 0;
+    int endIndex = ViewBag.EndIndex ?? 0;
+    string ownerF = ViewBag.OwnerFilter as string ?? string.Empty;
+    string driverF = ViewBag.DriverFilter as string ?? string.Empty;
+    string fromDateStr = ViewBag.FromDate as string ?? string.Empty; // yyyy-MM-dd
+    string toDateStr = ViewBag.ToDate as string ?? string.Empty;     // yyyy-MM-dd
+    string flip(string d) => d=="asc"?"desc":"asc";
 }
 
 <div class="container-fluid pt-4 px-4">
     <div class="bg-light text-center rounded p-4">
-        <div class="d-flex align-items-center justify-content-between mb-4">
-            <h6 class="mb-0">All Vehicle Registrations</h6>
-            <a href="@Url.Action("Index", "Home")" class="btn btn-sm btn-primary">
-                <i class="fa fa-arrow-left"></i> Back
-            </a>
+        <div class="d-flex align-items-center justify-content-between mb-2">
+            <h6 class="mb-0">Vehicle Registrations</h6>
+            <a href="@Url.Action("Index", "Home")" class="btn btn-sm btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
         </div>
-<!-- View Reason Modal -->
-<div class="modal fade" id="viewReasonModal" tabindex="-1" aria-labelledby="viewReasonLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="viewReasonLabel">Rejection details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="mb-2"><strong>Rejected By:</strong> <span id="vrBy"></span> (<span id="vrRole"></span>)</div>
-        <div class="mb-2"><strong>When:</strong> <span id="vrWhen"></span></div>
-        <div class="mb-2"><strong>Reason:</strong></div>
-        <div class="border rounded p-2 bg-light" id="vrReason" style="white-space:pre-wrap"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-  </div>
+
+        <!-- Guidance Modal: Approval requires Document Verifier first -->
+        <div class="modal fade" id="verifyGuidanceModal" tabindex="-1" aria-labelledby="verifyGuidanceLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="verifyGuidanceLabel"><i class="fa fa-info-circle me-2 text-warning"></i>Action Not Allowed</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <p class="mb-2">This registration is still <strong>Pending</strong>.</p>
+                <p class="mb-0">It must be verified by a <strong>Document Verifier</strong> first and moved to <strong>Under Review</strong> before final approval can be performed.</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Search Panel -->
+        <form method="get" action="@Url.Action("List","Vehicle")" class="row g-2 align-items-end mb-2 text-start">
+            <input type="hidden" name="type" value="@currentType" />
+            <input type="hidden" name="sort" value="@sort" />
+            <input type="hidden" name="dir" value="@dir" />
+            <input type="hidden" name="q" value="@q" />
+            <div class="col-md-3">
+                <label class="form-label">From Date</label>
+                <input type="date" class="form-control" name="fromDate" value="@fromDateStr" />
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">To Date</label>
+                <input type="date" class="form-control" name="toDate" value="@toDateStr" />
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Owner</label>
+                <input type="text" class="form-control" name="owner" placeholder="Search by owner name or phone" value="@ownerF" />
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Driver</label>
+                <input type="text" class="form-control" name="driver" placeholder="Search by driver name or phone" value="@driverF" />
+            </div>
+            <div class="col-12 d-flex gap-2 justify-content-end">
+                <!-- Keep dropdown in DOM but hidden/disabled; submit pageSize via hidden input -->
+                <select class="form-select d-none" name="pageSize" style="width:140px" disabled>
+                    <option value="10" selected>10 / page</option>
+                    <option value="25">25 / page</option>
+                    <option value="50">50 / page</option>
+                    <option value="100">100 / page</option>
+                </select>
+                <input type="hidden" name="pageSize" value="@pageSize" />
+                <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Search</button>
+                <a class="btn btn-outline-secondary" href="@Url.Action("List","Vehicle", new { type = currentType })">Reset</a>
+                <a class="btn btn-success"
+                   href="@Url.Action("ExportExcel","Vehicle", new { type = currentType, q, sort, dir, fromDate = fromDateStr, toDate = toDateStr, owner = ownerF, driver = driverF })">
+                    <i class="fa fa-file-excel"></i> Export to Excel
+                </a>
+            </div>
+        </form>
+
+        @* Backfill Tokens admin utility removed per request *@
+
+        <!-- View Reason Modal -->
+        <div class="modal fade" id="viewReasonModal" tabindex="-1" aria-labelledby="viewReasonLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="viewReasonLabel">Rejection details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="mb-2"><strong>Rejected By:</strong> <span id="vrBy"></span> (<span id="vrRole"></span>)</div>
+                <div class="mb-2"><strong>When:</strong> <span id="vrWhen"></span></div>
+                <div class="mb-2"><strong>Reason:</strong></div>
+                <div class="border rounded p-2 bg-light" id="vrReason" style="white-space:pre-wrap"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Approval Comment Modal (Final Approval only) -->
+        <div class="modal fade" id="approveCommentModal" tabindex="-1" aria-labelledby="approveCommentLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="approveCommentLabel">Add approval comment (optional)</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="mb-3">
+                  <label for="approveCommentInput" class="form-label">Comment</label>
+                  <textarea id="approveCommentInput" class="form-control" rows="3" placeholder="Type a comment (optional)..."></textarea>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-success" id="confirmApproveBtn">Approve</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <!-- Tab Navigation -->
         <ul class="nav nav-tabs" id="vehicleTabs" role="tablist">
             <li class="nav-item" role="presentation">
                 <a class="nav-link @(currentType == "truck" || currentType == "all" ? "active" : "")" 
                    id="truck-tab" 
-                   href="@Url.Action("List", "Vehicle", new { type = "truck" })"
+                   href="@Url.Action("List", "Vehicle", new { type = "truck", pageSize, sort, dir, fromDate = fromDateStr, toDate = toDateStr, owner = ownerF, driver = driverF, q })"
                    role="tab">
-                    <i class="fa fa-truck"></i> Truck Registrations (@truckCount)
+                    <i class="fa fa-truck"></i> Truck Registrations <span class="d-none">(@truckCount)</span>
                 </a>
             </li>
             <li class="nav-item" role="presentation">
                 <a class="nav-link @(currentType == "tank" ? "active" : "")" 
                    id="tank-tab" 
-                   href="@Url.Action("List", "Vehicle", new { type = "tank" })"
+                   href="@Url.Action("List", "Vehicle", new { type = "tank", pageSize, sort, dir, fromDate = fromDateStr, toDate = toDateStr, owner = ownerF, driver = driverF, q })"
                    role="tab">
-                    <i class="fa fa-oil-can"></i> Tank Registrations (@tankCount)
+                    <i class="fa fa-oil-can"></i> Tank Registrations <span class="d-none">(@tankCount)</span>
                 </a>
             </li>
         </ul>
@@ -74,11 +169,21 @@
                         <thead class="table-light">
                             <tr class="text-dark">
                                 <th>#</th>
-                                <th>Date</th>
-                                <th>Owner</th>
-                                <th>Driver</th>
-                                <th>Phone</th>
-                                <th>Status</th>
+                                <th>
+                                  <a href="@Url.Action("List","Vehicle", new { type = currentType, q, page, pageSize, sort = "date", dir = sort=="date"? flip(dir):"desc", fromDate = fromDateStr, toDate = toDateStr, owner = ownerF, driver = driverF })">Date</a>
+                                </th>
+                                <th>
+                                  <a href="@Url.Action("List","Vehicle", new { type = currentType, q, page, pageSize, sort = "owner", dir = sort=="owner"? flip(dir):"asc", fromDate = fromDateStr, toDate = toDateStr, owner = ownerF, driver = driverF })">Owner</a>
+                                </th>
+                                <th>
+                                  <a href="@Url.Action("List","Vehicle", new { type = currentType, q, page, pageSize, sort = "driver", dir = sort=="driver"? flip(dir):"asc", fromDate = fromDateStr, toDate = toDateStr, owner = ownerF, driver = driverF })">Driver</a>
+                                </th>
+                                <th>
+                                  <a href="@Url.Action("List","Vehicle", new { type = currentType, q, page, pageSize, sort = "phone", dir = sort=="phone"? flip(dir):"asc", fromDate = fromDateStr, toDate = toDateStr, owner = ownerF, driver = driverF })">Phone</a>
+                                </th>
+                                <th>
+                                  <a href="@Url.Action("List","Vehicle", new { type = currentType, q, page, pageSize, sort = "status", dir = sort=="status"? flip(dir):"asc", fromDate = fromDateStr, toDate = toDateStr, owner = ownerF, driver = driverF })">Status</a>
+                                </th>
                                 <th>ID Card</th>
                                 <th>Trailer Reg</th>
                                 <th>Traffic Cert</th>
@@ -97,7 +202,7 @@
                                 : "warning text-dark";
                                 <tr>
                                     <td>@(i + 1)</td>
-                                    <td>@v.SubmittedDate.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
+                                    <td>@v.SubmittedDate.ToLocalTime().ToString("dd-MM-yyyy HH:mm")</td>
                                     <td>@v.VehicleOwnerName</td>
                                     <td>@v.DriverName</td>
                                     <td>@v.OwnerPhone</td>
@@ -151,20 +256,42 @@
                                         }
                                     </td>
                                     <td class="text-nowrap">
-                                        <a class="btn btn-sm btn-primary" href="@Url.Action("Details", "Vehicle", new { id = v.Id })">
+                                        <a class="btn btn-sm btn-primary" href="@(string.IsNullOrWhiteSpace(v.UniqueToken) ? Url.Action("Details","Vehicle", new { id = v.Id }) : Url.Action("DetailsByToken","Vehicle", new { token = v.UniqueToken }))">
                                             <i class="fa fa-eye"></i>
                                         </a>
 
-                                        @if (v.Status == "Pending" && !(User?.IsInRole("Owner") ?? false) && !(User?.IsInRole("MinistryOfficer") ?? false))
+                                        @if (v.Status == "Pending")
                                         {
-                                            <form asp-action="Approve" asp-controller="Vehicle" method="post"
-                                                  class="d-inline confirm-form" data-confirm="Approve this registration?">
-                                                @Html.AntiForgeryToken()
-                                                <input type="hidden" name="id" value="@v.Id" />
-                                                <button type="submit" class="btn btn-sm btn-success" title="Approve">
+                                            if (User?.IsInRole("DocumentVerifier") == true)
+                                            {
+                                                <form asp-action="Approve" asp-controller="Vehicle" method="post"
+                                                      class="d-inline confirm-form" data-confirm="Move this registration to Under Review?">
+                                                    @Html.AntiForgeryToken()
+                                                    <input type="hidden" name="id" value="@v.Id" />
+                                                    <button type="submit" class="btn btn-sm btn-success" title="Move to Under Review">
+                                                        <i class="fa fa-check"></i>
+                                                    </button>
+                                                </form>
+                                            }
+                                            else if (User?.IsInRole("Admin") == true || User?.IsInRole("SuperAdmin") == true)
+                                            {
+                                                <form asp-action="Approve" asp-controller="Vehicle" method="post"
+                                                      class="d-inline confirm-form" data-confirm="Approve this registration?" data-approve-optional="true">
+                                                    @Html.AntiForgeryToken()
+                                                    <input type="hidden" name="id" value="@v.Id" />
+                                                    <input type="hidden" name="comment" value="" />
+                                                    <button type="submit" class="btn btn-sm btn-success" title="Direct approve (bypasses verification)">
+                                                        <i class="fa fa-check"></i>
+                                                    </button>
+                                                </form>
+                                                <div class="form-text">Direct approval </div>
+                                            }
+                                            else if (!(User?.IsInRole("Owner") ?? false))
+                                            {
+                                                <button type="button" class="btn btn-sm btn-success show-verify-guidance" title="Approval not allowed yet">
                                                     <i class="fa fa-check"></i>
                                                 </button>
-                                            </form>
+                                            }
 
                                             <form asp-action="Reject" asp-controller="Vehicle" method="post"
                                                   class="d-inline confirm-form" data-require-reason="true">
@@ -176,12 +303,13 @@
                                                 </button>
                                             </form>
                                         }
-                                        else if (v.Status == "Under Review" && (User?.IsInRole("Admin") == true || User?.IsInRole("SuperAdmin") == true || User?.IsInRole("FinalApprover") == true))
+                                        else if (!(User?.IsInRole("Owner") ?? false) && v.Status == "Under Review" && (User?.IsInRole("Admin") == true || User?.IsInRole("SuperAdmin") == true || User?.IsInRole("FinalApprover") == true))
                                         {
                                             <form asp-action="Approve" asp-controller="Vehicle" method="post"
-                                                  class="d-inline confirm-form" data-confirm="Approve this registration?">
+                                                  class="d-inline confirm-form" data-confirm="Approve this registration?" data-approve-optional="true">
                                                 @Html.AntiForgeryToken()
                                                 <input type="hidden" name="id" value="@v.Id" />
+                                                <input type="hidden" name="comment" value="" />
                                                 <button type="submit" class="btn btn-sm btn-success" title="Approve permanently">
                                                     <i class="fa fa-check"></i>
                                                 </button>
@@ -209,12 +337,82 @@
                                         {
                                             <span class="badge bg-danger"><i class="fa fa-times"></i> Rejected</span>
                                         }
+
+                                        @* SuperAdmin-only: Hide/Unhide *@
+                                        @if (User?.IsInRole("SuperAdmin") == true)
+                                        {
+                                            // if (v.Status != "Hidden")
+                                            // {
+                                            //     <form asp-action="Hide" asp-controller="Vehicle" method="post"
+                                            //           class="d-inline confirm-form" data-confirm="Hide this record? It will be visible only to SuperAdmin.">
+                                            //         @Html.AntiForgeryToken()
+                                            //         <input type="hidden" name="id" value="@v.Id" />
+                                            //         <button type="submit" class="btn btn-sm btn-dark" title="Hide">
+                                            //             <i class="fa fa-eye-slash"></i>
+                                            //         </button>
+                                            //     </form>
+                                            // }
+                                            // else
+                                            // {
+                                            //     <form asp-action="Unhide" asp-controller="Vehicle" method="post"
+                                            //           class="d-inline confirm-form" data-confirm="Unhide this record? Its previous status will be restored.">
+                                            //         @Html.AntiForgeryToken()
+                                            //         <input type="hidden" name="id" value="@v.Id" />
+                                            //         <button type="submit" class="btn btn-sm btn-secondary" title="Unhide">
+                                            //             <i class="fa fa-eye"></i>
+                                            //         </button>
+                                            //     </form>
+                                            // }
+                                        }
                                     </td>
 
                                 </tr>
                             }
                         </tbody>
                     </table>
+                </div>
+                <!-- Pager (Truck) -->
+                <div class="d-flex justify-content-end">
+                    @{ 
+                        int current = page; int total = totalPages; 
+                        Func<int,string> link = (int p) => Url.Action("List","Vehicle", new { type = currentType, page = p, pageSize, q, sort, dir, fromDate = fromDateStr, toDate = toDateStr, owner = ownerF, driver = driverF });
+                        var pages = new List<int>();
+                        if (total <= 7)
+                        {
+                            for (int p = 1; p <= total; p++) pages.Add(p);
+                        }
+                        else
+                        {
+                            pages.Add(1); pages.Add(2);
+                            int start = Math.Max(3, current - 1);
+                            int end = Math.Min(total - 2, current + 1);
+                            if (start > 3) pages.Add(-1); // ellipsis
+                            for (int p = start; p <= end; p++) pages.Add(p);
+                            if (end < total - 2) pages.Add(-1);
+                            pages.Add(total - 1); pages.Add(total);
+                        }
+                    }
+                    <nav>
+                        <ul class="pagination pagination-sm mb-0">
+                            <li class="page-item @(page<=1?"disabled":null)">
+                                <a class="page-link" href="@link(Math.Max(1, page-1))">Previous</a>
+                            </li>
+                            @foreach (var p in pages)
+                            {
+                                if (p == -1)
+                                {
+                                    <li class="page-item disabled"><span class="page-link">…</span></li>
+                                }
+                                else
+                                {
+                                    <li class="page-item @(p==page?"active":null)"><a class="page-link" href="@link(p)">@p</a></li>
+                                }
+                            }
+                            <li class="page-item @(page>=totalPages?"disabled":null)">
+                                <a class="page-link" href="@link(Math.Min(totalPages, page+1))">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
                 }
                 else
@@ -223,7 +421,7 @@
                 }
             }
             
-            @if (currentType == "tank")
+            @if (currentType == "tank" || currentType == "all")
             {
                 @if (tanks.Any())
             {
@@ -256,7 +454,7 @@
                                 : "warning text-dark";
                                 <tr>
                                     <td>@(j + 1)</td>
-                                    <td>@v.SubmittedDate.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
+                                    <td>@v.SubmittedDate.ToLocalTime().ToString("dd-MM-yyyy HH:mm")</td>
                                     <td>@v.VehicleOwnerName</td>
                                     <td>@v.DriverName</td>
                                     <td>@v.OwnerPhone</td>
@@ -307,20 +505,42 @@
                                         }
                                     </td>
                                     <td class="text-nowrap">
-                                        <a class="btn btn-sm btn-primary" href="@Url.Action("Details", "Vehicle", new { id = v.Id })">
+                                        <a class="btn btn-sm btn-primary" href="@(string.IsNullOrWhiteSpace(v.UniqueToken) ? Url.Action("Details", "Vehicle", new { id = v.Id }) : Url.Action("DetailsByToken", "Vehicle", new { token = v.UniqueToken }))">
                                             <i class="fa fa-eye"></i>
                                         </a>
 
-                                        @if (v.Status == "Pending" && !(User?.IsInRole("Owner") ?? false))
+                                        @if (v.Status == "Pending")
                                         {
-                                            <form asp-action="Approve" asp-controller="Vehicle" method="post"
-                                                  class="d-inline confirm-form" data-confirm="Approve this registration?">
-                                                @Html.AntiForgeryToken()
-                                                <input type="hidden" name="id" value="@v.Id" />
-                                                <button type="submit" class="btn btn-sm btn-success" title="Approve">
+                                            if (User?.IsInRole("DocumentVerifier") == true)
+                                            {
+                                                <form asp-action="Approve" asp-controller="Vehicle" method="post"
+                                                      class="d-inline confirm-form" data-confirm="Move this registration to Under Review?">
+                                                    @Html.AntiForgeryToken()
+                                                    <input type="hidden" name="id" value="@v.Id" />
+                                                    <button type="submit" class="btn btn-sm btn-success" title="Move to Under Review">
+                                                        <i class="fa fa-check"></i>
+                                                    </button>
+                                                </form>
+                                            }
+                                            else if (User?.IsInRole("Admin") == true || User?.IsInRole("SuperAdmin") == true)
+                                            {
+                                                <form asp-action="Approve" asp-controller="Vehicle" method="post"
+                                                      class="d-inline confirm-form" data-confirm="Approve this registration?" data-approve-optional="true">
+                                                    @Html.AntiForgeryToken()
+                                                    <input type="hidden" name="id" value="@v.Id" />
+                                                    <input type="hidden" name="comment" value="" />
+                                                    <button type="submit" class="btn btn-sm btn-success" title="Direct approve (bypasses verification)">
+                                                        <i class="fa fa-check"></i>
+                                                    </button>
+                                                </form>
+                                                <div class="form-text">Direct approval </div>
+                                            }
+                                            else if (!(User?.IsInRole("Owner") ?? false))
+                                            {
+                                                <button type="button" class="btn btn-sm btn-success show-verify-guidance" title="Approval not allowed yet">
                                                     <i class="fa fa-check"></i>
                                                 </button>
-                                            </form>
+                                            }
 
                                             <form asp-action="Reject" asp-controller="Vehicle" method="post"
                                                   class="d-inline confirm-form" data-require-reason="true">
@@ -335,9 +555,10 @@
                                         else if (v.Status == "Under Review" && (User?.IsInRole("Admin") == true || User?.IsInRole("SuperAdmin") == true || User?.IsInRole("FinalApprover") == true))
                                         {
                                             <form asp-action="Approve" asp-controller="Vehicle" method="post"
-                                                  class="d-inline confirm-form" data-confirm="Approve this registration?">
+                                                  class="d-inline confirm-form" data-confirm="Approve this registration?" data-approve-optional="true">
                                                 @Html.AntiForgeryToken()
                                                 <input type="hidden" name="id" value="@v.Id" />
+                                                <input type="hidden" name="comment" value="" />
                                                 <button type="submit" class="btn btn-sm btn-success" title="Approve permanently">
                                                     <i class="fa fa-check"></i>
                                                 </button>
@@ -371,6 +592,49 @@
                             }
                         </tbody>
                     </table>
+                </div>
+                <!-- Pager (Tank) -->
+                <div class="d-flex justify-content-end">
+                    @{ 
+                        int current2 = page; int total2 = totalPages; 
+                        Func<int,string> link2 = (int p) => Url.Action("List","Vehicle", new { type = currentType, page = p, pageSize, q, sort, dir, fromDate = fromDateStr, toDate = toDateStr, owner = ownerF, driver = driverF });
+                        var pages2 = new List<int>();
+                        if (total2 <= 7)
+                        {
+                            for (int p = 1; p <= total2; p++) pages2.Add(p);
+                        }
+                        else
+                        {
+                            pages2.Add(1); pages2.Add(2);
+                            int start2 = Math.Max(3, current2 - 1);
+                            int end2 = Math.Min(total2 - 2, current2 + 1);
+                            if (start2 > 3) pages2.Add(-1);
+                            for (int p = start2; p <= end2; p++) pages2.Add(p);
+                            if (end2 < total2 - 2) pages2.Add(-1);
+                            pages2.Add(total2 - 1); pages2.Add(total2);
+                        }
+                    }
+                    <nav>
+                        <ul class="pagination pagination-sm mb-0">
+                            <li class="page-item @(page<=1?"disabled":null)">
+                                <a class="page-link" href="@link2(Math.Max(1, page-1))">Previous</a>
+                            </li>
+                            @foreach (var p in pages2)
+                            {
+                                if (p == -1)
+                                {
+                                    <li class="page-item disabled"><span class="page-link">…</span></li>
+                                }
+                                else
+                                {
+                                    <li class="page-item @(p==page?"active":null)"><a class="page-link" href="@link2(p)">@p</a></li>
+                                }
+                            }
+                            <li class="page-item @(page>=totalPages?"disabled":null)">
+                                <a class="page-link" href="@link2(Math.Min(totalPages, page+1))">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
                 }
                 else
@@ -407,9 +671,24 @@
     <script>
         (function(){
           let pendingRejectForm = null;
+          let pendingApproveForm = null;
           const modalEl = document.getElementById('rejectReasonModal');
           let modalInstance = null;
           if (modalEl) modalInstance = new bootstrap.Modal(modalEl);
+          const approveModalEl = document.getElementById('approveCommentModal');
+          let approveModal = null;
+          if (approveModalEl) approveModal = new bootstrap.Modal(approveModalEl);
+
+          // Show guidance modal for non-DocumentVerifier approval attempts on Pending
+          document.querySelectorAll('.show-verify-guidance').forEach(function(btn){
+            btn.addEventListener('click', function(){
+              var el = document.getElementById('verifyGuidanceModal');
+              if (el) {
+                var m = new bootstrap.Modal(el);
+                m.show();
+              }
+            });
+          });
 
           // Intercept submits of reject forms that require reason
           document.addEventListener('submit', function(e){
@@ -425,6 +704,30 @@
               document.getElementById('rejectReasonInput').value = hidden?.value || '';
               modalInstance?.show();
             }
+
+            // Intercept Approve form if it allows optional comment (final approval only)
+            if (form.dataset.approveOptional === 'true'){
+              e.preventDefault();
+              pendingApproveForm = form;
+              const hiddenC = form.querySelector('input[name="comment"]');
+              const ta = document.getElementById('approveCommentInput');
+              if (ta && hiddenC) ta.value = hiddenC.value || '';
+              approveModal?.show();
+            }
+          }, true);
+
+          // Also intercept click on approve buttons to ensure modal shows reliably
+          document.addEventListener('click', function(e){
+            const btn = e.target.closest('form.confirm-form[data-approve-optional="true"] button[type="submit"]');
+            if (!btn) return;
+            const form = btn.closest('form');
+            if (!form) return;
+            e.preventDefault();
+            pendingApproveForm = form;
+            const hiddenC = form.querySelector('input[name="comment"]');
+            const ta = document.getElementById('approveCommentInput');
+            if (ta && hiddenC) ta.value = hiddenC.value || '';
+            approveModal?.show();
           }, true);
 
           // Confirm button in modal
@@ -442,6 +745,19 @@
               pendingRejectForm = null;
             }
           });
+
+          // Confirm Approve with optional comment (final approval)
+          document.getElementById('confirmApproveBtn')?.addEventListener('click', function(){
+            const text = document.getElementById('approveCommentInput')?.value?.trim();
+            if (pendingApproveForm){
+              const hidden = pendingApproveForm.querySelector('input[name="comment"]');
+              if (hidden) hidden.value = text || '';
+              approveModal?.hide();
+              pendingApproveForm.submit();
+              pendingApproveForm = null;
+            }
+          });
+
 
           // View reason modal wiring
           const viewModalEl = document.getElementById('viewReasonModal');

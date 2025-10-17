@@ -28,10 +28,11 @@ namespace MT.Controllers
 
             // Base query scoping by role
             var baseQuery = _db.VehicleRegistrations.AsQueryable();
-            if (User?.IsInRole("Owner") == true)
+            // If VehicleOwner, show only their own records by phone
+            if (User?.IsInRole("VehicleOwner") == true)
             {
                 var uid = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                var ownerPhone = await _db.UserProfiles
+                string? ownerPhone = await _db.UserProfiles
                     .Where(p => p.UserId == uid)
                     .Select(p => p.Phone)
                     .FirstOrDefaultAsync();
@@ -43,11 +44,21 @@ namespace MT.Controllers
                         .FirstOrDefaultAsync();
                 }
                 if (!string.IsNullOrWhiteSpace(ownerPhone))
+                {
                     baseQuery = baseQuery.Where(x => x.OwnerPhone == ownerPhone);
+                }
                 else
-                    baseQuery = baseQuery.Where(x => false);
+                {
+                    baseQuery = baseQuery.Where(x => false); // safe default
+                }
             }
-            else if (User?.IsInRole("MinistryOfficer") == true)
+            // Hide hidden records for non-SuperAdmin
+            if (!(User?.IsInRole("SuperAdmin") ?? false))
+            {
+                baseQuery = baseQuery.Where(x => x.Status != "Hidden");
+            }
+            // MinistryOfficer dashboard counts still scoped to Approved
+            if (User?.IsInRole("MinistryOfficer") == true)
             {
                 baseQuery = baseQuery.Where(x => x.Status == "Approved");
             }
@@ -83,5 +94,9 @@ namespace MT.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+       
     }
+
+
 }

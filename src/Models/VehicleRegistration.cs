@@ -60,9 +60,30 @@ namespace MT.Data
 
         public DateTime? RejectedAt { get; set; }
 
+        // Approval audit (optional)
+        [StringLength(1000)]
+        public string? ApproveComment { get; set; }
+
+        public DateTime? ApprovedAt { get; set; }
+
+        [StringLength(450)]
+        public string? ApprovedByUserId { get; set; }
+
+        [StringLength(256)]
+        public string? ApprovedByName { get; set; }
+
+        [StringLength(100)]
+        public string? ApprovedByRole { get; set; }
+
         [StringLength(50)]
         public string? ClientIP { get; set; }   // Auto-filled from HttpContext
         [StringLength(20)]
         public string? UniqueToken { get; set; }
+
+        // Used to restore original status after a SuperAdmin hides/unhides a record
+        [StringLength(100)]
+        public string? PreviousStatus { get; set; }
+        [StringLength(20)]
+        public string? VehicleNumber { get; set; }
     }
 }

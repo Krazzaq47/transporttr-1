@@ -1,25 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "/Users/seebiz/code/mt_transport/src/MT.csproj": {}
+    "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\MT.csproj": {}
   },
   "projects": {
-    "/Users/seebiz/code/mt_transport/src/MT.csproj": {
+    "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\MT.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/seebiz/code/mt_transport/src/MT.csproj",
+        "projectUniqueName": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\MT.csproj",
         "projectName": "MT",
-        "projectPath": "/Users/seebiz/code/mt_transport/src/MT.csproj",
-        "packagesPath": "/Users/seebiz/.nuget/packages/",
-        "outputPath": "/Users/seebiz/code/mt_transport/src/obj/",
+        "projectPath": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\MT.csproj",
+        "packagesPath": "C:\\Users\\Hp\\.nuget\\packages\\",
+        "outputPath": "C:\\CHITRA\\MT\\mt_14102025\\mt_transport\\src\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/Users/seebiz/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -43,9 +50,21 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "ClosedXML": {
+              "target": "Package",
+              "version": "[0.103.0, )"
+            },
             "DNTCaptcha.Core": {
               "target": "Package",
               "version": "[5.3.1, )"
+            },
+            "FirebaseAdmin": {
+              "target": "Package",
+              "version": "[3.4.0, )"
+            },
+            "Google.Apis.Auth": {
+              "target": "Package",
+              "version": "[1.72.0, )"
             },
             "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
               "target": "Package",
@@ -77,6 +96,10 @@
               "target": "Package",
               "version": "[8.0.7, )"
             },
+            "QRCoder": {
+              "target": "Package",
+              "version": "[1.4.3, )"
+            },
             "QuestPDF": {
               "target": "Package",
               "version": "[2025.7.2, )"
@@ -101,7 +124,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.414/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.414/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
