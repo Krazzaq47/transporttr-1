@@ -60,7 +60,7 @@ namespace MT.Controllers
             // MinistryOfficer dashboard counts still scoped to Approved
             if (User?.IsInRole("MinistryOfficer") == true)
             {
-                baseQuery = baseQuery.Where(x => x.Status == "Approved");
+                baseQuery = baseQuery.Where(x => x.Status != "Hidden");
             }
 
             var vm = new DashboardVm

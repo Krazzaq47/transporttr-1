@@ -288,20 +288,41 @@
                                             }
                                             else if (!(User?.IsInRole("Owner") ?? false))
                                             {
-                                                <button type="button" class="btn btn-sm btn-success show-verify-guidance" title="Approval not allowed yet">
-                                                    <i class="fa fa-check"></i>
-                                                </button>
+
+                                                    if (!(User?.IsInRole("VehicleOwner") ?? true) && !(User?.IsInRole("MinistryOfficer") ?? true))
+                                                    {
+                                                        <button type="button" class="btn btn-sm btn-success show-verify-guidance" title="Approval not allowed yet">
+                                                            <i class="fa fa-check"></i>
+                                                        </button>
+                                                    }
+
+                                                // <button type="button" class="btn btn-sm btn-success show-verify-guidance" title="Approval not allowed yet">
+                                                //     <i class="fa fa-check"></i>
+                                                // </button>
                                             }
 
-                                            <form asp-action="Reject" asp-controller="Vehicle" method="post"
-                                                  class="d-inline confirm-form" data-require-reason="true">
-                                                @Html.AntiForgeryToken()
-                                                <input type="hidden" name="id" value="@v.Id" />
-                                                <input type="hidden" name="reason" value="" />
-                                                <button type="submit" class="btn btn-sm btn-danger" title="Reject">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </form>
+                                            // <form asp-action="Reject" asp-controller="Vehicle" method="post"
+                                            //       class="d-inline confirm-form" data-require-reason="true">
+                                            //     @Html.AntiForgeryToken()
+                                            //     <input type="hidden" name="id" value="@v.Id" />
+                                            //     <input type="hidden" name="reason" value="" />
+                                            //     <button type="submit" class="btn btn-sm btn-danger" title="Reject">
+                                            //         <i class="fa fa-times"></i>
+                                            //     </button>
+                                            // </form>
+
+                                                if (User?.IsInRole("Admin") == true || User?.IsInRole("DocumentVerifier") == true || User?.IsInRole("SuperAdmin") == true)
+                                                {
+                                                    <form asp-action="Reject" asp-controller="Vehicle" method="post"
+                                                          class="d-inline confirm-form" data-require-reason="true">
+                                                        @Html.AntiForgeryToken()
+                                                        <input type="hidden" name="id" value="@v.Id" />
+                                                        <input type="hidden" name="reason" value="" />
+                                                        <button type="submit" class="btn btn-sm btn-danger" title="Reject" data-bs-toggle="modal" data-bs-target="#rejectReasonModal">
+                                                            <i class="fa fa-times"></i>
+                                                        </button>
+                                                    </form>
+                                                }
                                         }
                                         else if (!(User?.IsInRole("Owner") ?? false) && v.Status == "Under Review" && (User?.IsInRole("Admin") == true || User?.IsInRole("SuperAdmin") == true || User?.IsInRole("FinalApprover") == true))
                                         {
@@ -537,20 +558,27 @@
                                             }
                                             else if (!(User?.IsInRole("Owner") ?? false))
                                             {
-                                                <button type="button" class="btn btn-sm btn-success show-verify-guidance" title="Approval not allowed yet">
-                                                    <i class="fa fa-check"></i>
-                                                </button>
-                                            }
+                                                    if (!(User?.IsInRole("VehicleOwner") ?? true) && !(User?.IsInRole("MinistryOfficer") ?? true))
+                                                    {
+                                                        <button type="button" class="btn btn-sm btn-success show-verify-guidance" title="Approval not allowed yet">
+                                                            <i class="fa fa-check"></i>
+                                                        </button>
+                                                    }
 
-                                            <form asp-action="Reject" asp-controller="Vehicle" method="post"
-                                                  class="d-inline confirm-form" data-require-reason="true">
-                                                @Html.AntiForgeryToken()
-                                                <input type="hidden" name="id" value="@v.Id" />
-                                                <input type="hidden" name="reason" value="" />
-                                                <button type="submit" class="btn btn-sm btn-danger" title="Reject" data-bs-toggle="modal" data-bs-target="#rejectReasonModal">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </form>
+                                                }
+
+                                                if (User?.IsInRole("Admin") == true || User?.IsInRole("DocumentVerifier") == true || User?.IsInRole("SuperAdmin") == true)
+                                            {
+                                                <form asp-action="Reject" asp-controller="Vehicle" method="post"
+                                                        class="d-inline confirm-form" data-require-reason="true">
+                                                    @Html.AntiForgeryToken()
+                                                    <input type="hidden" name="id" value="@v.Id" />
+                                                    <input type="hidden" name="reason" value="" />
+                                                    <button type="submit" class="btn btn-sm btn-danger" title="Reject" data-bs-toggle="modal" data-bs-target="#rejectReasonModal">
+                                                        <i class="fa fa-times"></i>
+                                                    </button>
+                                                </form>
+                                            }
                                         }
                                         else if (v.Status == "Under Review" && (User?.IsInRole("Admin") == true || User?.IsInRole("SuperAdmin") == true || User?.IsInRole("FinalApprover") == true))
                                         {

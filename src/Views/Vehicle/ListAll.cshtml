@@ -279,85 +279,7 @@
                                             <i class="fa fa-eye"></i>
                                         </a>
 
-                                        @if (v.Status == "Pending")
-                                        {
-                                            if (User?.IsInRole("DocumentVerifier") == true)
-                                            {
-                                                <form asp-action="Approve" asp-controller="Vehicle" method="post"
-                                                      class="d-inline confirm-form" data-confirm="Move this registration to Under Review?">
-                                                    @Html.AntiForgeryToken()
-                                                    <input type="hidden" name="id" value="@v.Id" />
-                                                    <button type="submit" class="btn btn-sm btn-success" title="Move to Under Review">
-                                                        <i class="fa fa-check"></i>
-                                                    </button>
-                                                </form>
-                                            }
-                                            else if (User?.IsInRole("Admin") == true || User?.IsInRole("SuperAdmin") == true)
-                                            {
-                                                <form asp-action="Approve" asp-controller="Vehicle" method="post"
-                                                      class="d-inline confirm-form" data-confirm="Approve this registration?" data-approve-optional="true">
-                                                    @Html.AntiForgeryToken()
-                                                    <input type="hidden" name="id" value="@v.Id" />
-                                                    <input type="hidden" name="comment" value="" />
-                                                    <button type="submit" class="btn btn-sm btn-success" title="Direct approve (bypasses verification)">
-                                                        <i class="fa fa-check"></i>
-                                                    </button>
-                                                </form>
-                                                <div class="form-text">Direct approval </div>
-                                            }
-                                            else if (!(User?.IsInRole("Owner") ?? false))
-                                            {
-                                                <button type="button" class="btn btn-sm btn-success show-verify-guidance" title="Approval not allowed yet">
-                                                    <i class="fa fa-check"></i>
-                                                </button>
-                                            }
-
-                                            <form asp-action="Reject" asp-controller="Vehicle" method="post"
-                                                  class="d-inline confirm-form" data-require-reason="true">
-                                                @Html.AntiForgeryToken()
-                                                <input type="hidden" name="id" value="@v.Id" />
-                                                <input type="hidden" name="reason" value="" />
-                                                <button type="submit" class="btn btn-sm btn-danger" title="Reject">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </form>
-                                        }
-                                        else if (!(User?.IsInRole("Owner") ?? false) && v.Status == "Under Review" && (User?.IsInRole("Admin") == true || User?.IsInRole("SuperAdmin") == true || User?.IsInRole("FinalApprover") == true))
-                                        {
-                                            <form asp-action="Approve" asp-controller="Vehicle" method="post"
-                                                  class="d-inline confirm-form" data-confirm="Approve this registration?" data-approve-optional="true">
-                                                @Html.AntiForgeryToken()
-                                                <input type="hidden" name="id" value="@v.Id" />
-                                                <input type="hidden" name="comment" value="" />
-                                                <button type="submit" class="btn btn-sm btn-success" title="Approve permanently">
-                                                    <i class="fa fa-check"></i>
-                                                </button>
-                                            </form>
-
-                                            <form asp-action="Reject" asp-controller="Vehicle" method="post"
-                                                  class="d-inline confirm-form" data-require-reason="true">
-                                                @Html.AntiForgeryToken()
-                                                <input type="hidden" name="id" value="@v.Id" />
-                                                <input type="hidden" name="reason" value="" />
-                                                <button type="submit" class="btn btn-sm btn-danger" title="Reject">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </form>
-                                        }
-                                        else if (v.Status == "Approved")
-                                        {
-                                            <span class="badge bg-success"><i class="fa fa-check"></i> Approved</span>
-                                            @if (!string.IsNullOrEmpty(v.UniqueToken))
-                                            {
-                                                <small class="d-block text-muted">Token: @v.UniqueToken</small>
-                                            }
-                                        }
-                                        else if (v.Status == "Rejected")
-                                        {
-                                            <span class="badge bg-danger"><i class="fa fa-times"></i> Rejected</span>
-                                        }
-
-                                        @* SuperAdmin-only: Hide/Unhide *@
+                                        
                                         @if (User?.IsInRole("SuperAdmin") == true)
                                         {
                                             if (v.Status != "Hidden")
@@ -528,83 +450,32 @@
                                             <i class="fa fa-eye"></i>
                                         </a>
 
-                                        @if (v.Status == "Pending")
-                                        {
-                                            if (User?.IsInRole("DocumentVerifier") == true)
+                                        
+                                            @if (User?.IsInRole("SuperAdmin") == true)
                                             {
-                                                <form asp-action="Approve" asp-controller="Vehicle" method="post"
-                                                      class="d-inline confirm-form" data-confirm="Move this registration to Under Review?">
-                                                    @Html.AntiForgeryToken()
-                                                    <input type="hidden" name="id" value="@v.Id" />
-                                                    <button type="submit" class="btn btn-sm btn-success" title="Move to Under Review">
-                                                        <i class="fa fa-check"></i>
-                                                    </button>
-                                                </form>
+                                                if (v.Status != "Hidden")
+                                                {
+                                                    <form asp-action="Hide" asp-controller="Vehicle" method="post"
+                                                          class="d-inline confirm-form" data-confirm="Hide this record? It will be visible only to SuperAdmin.">
+                                                        @Html.AntiForgeryToken()
+                                                        <input type="hidden" name="id" value="@v.Id" />
+                                                        <button type="submit" class="btn btn-sm btn-dark" title="Hide">
+                                                            <i class="fa fa-eye-slash"></i>
+                                                        </button>
+                                                    </form>
+                                                }
+                                                else
+                                                {
+                                                    <form asp-action="Unhide" asp-controller="Vehicle" method="post"
+                                                          class="d-inline confirm-form" data-confirm="Unhide this record? Its previous status will be restored.">
+                                                        @Html.AntiForgeryToken()
+                                                        <input type="hidden" name="id" value="@v.Id" />
+                                                        <button type="submit" class="btn btn-sm btn-secondary" title="Unhide">
+                                                            <i class="fa fa-eye"></i>
+                                                        </button>
+                                                    </form>
+                                                }
                                             }
-                                            else if (User?.IsInRole("Admin") == true || User?.IsInRole("SuperAdmin") == true)
-                                            {
-                                                <form asp-action="Approve" asp-controller="Vehicle" method="post"
-                                                      class="d-inline confirm-form" data-confirm="Approve this registration?" data-approve-optional="true">
-                                                    @Html.AntiForgeryToken()
-                                                    <input type="hidden" name="id" value="@v.Id" />
-                                                    <input type="hidden" name="comment" value="" />
-                                                    <button type="submit" class="btn btn-sm btn-success" title="Direct approve (bypasses verification)">
-                                                        <i class="fa fa-check"></i>
-                                                    </button>
-                                                </form>
-                                                <div class="form-text">Direct approval </div>
-                                            }
-                                            else if (!(User?.IsInRole("Owner") ?? false))
-                                            {
-                                                <button type="button" class="btn btn-sm btn-success show-verify-guidance" title="Approval not allowed yet">
-                                                    <i class="fa fa-check"></i>
-                                                </button>
-                                            }
-
-                                            <form asp-action="Reject" asp-controller="Vehicle" method="post"
-                                                  class="d-inline confirm-form" data-require-reason="true">
-                                                @Html.AntiForgeryToken()
-                                                <input type="hidden" name="id" value="@v.Id" />
-                                                <input type="hidden" name="reason" value="" />
-                                                <button type="submit" class="btn btn-sm btn-danger" title="Reject" data-bs-toggle="modal" data-bs-target="#rejectReasonModal">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </form>
-                                        }
-                                        else if (v.Status == "Under Review" && (User?.IsInRole("Admin") == true || User?.IsInRole("SuperAdmin") == true || User?.IsInRole("FinalApprover") == true))
-                                        {
-                                            <form asp-action="Approve" asp-controller="Vehicle" method="post"
-                                                  class="d-inline confirm-form" data-confirm="Approve this registration?" data-approve-optional="true">
-                                                @Html.AntiForgeryToken()
-                                                <input type="hidden" name="id" value="@v.Id" />
-                                                <input type="hidden" name="comment" value="" />
-                                                <button type="submit" class="btn btn-sm btn-success" title="Approve permanently">
-                                                    <i class="fa fa-check"></i>
-                                                </button>
-                                            </form>
-
-                                            <form asp-action="Reject" asp-controller="Vehicle" method="post"
-                                                  class="d-inline confirm-form" data-require-reason="true">
-                                                @Html.AntiForgeryToken()
-                                                <input type="hidden" name="id" value="@v.Id" />
-                                                <input type="hidden" name="reason" value="" />
-                                                <button type="submit" class="btn btn-sm btn-danger" title="Reject" data-bs-toggle="modal" data-bs-target="#rejectReasonModal">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </form>
-                                        }
-                                        else if (v.Status == "Approved")
-                                        {
-                                            <span class="badge bg-success"><i class="fa fa-check"></i> Approved</span>
-                                            @if (!string.IsNullOrEmpty(v.UniqueToken))
-                                            {
-                                                <small class="d-block text-muted">Token: @v.UniqueToken</small>
-                                            }
-                                        }
-                                        else if (v.Status == "Rejected")
-                                        {
-                                            <span class="badge bg-danger"><i class="fa fa-times"></i> Rejected</span>
-                                        }
                                     </td>
 
                                 </tr>

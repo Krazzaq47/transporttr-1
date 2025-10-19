@@ -8,6 +8,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using MT.Data;
+using Twilio;
+using Twilio.Rest.Verify.V2.Service;
+using Microsoft.Extensions.Options;
+using DocumentFormat.OpenXml.Wordprocessing;
+using System.Runtime.Intrinsics.X86;
 
 namespace MT.Controllers
 {
@@ -18,16 +23,71 @@ namespace MT.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly TwilioVerifyOptions _twilio;
 
-        public AuthController(ApplicationDbContext db,
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
-            RoleManager<IdentityRole> roleManager)
+        // ADD: Convert any stored/typed value to E.164 +974########
+        private static string ToE164FromAny(string phoneRaw)
+        {
+            var digits = new string((phoneRaw ?? "").Where(char.IsDigit).ToArray());
+            if (digits.StartsWith("974")) digits = digits[3..];
+            digits = digits.TrimStart('0');
+            if (digits.Length != 8) throw new ArgumentException("Phone must be 8 digits for Qatar.");
+            return $"+974{digits}";
+        }
+
+        // ADD: Start verification (send code)
+        private async Task<(bool ok, string? e)> StartVerificationAsync(string phoneRaw)
+        {
+            var msisdn = ToE164FromAny(phoneRaw);
+            var res = await VerificationResource.CreateAsync(
+                to: msisdn,
+                channel: "sms",
+                pathServiceSid: _twilio.VerifyServiceSid
+            );
+            var ok = string.Equals(res.Status, "pending", StringComparison.OrdinalIgnoreCase);
+            return (ok, ok ? null : $"Twilio start failed: {res.Status}");
+        }
+
+        // ADD: Check verification (verify code)
+        private async Task<(bool ok, string? e)> CheckVerificationAsync(string phoneRaw, string code)
+        {
+            var msisdn = ToE164FromAny(phoneRaw);
+            var res = await VerificationCheckResource.CreateAsync(
+                to: msisdn,
+                code: code,
+                pathServiceSid: _twilio.VerifyServiceSid
+            );
+            var ok = string.Equals(res.Status, "approved", StringComparison.OrdinalIgnoreCase);
+            return (ok, ok ? null : $"Twilio check failed: {res.Status}");
+        }
+
+
+
+
+
+        //public AuthController(ApplicationDbContext db,
+        //    UserManager<IdentityUser> userManager,
+        //    SignInManager<IdentityUser> signInManager,
+        //    RoleManager<IdentityRole> roleManager)
+        //{
+        //    _db = db;
+        //    _userManager = userManager;
+        //    _signInManager = signInManager;
+        //    _roleManager = roleManager;
+        //}
+
+        public AuthController(
+    ApplicationDbContext db,
+    UserManager<IdentityUser> userManager,
+    SignInManager<IdentityUser> signInManager,
+    RoleManager<IdentityRole> roleManager,
+    IOptions<TwilioVerifyOptions> twilioOptions)   // <-- ADD
         {
             _db = db;
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _twilio = twilioOptions.Value;                 // <-- ADD
         }
 
         // ===== Shared helpers =====
@@ -104,6 +164,23 @@ namespace MT.Controllers
             HttpContext.Session.SetString("OTP_LastIssuedUtc", DateTime.UtcNow.ToString("o"));
         }
 
+        // REPLACE the whole method
+        //private void SetOtpSession(string userId, string role, string? phoneE164)
+        //{
+        //    HttpContext.Session.SetString("OTP_TargetUserId", userId ?? "");
+        //    HttpContext.Session.SetString("OTP_TargetRole", role ?? "");
+        //    if (!string.IsNullOrWhiteSpace(phoneE164))
+        //        HttpContext.Session.SetString("OTP_TargetPhone", phoneE164);
+
+        //    HttpContext.Session.SetString("OTP_ExpiresUtc",
+        //        DateTime.UtcNow.AddSeconds(_twilio.DefaultTtlSeconds).ToString("o"));
+
+        //    var issuedCount = (HttpContext.Session.GetInt32("OTP_IssuedCount") ?? 0) + 1;
+        //    HttpContext.Session.SetInt32("OTP_IssuedCount", issuedCount);
+        //    HttpContext.Session.SetString("OTP_LastIssuedUtc", DateTime.UtcNow.ToString("o"));
+        //}
+
+
         private bool CheckRateLimit(out string? message, bool enforceCooldown = true)
         {
             message = null;
@@ -158,7 +235,7 @@ namespace MT.Controllers
             SetOtpSession(user.Id, "Owner", phone);
             await LogOtpAsync(user.Id, phone, "Owner", "issued", true, "******");
             var langOwner = Request?.Query["lang"].ToString();
-            TempData["ok"] = langOwner == "ar" ? "تم إرسال رمز التحقق إلى هاتفك (استخدم 123456 للتطوير)." : "OTP sent to your phone (use 123456 for dev).";
+            TempData["ok"] = langOwner == "ar" ? "تم إرسال رمز التحقق إلى هاتفك." : "OTP sent to your phone."; //(use 123456 for dev)
             return RedirectToAction(nameof(OwnerOtp));
         }
 
@@ -236,7 +313,7 @@ namespace MT.Controllers
             SetOtpSession(targetUserId, "Owner", phone);
             await LogOtpAsync(targetUserId, phone, "Owner", "resend", true, "******");
             var langOwnerR = Request?.Query["lang"].ToString();
-            TempData["ok"] = langOwnerR == "ar" ? "تمت إعادة إرسال رمز التحقق (استخدم 123456 في التطوير)." : "OTP resent (use 123456 in dev).";
+            TempData["ok"] = langOwnerR == "ar" ? "تمت إعادة إرسال رمز التحقق." : "OTP resent."; //(use 123456 in dev)
             return RedirectToAction(nameof(OwnerOtp));
         }
 
@@ -250,15 +327,15 @@ namespace MT.Controllers
         }
 
         [HttpPost]
-        [Route("ministry/login")] 
-        [Route("mto/login")] 
+        [Route("ministry/login")]
+        [Route("mto/login")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> MinistryLoginPost(string phone)
         {
             var user = await FindUserByPhoneAsync(phone);
             if (user == null || !(await IsInRoleAsync(user, "MinistryOfficer")))
             {
-                TempData["err"] = "Phone not found for a Ministry Officer.";
+                TempData["err"] = "Phone number not found.";
                 return RedirectToAction(nameof(MinistryLogin));
             }
             // Do not enforce cooldown on initial login request; only cap the total per session
@@ -274,6 +351,63 @@ namespace MT.Controllers
             TempData["ok"] = langM == "ar" ? "تم إرسال رمز التحقق إلى هاتفك (استخدم 123456 للتطوير)." : "OTP sent to your phone (use 123456 for dev).";
             return Redirect("/mto/otp");
         }
+
+        //[HttpPost]
+        //[Route("ministry/login")]
+        //[Route("mto/login")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> MinistryLoginPost(string phone)
+        //{
+        //    var user = await FindUserByPhoneAsync(phone);
+        //    if (user == null || !(await IsInRoleAsync(user, "MinistryOfficer")))
+        //    {
+        //        TempData["err"] = "Phone not found.";
+        //        return RedirectToAction(nameof(MinistryLogin));
+        //    }
+
+        //    // Do not enforce cooldown on the very first send; still cap by session total
+        //    if (!CheckRateLimit(out var msg, enforceCooldown: false))
+        //    {
+        //        TempData["err"] = msg;
+        //        await LogOtpAsync(user.Id, phone, "MinistryOfficer", "rate_limited", false, null);
+        //        return RedirectToAction(nameof(MinistryLogin));
+        //    }
+
+        //    // Send OTP via Twilio Verify
+        //    try
+        //    {
+        //        var (sent, err) = await StartVerificationAsync(phone);
+        //        await LogOtpAsync(user.Id, phone, "MinistryOfficer", "issued", sent, "******");
+
+        //        if (!sent)
+        //        {
+        //            TempData["err"] = err ?? "Failed to send OTP. Please try again.";
+        //            return RedirectToAction(nameof(MinistryLogin));
+        //        }
+
+        //        // Save minimal session (no OTP code) and refresh TTL; store normalized E.164
+        //        SetOtpSession(user.Id, "MinistryOfficer", ToE164FromAny(phone));
+
+        //        var lang = Request?.Query["lang"].ToString();
+        //        TempData["ok"] = lang == "ar"
+        //            ? "تم إرسال رمز التحقق إلى هاتفك."
+        //            : "OTP sent to your phone.";
+
+        //        return Redirect("/mto/otp");
+        //    }
+        //    catch (ArgumentException ex) // bad phone format
+        //    {
+        //        TempData["err"] = ex.Message; // e.g., "Phone must be 8 digits for Qatar."
+        //        return RedirectToAction(nameof(MinistryLogin));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TempData["err"] = "Could not start verification. Please try again.";
+        //        await LogOtpAsync(user.Id, phone, "MinistryOfficer", "issued_error", false, null);
+        //        return RedirectToAction(nameof(MinistryLogin));
+        //    }
+        //}
+
 
         [HttpGet]
         [Route("ministry/otp")]
@@ -291,7 +425,7 @@ namespace MT.Controllers
         {
             var targetUserId = HttpContext.Session.GetString("OTP_TargetUserId");
             var targetRole = HttpContext.Session.GetString("OTP_TargetRole");
-            var expected = HttpContext.Session.GetString("OTP_Code");
+            var expected =  HttpContext.Session.GetString("OTP_Code");
             var expStr = HttpContext.Session.GetString("OTP_ExpiresUtc");
             var phone = HttpContext.Session.GetString("OTP_TargetPhone");
             if (string.IsNullOrEmpty(targetUserId) || targetRole != "MinistryOfficer")
@@ -331,30 +465,143 @@ namespace MT.Controllers
             return Redirect(string.IsNullOrWhiteSpace(returnUrl) ? Url.Action("List", "Vehicle", new { type = "truck" })! : returnUrl);
         }
 
+        //[HttpPost] working copy
+        //[Route("ministry/otp")]
+        //[Route("mto/otp")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> MinistryOtpPost(string code, string? returnUrl)
+        //{
+        //    var targetUserId = HttpContext.Session.GetString("OTP_TargetUserId");
+        //    var targetRole = HttpContext.Session.GetString("OTP_TargetRole");
+        //    var expStr = HttpContext.Session.GetString("OTP_ExpiresUtc");
+        //    var phoneRaw = HttpContext.Session.GetString("OTP_TargetPhone");
+
+        //    if (string.IsNullOrEmpty(targetUserId) || targetRole != "MinistryOfficer")
+        //    {
+        //        TempData["err"] = "Session expired. Please try again.";
+        //        return RedirectToAction(nameof(MinistryLogin));
+        //    }
+
+        //    if (!DateTime.TryParse(expStr, out var expUtc) || DateTime.UtcNow > expUtc)
+        //    {
+        //        await LogOtpAsync(targetUserId, phoneRaw, "MinistryOfficer", "expired", false, null);
+        //        TempData["err"] = "OTP expired. Please request a new code.";
+        //        return RedirectToAction(nameof(MinistryLogin));
+        //    }
+
+        //    if (string.IsNullOrWhiteSpace(code))
+        //    {
+        //        TempData["err"] = "Enter the OTP code.";
+        //        return Redirect("/mto/otp");
+        //    }
+
+        //    // Verify with Twilio
+        //    var (ok, err) = await CheckVerificationAsync(phoneRaw ?? "", code.Trim());
+        //    await LogOtpAsync(
+        //        targetUserId,
+        //        phoneRaw,
+        //        "MinistryOfficer",
+        //        "verify",
+        //        ok,
+        //        codeMasked: code.Length >= 2 ? $"{code[0]}***{code[^1]}" : "***"
+        //    );
+
+        //    if (!ok)
+        //    {
+        //        TempData["err"] = "Invalid OTP.";
+        //        return Redirect("/mto/otp");
+        //    }
+
+        //    var user = await _userManager.FindByIdAsync(targetUserId);
+        //    if (user == null)
+        //    {
+        //        TempData["err"] = "Account not found.";
+        //        return RedirectToAction(nameof(MinistryLogin));
+        //    }
+
+        //    await _signInManager.SignInAsync(user, isPersistent: true);
+
+        //    await LogOtpAsync(targetUserId, phoneRaw, "MinistryOfficer", "verified", true, null);
+
+        //    // Clear OTP-related session (no OTP_Code anymore)
+        //    HttpContext.Session.Remove("OTP_TargetUserId");
+        //    HttpContext.Session.Remove("OTP_TargetRole");
+        //    HttpContext.Session.Remove("OTP_ExpiresUtc");
+        //    HttpContext.Session.Remove("OTP_TargetPhone");
+
+        //    return Redirect(string.IsNullOrWhiteSpace(returnUrl)
+        //        ? Url.Action("List", "Vehicle", new { type = "truck" })!
+        //        : returnUrl);
+        //}
+
+
+        //[HttpPost]
+        //[Route("ministry/resend")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> MinistryResend()
+        //{
+        //    var targetUserId = HttpContext.Session.GetString("OTP_TargetUserId");
+        //    var phone = HttpContext.Session.GetString("OTP_TargetPhone");
+        //    if (string.IsNullOrEmpty(targetUserId))
+        //    {
+        //        TempData["err"] = "Session expired. Please start again.";
+        //        return RedirectToAction(nameof(MinistryLogin));
+        //    }
+        //    if (!CheckRateLimit(out var msg))
+        //    {
+        //        TempData["err"] = msg;
+        //        await LogOtpAsync(targetUserId, phone, "MinistryOfficer", "rate_limited", false, null);
+        //        return Redirect("/mto/otp");
+        //    }
+        //    SetOtpSession(targetUserId, "MinistryOfficer", phone);
+        //    await LogOtpAsync(targetUserId, phone, "MinistryOfficer", "resend", true, "******");
+        //    var langMR = Request?.Query["lang"].ToString();
+        //    TempData["ok"] = langMR == "ar" ? "تمت إعادة إرسال رمز التحقق (استخدم 123456 في التطوير)." : "OTP resent (use 123456 in dev).";
+        //    return Redirect("/mto/otp");
+        //}
+
         [HttpPost]
         [Route("ministry/resend")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> MinistryResend()
         {
             var targetUserId = HttpContext.Session.GetString("OTP_TargetUserId");
-            var phone = HttpContext.Session.GetString("OTP_TargetPhone");
-            if (string.IsNullOrEmpty(targetUserId))
+            var phoneRaw = HttpContext.Session.GetString("OTP_TargetPhone");
+
+            if (string.IsNullOrEmpty(targetUserId) || string.IsNullOrWhiteSpace(phoneRaw))
             {
                 TempData["err"] = "Session expired. Please start again.";
                 return RedirectToAction(nameof(MinistryLogin));
             }
+
             if (!CheckRateLimit(out var msg))
             {
                 TempData["err"] = msg;
-                await LogOtpAsync(targetUserId, phone, "MinistryOfficer", "rate_limited", false, null);
+                await LogOtpAsync(targetUserId, phoneRaw, "MinistryOfficer", "rate_limited", false, null);
                 return Redirect("/mto/otp");
             }
-            SetOtpSession(targetUserId, "MinistryOfficer", phone);
-            await LogOtpAsync(targetUserId, phone, "MinistryOfficer", "resend", true, "******");
+
+            // Send via Twilio Verify
+            var (sent, err) = await StartVerificationAsync(phoneRaw);
+            await LogOtpAsync(targetUserId, phoneRaw, "MinistryOfficer", "resend", sent, "******");
+
+            if (!sent)
+            {
+                TempData["err"] = err ?? "Failed to resend OTP. Please try again.";
+                return Redirect("/mto/otp");
+            }
+
+            // Save minimal session (no OTP code) and refresh TTL
+            SetOtpSession(targetUserId, "MinistryOfficer", ToE164FromAny(phoneRaw));
+
             var langMR = Request?.Query["lang"].ToString();
-            TempData["ok"] = langMR == "ar" ? "تمت إعادة إرسال رمز التحقق (استخدم 123456 في التطوير)." : "OTP resent (use 123456 in dev).";
+            TempData["ok"] = langMR == "ar"
+                ? "تمت إعادة إرسال رمز التحقق."
+                : "OTP resent.";
+
             return Redirect("/mto/otp");
         }
+
 
         // ===== Helpers used by signup =====
         private async Task<string> EnsureRoleExistsAsync(string roleName)
@@ -437,7 +684,7 @@ namespace MT.Controllers
             SetOtpSession("", "VehicleOwnerSignup", vm.Phone);
             await LogOtpAsync(null, vm.Phone, "VehicleOwnerSignup", "issued", true, "******");
             var langSu = lang ?? Request?.Query["lang"].ToString();
-            TempData["ok"] = langSu == "ar" ? "تم إرسال رمز التحقق إلى هاتفك (استخدم 123456 للتطوير)." : "OTP sent to your phone (use 123456 for dev).";
+            TempData["ok"] = langSu == "ar" ? "تم إرسال رمز التحقق إلى هاتفك )." : "OTP sent to your phone."; //(استخدم 123456 للتطوير (use 123456 for dev)
             return RedirectToAction(nameof(UserOtp), new { lang = lang == "ar" ? "ar" : null });
         }
 
@@ -541,7 +788,7 @@ namespace MT.Controllers
             SetOtpSession("", "VehicleOwnerSignup", phone);
             await LogOtpAsync(null, phone, "VehicleOwnerSignup", "resend", true, "******");
             var langSUR = lang ?? Request?.Query["lang"].ToString();
-            TempData["ok"] = langSUR == "ar" ? "تمت إعادة إرسال رمز التحقق (استخدم 123456 في التطوير)." : "OTP resent (use 123456 in dev).";
+            TempData["ok"] = langSUR == "ar" ? "تمت إعادة إرسال رمز التحقق ." : "OTP resent ."; //(use 123456 in dev)
             return RedirectToAction(nameof(UserOtp), new { lang = lang == "ar" ? "ar" : null });
         }
 
@@ -620,7 +867,7 @@ namespace MT.Controllers
             SetOtpSession(user.Id, "VehicleOwnerLogin", nPhone);
             await LogOtpAsync(user.Id, nPhone, "VehicleOwnerLogin", "issued", true, "******");
             var langUL = lang ?? Request?.Query["lang"].ToString();
-            TempData["ok"] = langUL == "ar" ? "تم إرسال رمز التحقق إلى هاتفك (استخدم 123456 للتطوير)." : "OTP sent to your phone (use 123456 for dev).";
+            TempData["ok"] = langUL == "ar" ? "تم إرسال رمز التحقق إلى هاتفك ." : "OTP sent to your phone."; //(use 123456 for dev)
             return RedirectToAction(nameof(UserLoginOtp), new { lang = lang == "ar" ? "ar" : null });
         }
 
